@@ -15,9 +15,10 @@ import {
   Icon,
   PreviewCard,
 } from "../../components/Component";
-import {Spinner, FormGroup, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from "reactstrap";
+import {Spinner, FormGroup, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Alert} from "reactstrap";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import {postRegisterUser} from "../../api/auth/auth";
 
 const Register = ({ history }) => {
   const [passState, setPassState] = useState(false);
@@ -25,13 +26,37 @@ const Register = ({ history }) => {
   const [businessType, setBusinessType] = useState('None');
   const [cuisineType, setCuisineType] = useState('None');
   const { errors, register, handleSubmit } = useForm();
+  const [errorVal, setError] = useState("");
 
-  const handleFormSubmit = (data) => {
+  const handleFormSubmit = async (data) => {
     data['business-type'] = businessType;
     data['cuisine-type'] = cuisineType;
-    console.log(data)
+    const payload = {
+      first_name: data['first-name'],
+      last_name: data['last-name'],
+      email: data['email'],
+      business_name: data['business-name'],
+      business_type: data['business-type'],
+      cuisine_types: [data['cuisine-types']],
+      location: data['restaurant-address'],
+      password: data['passcode'],
+      confirm_password: data['passcode'],
+      phone: data['contact-number'],
+      own_riders: 'no'
+    }
+    console.log(payload)
+    const res = await postRegisterUser(payload);
     setLoading(true);
-    setTimeout(() => history.push(`${process.env.PUBLIC_URL}/auth-success`), 2000);
+    console.log("res :: ", res.request.status, res.response)
+    if(res.request.status !== 200) {
+      setError("Cannot register with these credentials");
+      setLoading(false);
+    }
+    else{
+      localStorage.setItem("accessToken", "token");
+      history.push(`${process.env.PUBLIC_URL}/dashboard`)
+    }
+    // setTimeout(() => history.push(`${process.env.PUBLIC_URL}/auth-success`), 2000);
   };
   return (
     <React.Fragment>
@@ -268,6 +293,14 @@ const Register = ({ history }) => {
               </FormGroup>
 
             </form>
+            {errorVal && (
+                <div className="mb-3">
+                  <Alert color="danger" className="alert-icon">
+                    {" "}
+                    <Icon name="alert-circle" /> {errorVal}
+                  </Alert>
+                </div>
+            )}
             <div className="form-note-s2 text-center pt-4">
               {" "}
               Already have an account?{" "}

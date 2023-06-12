@@ -25,7 +25,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [passState, setPassState] = useState(false);
   const [errorVal, setError] = useState("");
-a
+
   const onFormSubmit = async (formData) => {
     const payload = {
       email: formData.name,
