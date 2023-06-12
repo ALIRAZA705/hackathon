@@ -18,32 +18,51 @@ import AuthFooter from "./AuthFooter";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import {getLoginUser} from "../../api/auth/auth";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [passState, setPassState] = useState(false);
   const [errorVal, setError] = useState("");
 
-  const onFormSubmit = (formData) => {
-    setLoading(true);
-    const loginName = "info@softnio.com";
-    const pass = "123456";
-    if (formData.name === loginName && formData.passcode === pass) {
-      localStorage.setItem("accessToken", "token");
-      setTimeout(() => {
-        window.history.pushState(
-          `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/"}`,
-          "auth-login",
-          `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/"}`
-        );
-        window.location.reload();
-      }, 2000);
-    } else {
-      setTimeout(() => {
-        setError("Cannot login with credentials");
-        setLoading(false);
-      }, 2000);
+  const onFormSubmit = async (formData) => {
+    const payload = {
+      email: formData.name,
+      password: formData.passcode
     }
+    setLoading(true);
+    const res = await getLoginUser(payload);
+    console.log("res :: ", res.request.status, res.response)
+    if(res.request.status !== 200) {
+      setError("Cannot login with credentials");
+      setLoading(false);
+    }
+    else{
+        localStorage.setItem("accessToken", "token");
+        history.push(`${process.env.PUBLIC_URL}/dashboard`)
+    }
+
+
+
+    // const loginName = "info@softnio.com";
+    // const pass = "123456";
+    // if (formData.name === loginName && formData.passcode === pass) {
+    //   localStorage.setItem("accessToken", "token");
+    //   setTimeout(() => {
+    //     window.history.pushState(
+    //       `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/"}`,
+    //       "auth-login",
+    //       `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/"}`
+    //     );
+    //     window.location.reload();
+    //   }, 2000);
+    // } else {
+    //   setTimeout(() => {
+    //     setError("Cannot login with credentials");
+    //     setLoading(false);
+    //   }, 2000);
+    // }
   };
 
   const { errors, register, handleSubmit } = useForm();
