@@ -1,0 +1,33 @@
+.btn-secondary {
+    background-color: white;
+    color: black;
+    font-weight: 400;
+    border: 1px solid #dbdfea;
+    /*width: 100%;*/
+}
+
+.btn-secondary:hover {
+    background-color: white;
+    color: black;
+    font-weight: 400;
+    border: 1px solid #dbdfea;
+    /*width: 100%;*/
+}
+
+.dropdown {
+    width: 100%;
+}
+
+.btn-group {
+    width: 100%;
+}
+
+.width-90 {
+    width: 90%;
+}
+
+.flex-row {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+}
