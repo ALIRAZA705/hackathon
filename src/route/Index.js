@@ -58,6 +58,7 @@ import UtilOthers from "../pages/components/UtilOthers";
 import UtilSizing from "../pages/components/UtilSizing";
 import UtilSpacing from "../pages/components/UtilSpacing";
 import UtilText from "../pages/components/UtilText";
+import MenuList from "../pages/others/MenuList"
 
 import Blank from "../pages/others/Blank";
 import Faq from "../pages/others/Faq";
@@ -102,6 +103,7 @@ import QuillPreview from "../pages/components/forms/rich-editor/QuillPreview";
 import TinymcePreview from "../pages/components/forms/rich-editor/TinymcePreview";
 import KnobPreview from "../pages/components/charts/KnobPreview";
 import { FileManagerContextProvider } from "../pages/app/file-manager/FileManagerContext";
+import Restaurants from "../pages/others/Restaurants";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -122,10 +124,11 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/project-list`} component={ProjectListPage}></Route>
         <Route //Context Api added
           exact
-          path={`${process.env.PUBLIC_URL}/user-list-regular`}
+          path={`${process.env.PUBLIC_URL}/restaurants`}
           render={() => (
             <UserContextProvider>
-              <UserListRegularPage />
+              <Restaurants />
+              {/*<UserListRegularPage />*/}
             </UserContextProvider>
           )}
         ></Route>
@@ -169,6 +172,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/transaction-basic`} component={TransListBasic}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/transaction-crypto`} component={TransListCrypto}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/product-list`} component={ProductList}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/menu`} component={MenuList}></Route>
 
         <Route // context api added
           exact

@@ -28,7 +28,7 @@ const menu = [
   //   dashboard: true,
   // },
   {
-    heading: "Pre-built Pages",
+    heading: "Manage",
   },
   // {
   //   icon: "tile-thumb",
@@ -48,8 +48,25 @@ const menu = [
   {
     icon: "users",
     text: "Restaurants",
-    link: "/user-list-regular",
+    link: "/restaurants",
   },
+  {
+    icon: "card-view",
+    text: "Menu",
+    link: "/menu",
+
+  },
+  {
+    icon: "card-view",
+    text: "Product Details",
+    link: "/product-details/0",
+  },
+  {
+    icon: "file-docs",
+    text: "Invoice List",
+    link: "/invoice-list",
+  },
+
   {
     icon: "users",
     text: "User Manage",
@@ -152,17 +169,8 @@ const menu = [
       },
     ],
   },
-  {
-    icon: "card-view",
-    text: "Menu",
-    link: "/product-list",
 
-  },
-  {
-    icon: "card-view",
-    text: "Product Details",
-    link: "/product-details/0",
-  },
+
   // {
   //   icon: "card-view",
   //   text: "Products",
@@ -183,11 +191,7 @@ const menu = [
   //   ],
   // },
 
-  {
-    icon: "file-docs",
-    text: "Invoice List",
-    link: "/invoice-list",
-  },
+
   // {
   //   icon: "file-docs",
   //   text: "Invoice",
