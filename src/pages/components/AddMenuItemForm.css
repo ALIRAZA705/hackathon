@@ -1,0 +1,32 @@
+.dropzone {
+    min-height: 0 !important;
+    padding: 0 0 !important;
+}
+
+.dropzone.dz-clickable {
+    display: flex;
+    margin: 0 !important;
+    height: 100px;
+    align-items: center;
+    background: red;
+    border: 2px dashed grey;
+}
+
+.dropzone.dz-clickable p{
+    padding: 1rem;
+}
+
+.dropzone .dz-preview.dz-image-preview {
+    margin: 5px !important;
+    min-height: 0 !important;
+    max-height: 100px;
+}
+
+.variation-block {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+}
+
+.vertical-center {
+    align-items: center;
+}

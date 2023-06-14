@@ -61,14 +61,15 @@ const Restaurants = () => {
                     </BlockBetween>
                 </BlockHead>
 
-                <Block className="card-row">
-                   <RestaurantCardMaterial/>
-                    <RestaurantCardMaterial/>
-                    <RestaurantCardMaterial/>
-                    <RestaurantCardMaterial/>
-                    <RestaurantCardMaterial/>
-
-                </Block>
+                <div className="div-centered">
+                    <Block className="card-row">
+                        <RestaurantCardMaterial/>
+                        <RestaurantCardMaterial/>
+                        <RestaurantCardMaterial/>
+                        <RestaurantCardMaterial/>
+                        <RestaurantCardMaterial/>
+                    </Block>
+                </div>
 
             </Content>
         </React.Fragment>

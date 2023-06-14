@@ -6,6 +6,11 @@
     flex-wrap: wrap;
 }
 
+.div-centered {
+    width: 100%;
+    margin: auto;
+}
+
 .container-fluid {
     padding: 0 !important;
 }
