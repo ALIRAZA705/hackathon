@@ -173,7 +173,8 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/transaction-basic`} component={TransListBasic}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/transaction-crypto`} component={TransListCrypto}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/product-list`} component={ProductList}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/menu`} component={MenuList}></Route>
+        {/*<Route exact path={`${process.env.PUBLIC_URL}/menu`} component={MenuList}></Route>*/}
+        <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu`} component={MenuList}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/menu/add`} component={AddMenuPage}></Route>
 
         <Route // context api added
@@ -187,7 +188,7 @@ const Pages = () => {
         ></Route>
         <Route
           exact
-          path={`${process.env.PUBLIC_URL}/product-details/:id`}
+          path={`${process.env.PUBLIC_URL}/menu/:id`}
           render={(props) => (
             <ProductContextProvider>
               <ProductDetails {...props} />

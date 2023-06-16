@@ -7,13 +7,13 @@ const RestaurantCardMaterial = (props) => {
     const history = useHistory();
 
     const [favColor, setFavColor] = useState("white");
-    const {name, restLogo, description, delivery, type, location, priceCategory, rating } = props;
+    const {id, name, restLogo, description, delivery, type, location, priceCategory, rating } = props;
     let bckImage = restLogo? restLogo : "https://burgerlab.com.pk/wp-content/uploads/2022/02/Untitled-1-1-1.jpg?c062ef&c062ef"
 
 
     const handleCardClick = (e) => {
         console.log(history)
-         history.push(`${process.env.PUBLIC_URL}/menu`);
+         history.push(`${process.env.PUBLIC_URL}/restaurant/${id}/menu`);
     };
 
     const handleFavoriteIconClick = (e) => {
@@ -78,7 +78,11 @@ const RestaurantCardMaterial = (props) => {
                                     fontSize: "14px",
                                     color: "#8A8A8A"
                                 }}>
-                                    North Indian . Indian . Pure Veg
+                                    {
+                                        type.map((t)=>(
+                                            `${t} . `
+                                        ))
+                                    }
                                 </Typography>
                             </Stack>
                         </Box>
