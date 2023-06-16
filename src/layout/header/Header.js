@@ -39,28 +39,28 @@ const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
               <span className="lead-text">Dashboard</span>
             </div>
           </div>
-          <div className="nk-header-menu is-light">
-            <div className="nk-header-menu-inner">
-              <ul className="nk-menu nk-menu-main">
-                <li
-                  className={`nk-menu-item ${currentUrl === process.env.PUBLIC_URL + "/" ? "active current-page" : ""}`}
-                >
-                  <Link to={`${process.env.PUBLIC_URL}/`} className="nk-menu-link">
-                    <span className="nk-menu-text">Overview</span>
-                  </Link>
-                </li>
-                <li
-                  className={`nk-menu-item ${
-                    currentUrl === process.env.PUBLIC_URL + "/components" ? "active current-page" : ""
-                  }`}
-                >
-                  <Link to={`${process.env.PUBLIC_URL}/components`} className="nk-menu-link">
-                    <span className="nk-menu-text">Components</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          {/*<div className="nk-header-menu is-light">*/}
+          {/*  <div className="nk-header-menu-inner">*/}
+          {/*    <ul className="nk-menu nk-menu-main">*/}
+          {/*      <li*/}
+          {/*        className={`nk-menu-item ${currentUrl === process.env.PUBLIC_URL + "/" ? "active current-page" : ""}`}*/}
+          {/*      >*/}
+          {/*        <Link to={`${process.env.PUBLIC_URL}/`} className="nk-menu-link">*/}
+          {/*          <span className="nk-menu-text">Overview</span>*/}
+          {/*        </Link>*/}
+          {/*      </li>*/}
+          {/*      <li*/}
+          {/*        className={`nk-menu-item ${*/}
+          {/*          currentUrl === process.env.PUBLIC_URL + "/components" ? "active current-page" : ""*/}
+          {/*        }`}*/}
+          {/*      >*/}
+          {/*        <Link to={`${process.env.PUBLIC_URL}/components`} className="nk-menu-link">*/}
+          {/*          <span className="nk-menu-text">Components</span>*/}
+          {/*        </Link>*/}
+          {/*      </li>*/}
+          {/*    </ul>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           <div className="nk-header-tools">
             <ul className="nk-quick-nav">
               <li className="chats-dropdown hide-mb-xs" onClick={() => setVisibility(false)}>

@@ -92,20 +92,20 @@ const UserProfileLayout = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card-inner">
-                  <div className="user-account-info py-0">
-                    <h6 className="overline-title-alt">Nio Wallet Account</h6>
-                    <div className="user-balance">
-                      12.395769 <small className="currency currency-btc">BTC</small>
-                    </div>
-                    <div className="user-balance-sub">
-                      Locked{" "}
-                      <span>
-                        0.344939 <span className="currency currency-btc">BTC</span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                {/*<div className="card-inner">*/}
+                {/*  <div className="user-account-info py-0">*/}
+                {/*    <h6 className="overline-title-alt">Nio Wallet Account</h6>*/}
+                {/*    <div className="user-balance">*/}
+                {/*      12.395769 <small className="currency currency-btc">BTC</small>*/}
+                {/*    </div>*/}
+                {/*    <div className="user-balance-sub">*/}
+                {/*      Locked{" "}*/}
+                {/*      <span>*/}
+                {/*        0.344939 <span className="currency currency-btc">BTC</span>*/}
+                {/*      </span>*/}
+                {/*    </div>*/}
+                {/*  </div>*/}
+                {/*</div>*/}
                 <div className="card-inner p-0">
                   <ul className="link-list-menu">
                     <li onClick={() => updateSm(false)}>
@@ -119,30 +119,30 @@ const UserProfileLayout = () => {
                         <span>Personal Information</span>
                       </Link>
                     </li>
-                    <li onClick={() => updateSm(false)}>
-                      <Link
-                        to={`${process.env.PUBLIC_URL}/user-profile-notification`}
-                        className={
-                          window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-notification`
-                            ? "active"
-                            : ""
-                        }
-                      >
-                        <Icon name="bell-fill"></Icon>
-                        <span>Notification</span>
-                      </Link>
-                    </li>
-                    <li onClick={() => updateSm(false)}>
-                      <Link
-                        to={`${process.env.PUBLIC_URL}/user-profile-activity`}
-                        className={
-                          window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-activity` ? "active" : ""
-                        }
-                      >
-                        <Icon name="activity-round-fill"></Icon>
-                        <span>Account Activity</span>
-                      </Link>
-                    </li>
+                    {/*<li onClick={() => updateSm(false)}>*/}
+                    {/*  <Link*/}
+                    {/*    to={`${process.env.PUBLIC_URL}/user-profile-notification`}*/}
+                    {/*    className={*/}
+                    {/*      window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-notification`*/}
+                    {/*        ? "active"*/}
+                    {/*        : ""*/}
+                    {/*    }*/}
+                    {/*  >*/}
+                    {/*    <Icon name="bell-fill"></Icon>*/}
+                    {/*    <span>Notification</span>*/}
+                    {/*  </Link>*/}
+                    {/*</li>*/}
+                    {/*<li onClick={() => updateSm(false)}>*/}
+                    {/*  <Link*/}
+                    {/*    to={`${process.env.PUBLIC_URL}/user-profile-activity`}*/}
+                    {/*    className={*/}
+                    {/*      window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-activity` ? "active" : ""*/}
+                    {/*    }*/}
+                    {/*  >*/}
+                    {/*    <Icon name="activity-round-fill"></Icon>*/}
+                    {/*    <span>Account Activity</span>*/}
+                    {/*  </Link>*/}
+                    {/*</li>*/}
                     <li onClick={() => updateSm(false)}>
                       <Link
                         to={`${process.env.PUBLIC_URL}/user-profile-setting`}

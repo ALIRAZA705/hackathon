@@ -154,12 +154,12 @@ const Pages = () => {
           )}
         ></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/user-profile-regular/`} component={UserProfileLayout}></Route>
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/user-profile-notification/`}
-          component={UserProfileLayout}
-        ></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/user-profile-activity/`} component={UserProfileLayout}></Route>
+        {/*<Route*/}
+        {/*  exact*/}
+        {/*  path={`${process.env.PUBLIC_URL}/user-profile-notification/`}*/}
+        {/*  component={UserProfileLayout}*/}
+        {/*></Route>*/}
+        {/*<Route exact path={`${process.env.PUBLIC_URL}/user-profile-activity/`} component={UserProfileLayout}></Route>*/}
         <Route exact path={`${process.env.PUBLIC_URL}/user-profile-setting/`} component={UserProfileLayout}></Route>
         <Route //Context api added
           exact
