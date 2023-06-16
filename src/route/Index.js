@@ -105,6 +105,8 @@ import KnobPreview from "../pages/components/charts/KnobPreview";
 import { FileManagerContextProvider } from "../pages/app/file-manager/FileManagerContext";
 import Restaurants from "../pages/others/Restaurants";
 import AddMenuPage from "../pages/others/AddMenuPage";
+import Orders from "../pages/others/Orders";
+import Bookings from "../pages/others/Bookings";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -350,7 +352,10 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/email-template`} component={EmailTemplate}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/nioicon`} component={NioIconPage}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/svg-icons`} component={SVGIconPage}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/orders`} component={Orders}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/bookings`} component={Bookings}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Sales}></Route>
+
         <Route component={RedirectAs404}></Route>
       </Switch>
     </Suspense>

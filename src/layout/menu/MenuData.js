@@ -10,23 +10,27 @@ const menu = [
         dashboard: true,
     },
     {
-        heading: "Manage",
+        heading: "Management",
     },
     {
         icon: "users",
         text: "Restaurants",
         link: "/restaurants",
     },
-    // {
-    //     icon: "card-view",
-    //     text: "Menu",
-    //     link: "/menu",
-    //
-    // },
     {
-        icon: "card-view",
-        text: "Product Details",
-        link: "/product-details/0",
+        icon: "book",
+        text: "Bookings",
+        link: "/bookings",
+    },
+    {
+        icon: "cart",
+        text: "Orders",
+        link: "/orders",
+    },
+    {
+        icon: "chat",
+        text: "Reviews",
+        link: "/reviews",
     },
     {
         icon: "file-docs",
@@ -104,6 +108,19 @@ const menu = [
             },
         ],
     },
+
+    // {
+    //     icon: "card-view",
+    //     text: "Menu",
+    //     link: "/menu",
+    //
+    // },
+    // {
+    //     icon: "card-view",
+    //     text: "Product Details",
+    //     link: "/product-details/0",
+    // },
+
     // {
     //     heading: "Misc Pages",
     // },
