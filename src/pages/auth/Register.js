@@ -48,13 +48,24 @@ const Register = ({ history }) => {
     const res = await postRegisterUser(payload);
     setLoading(true);
     console.log("res :: ", res.request.status, res.response)
-    if(res.request.status !== 200) {
-      setError("Cannot register with these credentials");
+    if(res.request.status !== 201) {
+      let err= res.response.data.error? JSON.stringify(res.response.data.error) : "Error Register with these credentials";
+      setError(err);
       setLoading(false);
+      setTimeout(()=>{
+        setError("")
+      },[5000])
+    }
+    else if(res.request.status === 500) {
+      setError("Something went wrong: Internal Server Error");
+      setLoading(false);
+      setTimeout(()=>{
+        setError("")
+      },[5000])
     }
     else{
       localStorage.setItem("accessToken", "token");
-      history.push(`${process.env.PUBLIC_URL}/dashboard`)
+      history.push(`/auth-login`)
     }
     // setTimeout(() => history.push(`${process.env.PUBLIC_URL}/auth-success`), 2000);
   };

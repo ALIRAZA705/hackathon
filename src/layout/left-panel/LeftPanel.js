@@ -18,6 +18,7 @@ const LeftPanel = ({ theme }) => {
   }
 
   const handleSignout = () => {
+    localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
   };
 

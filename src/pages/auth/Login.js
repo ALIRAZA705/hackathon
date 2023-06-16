@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from 'react-router-dom';
 import {
   Block,
   BlockContent,
@@ -16,7 +17,7 @@ import PageContainer from "../../layout/page-container/PageContainer";
 import Head from "../../layout/head/Head";
 import AuthFooter from "./AuthFooter";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {getLoginUser} from "../../api/auth/auth";
 import { useHistory } from "react-router-dom";
 
@@ -26,6 +27,11 @@ const Login = () => {
   const [passState, setPassState] = useState(false);
   const [errorVal, setError] = useState("");
 
+  const handleRedirect = () => {
+    window.location.href = '/dashboard';
+    // history.push(`/dashboard`);
+  }
+
   const onFormSubmit = async (formData) => {
     const payload = {
       email: formData.name,
@@ -33,36 +39,23 @@ const Login = () => {
     }
     setLoading(true);
     const res = await getLoginUser(payload);
-    console.log("res :: ", res.request.status, res.response)
+    console.log("res :: ", res.request.status, res)
     if(res.request.status !== 200) {
-      setError("Cannot login with credentials");
+      let err= res.response.data.error? JSON.stringify(res.response.data.error) : "Cannot login with credentials";
+      setError(err);
       setLoading(false);
+      setTimeout(()=>{
+        setError("")
+      },[5000])
     }
     else{
-        localStorage.setItem("accessToken", "token");
-        history.push(`${process.env.PUBLIC_URL}/dashboard`)
+        localStorage.setItem("accessToken", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        // setTimeout(()=>{
+            handleRedirect();
+        // },[2000])
     }
 
-
-
-    // const loginName = "info@softnio.com";
-    // const pass = "123456";
-    // if (formData.name === loginName && formData.passcode === pass) {
-    //   localStorage.setItem("accessToken", "token");
-    //   setTimeout(() => {
-    //     window.history.pushState(
-    //       `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/"}`,
-    //       "auth-login",
-    //       `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/"}`
-    //     );
-    //     window.location.reload();
-    //   }, 2000);
-    // } else {
-    //   setTimeout(() => {
-    //     setError("Cannot login with credentials");
-    //     setLoading(false);
-    //   }, 2000);
-    // }
   };
 
   const { errors, register, handleSubmit } = useForm();
@@ -92,7 +85,7 @@ const Login = () => {
               <div className="mb-3">
                 <Alert color="danger" className="alert-icon">
                   {" "}
-                  <Icon name="alert-circle" /> Unable to login with credentials{" "}
+                  <Icon name="alert-circle" /> {errorVal}{" "}
                 </Alert>
               </div>
             )}
@@ -109,7 +102,7 @@ const Login = () => {
                     id="default-01"
                     name="name"
                     ref={register({ required: "This field is required" })}
-                    defaultValue="info@softnio.com"
+                    defaultValue="admin@affinity.com"
                     placeholder="Enter your email address or username"
                     className="form-control-lg form-control"
                   />
@@ -142,7 +135,7 @@ const Login = () => {
                     type={passState ? "text" : "password"}
                     id="password"
                     name="passcode"
-                    defaultValue="123456"
+                    defaultValue="123"
                     ref={register({ required: "This field is required" })}
                     placeholder="Enter your passcode"
                     className={`form-control-lg form-control ${passState ? "is-hidden" : "is-shown"}`}
@@ -196,4 +189,4 @@ const Login = () => {
     </React.Fragment>
   );
 };
-export default Login;
+export default withRouter(Login);
