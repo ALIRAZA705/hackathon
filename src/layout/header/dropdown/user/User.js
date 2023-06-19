@@ -3,10 +3,12 @@ import { DropdownToggle, DropdownMenu, Dropdown } from "reactstrap";
 import { Icon } from "../../../../components/Component";
 import { LinkList, LinkItem } from "../../../../components/links/Links";
 import UserAvatar from "../../../../components/user/UserAvatar";
+import {useSelector} from "react-redux";
 
 const User = () => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((prevState) => !prevState);
+  const user = useSelector(state => state.userInfo)
 
   const handleSignout = () => {
     localStorage.removeItem("user");
@@ -33,7 +35,7 @@ const User = () => {
             </div>
             <div className="user-info">
               <span className="lead-text">Abu Bin Ishtiyak</span>
-              <span className="sub-text">info@softnio.com</span>
+              <span className="sub-text">{user.email}</span>
             </div>
           </div>
         </div>

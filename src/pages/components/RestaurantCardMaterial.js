@@ -2,14 +2,22 @@ import {Card, CardMedia, CardContent,Stack, Box, Typography, Button, useTheme } 
 import {useHistory} from "react-router-dom";
 import React, {useState, useRef, useEffect} from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import {useDispatch, useSelector} from "react-redux";
+import {setUser} from "../../store/state/userInfo";
 
 const RestaurantCardMaterial = (props) => {
     const history = useHistory();
-
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.userInfo)
     const [favColor, setFavColor] = useState("white");
     const {id, name, restLogo, description, delivery, type, location, priceCategory, rating } = props;
     let bckImage = restLogo? restLogo : "https://burgerlab.com.pk/wp-content/uploads/2022/02/Untitled-1-1-1.jpg?c062ef&c062ef"
 
+    useEffect(()=>{
+        let user = localStorage.getItem('user');
+        dispatch(setUser(JSON.parse(user)));
+        // setUser(user)
+    },[user])
 
     const handleCardClick = (e) => {
         console.log(history)
@@ -40,13 +48,16 @@ const RestaurantCardMaterial = (props) => {
                            image={bckImage}
                 >
 
-                    <CardContent sx={{
+                    {
+                        user.role !== "super-admin" &&
+                        <CardContent sx={{
                         color: favColor,
-                        opacity: favColor === 'white'? "50%" : "100%",
+                        opacity: favColor === 'white' ? "50%" : "100%",
                         textAlign: "right"
                     }}>
-                        <FavoriteIcon className="pointer-on-hover" onClick={handleFavoriteIconClick} />
+                        <FavoriteIcon className="pointer-on-hover" onClick={handleFavoriteIconClick}/>
                     </CardContent>
+                    }
                 </CardMedia>
 
                 {/*Card Content / Text Area*/}
@@ -75,6 +86,7 @@ const RestaurantCardMaterial = (props) => {
                             <Stack direction="row">
                             {/*    <AccessTimeIcon/>*/}
                                 <Typography gutterBottom sx={{
+                                    paddingBottom: "0.5rem",
                                     fontSize: "14px",
                                     color: "#8A8A8A"
                                 }}>
@@ -89,18 +101,20 @@ const RestaurantCardMaterial = (props) => {
                     </Stack>
 
                     {/* Restaturant Type: Non-Veg & Price Category */}
-                    <Stack direction="row"
-                           sx={{
-                               padding: "0.5rem",
-                               justifyContent: "right",
-                               alignItems: "center"}}>
-                        <Typography sx={{
-                            color: "#fa4f26",
-                        }}>
-                            {priceCategory? priceCategory : "$$$"}
-                        </Typography>
+                    {user.role !== "super-admin" &&
+                        <Stack direction="row"
+                               sx={{
+                                   padding: "0.5rem",
+                                   justifyContent: "right",
+                                   alignItems: "center"}}>
+                            <Typography sx={{
+                                color: "#fa4f26",
+                            }}>
+                                {priceCategory? priceCategory : "$$$"}
+                            </Typography>
 
-                    </Stack>
+                        </Stack>
+                    }
 
                 </CardContent>
                 {/*Card Content / Text Area Ends */}

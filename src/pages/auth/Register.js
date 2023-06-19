@@ -37,7 +37,7 @@ const Register = ({ history }) => {
       email: data['email'],
       business_name: data['business-name'],
       business_type: data['business-type'],
-      cuisine_types: [data['cuisine-types']],
+      cuisine_types: data['cuisine-type'],
       location: data['restaurant-address'],
       password: data['passcode'],
       confirm_password: data['passcode'],

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Head from "../layout/head/Head";
+import {useDispatch} from "react-redux";
 import Content from "../layout/content/Content";
+import { setUser } from "../store/state/userInfo";
+import { useSelector } from "react-redux";
 import SaleRevenue from "../components/partials/sales/sale-revenue/SaleRevenue";
 import SalesOverview from "../components/partials/sales/sales-overview/SalesOverview";
 import ActiveSubscription from "../components/partials/sales/active-subscription/ActiveSubscription";
@@ -28,6 +31,24 @@ import {
 
 const Sales = () => {
   const [sm, updateSm] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.userInfo)
+
+  const getUserState = ()=>{
+    setCurrentUser(user)
+  }
+
+  useEffect(()=>{
+    let user = localStorage.getItem('user');
+    dispatch(setUser(JSON.parse(user)));
+    // setUser(user)
+  },[user])
+
+  useEffect(()=>{
+    console.log("currentUser  ::: ", user.role)
+  },[dispatch])
+
   return (
     <React.Fragment>
       <Head title="Sales Dashboard"></Head>

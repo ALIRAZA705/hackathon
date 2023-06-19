@@ -25,9 +25,11 @@
             background: $white;
             @if($rtl==false){
                 border-right-color: $white;
+                left: 0 !important;
             }
             @if($rtl==true){
                 border-left-color: $white;
+                left: 0 !important;
             }
         }
 
@@ -431,6 +433,7 @@
                 }
             }
         }
+
         .nk-sidebar{
             &-head {
                 width: $sidebar-width-apps;
@@ -446,6 +449,10 @@
             &-profile{
                 width: ($sidebar-width-apps - 1);
             }
+        }
+
+        .has-apps-sidebar .nk-sidebar {
+            left: 0px !important;
         }
     }
 }
