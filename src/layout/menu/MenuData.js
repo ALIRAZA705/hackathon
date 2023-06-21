@@ -25,7 +25,21 @@ const menu = [
     {
         icon: "cart",
         text: "Orders",
-        link: "/orders",
+        active: false,
+        subMenu: [
+            {
+                text: "All",
+                link: "/orders",
+            },
+            {
+                text: "Preparing",
+                link: "/orders/preparing",
+            },
+            {
+                text: "Delivered",
+                link: "/orders/delivered",
+            },
+        ],
     },
     {
         icon: "chat",

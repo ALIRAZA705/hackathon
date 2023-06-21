@@ -1,8 +1,9 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Head from "../../layout/head/Head";
 import Content from "../../layout/content/Content";
 import DatePicker from "react-datepicker";
 import {Stack} from "@mui/material";
+import { orderData, filterCoin, filterPaymentmethod, filterStatus, filterType } from "./OrderData";
 import {
     Block,
     BlockHeadContent,
@@ -36,15 +37,8 @@ import { useForm } from "react-hook-form";
 import { getDateStructured } from "../../utils/Utils";
 
 const Orders = (props) => {
-    const [onSearchText, setSearchText] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage, setItemPerPage] = useState(7);
-    const [sort, setSortState] = useState("");
-    const indexOfLastItem = currentPage * itemPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemPerPage;
     const [data, setData] = useState([]);
     const [onSearch, setonSearch] = useState(false);
-    const [currentItems, setCurrentItems] = useState(data.slice(indexOfFirstItem, indexOfLastItem));
     const [formData, setFormData] = useState({
         id: null,
         orderId: "",
@@ -59,25 +53,22 @@ const Orders = (props) => {
         add: false,
         details: false,
     });
+    const [onSearchText, setSearchText] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemPerPage, setItemPerPage] = useState(7);
+    const [sort, setSortState] = useState("");
 
 
-    // // props data table
-    // useEffect(()=>{
-    //     console.log("asdadasdasdas", tableData)
-    //     setData(tableData)
-    // },[props])
-
-    const tableData = useMemo(()=>{
-        setData(props.tableData);
-        return data;
-    },[props])
-
-
+    // props data table
+    useEffect(()=>{
+        console.log("asdadasdasdas")
+        console.log(props.tableData)
+        setData(props.tableData)
+    },[])
 
     useEffect(()=>{
-        setCurrentItems(data.slice(indexOfFirstItem, indexOfLastItem))
+        console.log("new darta :: ", data)
     },[data])
-
 
     // Sorting data
     const sortFunc = (params) => {
@@ -94,12 +85,12 @@ const Orders = (props) => {
     // Changing state value when searching name
     useEffect(() => {
         if (onSearchText !== "") {
-            const filteredObject = data.filter((item) => {
+            const filteredObject = orderData.filter((item) => {
                 return item.orderId.includes(onSearchText);
             });
             setData([...filteredObject]);
         } else {
-            setData([...data]);
+            setData([...orderData]);
         }
     }, [onSearchText]);
 
@@ -215,7 +206,10 @@ const Orders = (props) => {
         setData([...newData]);
     };
 
-
+    // Get current list, pagination
+    const indexOfLastItem = currentPage * itemPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemPerPage;
+    const currentItems = data? data.slice(indexOfFirstItem, indexOfLastItem) : null;
 
     // Change Page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);

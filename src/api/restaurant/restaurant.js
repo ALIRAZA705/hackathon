@@ -3,7 +3,14 @@ import {
     getRequest, patchRequest,
     postRequest
 } from "../methodCalls";
-import {getAllRestaurantsURI, editRestaurantURI, deleteRestaurantURI, getRestaurantByIdURI, addRestaurantURI} from "../endpoints";
+import {
+    getAllRestaurantsURI,
+    editRestaurantURI,
+    deleteRestaurantURI,
+    getRestaurantByIdURI,
+    addRestaurantURI,
+    getMenuItemByRestIdURI
+} from "../endpoints";
 
 export const getAllRestaurants = (params) => {
     return getRequest(`${getAllRestaurantsURI}/`);
@@ -11,7 +18,8 @@ export const getAllRestaurants = (params) => {
 
 export const getRestaurantById = (params) => {
     const id = params.id;
-    return getRequest(`${getRestaurantByIdURI}/`);
+    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
+    return getRequest(`${reqURI}/`);
 }
 
 export const addRestaurant = (payload) => {
@@ -20,10 +28,12 @@ export const addRestaurant = (payload) => {
 
 export const editRestaurant = (payload) => {
     const id = payload.id;
-    return patchRequest(editRestaurantURI, payload);
+    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
+    return patchRequest(reqURI, payload);
 }
 
 export const deleteRestaurant = (payload) => {
     const id = payload.id;
-    return deleteRequest(deleteRestaurantURI, payload);
+    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
+    return deleteRequest(reqURI, payload);
 }

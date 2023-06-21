@@ -14,7 +14,7 @@ axiosClient.defaults.headers = {
 };
 
 //All request will wait 5 seconds before timeout
-axiosClient.defaults.timeout = 5000;
+axiosClient.defaults.timeout = 60000;
 
 axiosClient.defaults.withCredentials = false;
 
