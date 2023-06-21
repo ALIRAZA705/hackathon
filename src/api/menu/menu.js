@@ -10,6 +10,7 @@ export const getAllMenuItems = (params) => {
 }
 
 export const getMenuItemByRestId = (params) => {
+    const id = params.id;
     return getRequest(`${getMenuItemByRestIdURI}/`);
 }
 
@@ -18,9 +19,11 @@ export const addNewMenuItem = (payload) => {
 }
 
 export const editMenuItem = (payload) => {
+    const id = payload.id;
     return patchRequest(editMenuItemURI, payload);
 }
 
 export const deleteMenuItem = (payload) => {
+    const id = payload.id;
     return deleteRequest(deleteMenuItemURI, payload);
 }

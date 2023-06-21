@@ -44,7 +44,6 @@ const Register = ({ history }) => {
       phone: data['contact-number'],
       own_riders: 'no'
     }
-    console.log(payload)
     const res = await postRegisterUser(payload);
     setLoading(true);
     console.log("res :: ", res.request.status, res.response)
