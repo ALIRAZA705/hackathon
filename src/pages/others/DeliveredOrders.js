@@ -130,15 +130,16 @@ const orders = [
 
 const DeliveredOrders = () => {
 
-    const [data, setData] = useState(orders);
+    const [data, setData] = useState([]);
 
 
     // fetch data from API
-    // useEffect(async()=>{
-    //     const res = await getOrdersByRestId();
-    //     console.log("res ordersss : ", res)
-    //     setData(res.data)
-    // },[])
+    useEffect(async()=>{
+        // const res = await getOrdersByRestId();
+        // console.log("res ordersss : ", res)
+        // setData(res.data)
+        setData(orders)
+    },[])
 
     return (
         <React.Fragment>
