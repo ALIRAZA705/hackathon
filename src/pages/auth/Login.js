@@ -49,8 +49,8 @@ const Login = () => {
       },[5000])
     }
     else{
-        localStorage.setItem("accessToken", res.data.token);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("accessToken", res.data.records.token);
+        localStorage.setItem("user", JSON.stringify(res.data.records));
         // setTimeout(()=>{
             handleRedirect();
         // },[2000])

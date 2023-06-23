@@ -14,9 +14,9 @@ import {setUser} from "../../../store/state/userInfo";
 const UserProfileLayout = () => {
   const [sm, updateSm] = useState(false);
   const [mobileView, setMobileView] = useState(false);
-  const [profileName, setProfileName] = useState("Abu Bin Ishtiak");
-  const dispatch = useDispatch();
   const user = useSelector(state => state.userInfo)
+  const [profileName, setProfileName] = useState(user.name);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     let user = localStorage.getItem('user');

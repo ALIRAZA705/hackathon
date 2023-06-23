@@ -14,15 +14,15 @@ export const userInfoSlice = createSlice({
         setUser: (state, data) => {
             data = data.payload;
             state.userId = data.id;
-            state.name = data.first_name + " " + data.lastName;
+            state.name = data.first_name + " " + data.last_name;
             state.email = data.email;
-            state.phone = data.phone;
-            state.location = data.location;
+            state.phone = data.phone_number;
+            state.restaurant_address = data.restaurant_address;
             state.role = data.type? data.type : "super-admin";
             state.profilePicture = data.img? data.img : "https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png";
             state.bussinessName = data.business_name;
             state.businessType = data.business_type;
-            state.cuisineTypes = data.cuisine_types;
+            state.cuisineTypes = data.cuisine_type;
         }
     }
 })

@@ -109,6 +109,7 @@ import Orders from "../pages/others/Orders";
 import Bookings from "../pages/others/Bookings";
 import DeliveredOrders from "../pages/others/DeliveredOrders";
 import PreparingOrders from "../pages/others/PreparingOrders";
+import ChatScreen from "../pages/others/ChatScreen";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -359,6 +360,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/orders/delivered`} component={DeliveredOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/bookings`} component={Bookings}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Sales}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/chat`} component={ChatScreen}></Route>
 
         <Route component={RedirectAs404}></Route>
       </Switch>

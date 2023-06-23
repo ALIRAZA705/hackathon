@@ -14,9 +14,9 @@ const RestaurantCardMaterial = (props) => {
     let bckImage = restLogo? restLogo : "https://burgerlab.com.pk/wp-content/uploads/2022/02/Untitled-1-1-1.jpg?c062ef&c062ef"
 
     useEffect(()=>{
-        // let user = localStorage.getItem('user');
-        // dispatch(setUser(JSON.parse(user)));
-        // setUser(user)
+        let user = localStorage.getItem('user');
+        dispatch(setUser(JSON.parse(user)));
+        setUser(user)
     },[user])
 
     const handleCardClick = (e) => {

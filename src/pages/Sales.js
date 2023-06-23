@@ -39,11 +39,11 @@ const Sales = () => {
     setCurrentUser(user)
   }
 
-  // useEffect(()=>{
-  //   let user = localStorage.getItem('user');
-  //   dispatch(setUser(JSON.parse(user)));
-  //   // setUser(user)
-  // },[user])
+  useEffect(()=>{
+    let user = localStorage.getItem('user');
+    dispatch(setUser(JSON.parse(user)));
+    // setUser(user)
+  },[user])
 
   // useEffect(()=>{
   //   console.log("currentUser  ::: ", user.role)

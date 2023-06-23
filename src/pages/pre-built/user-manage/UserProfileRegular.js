@@ -22,19 +22,19 @@ import {useDispatch, useSelector} from "react-redux";
 const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
   const [modalTab, setModalTab] = useState("1");
   const [userInfo, setUserInfo] = useState(userData[0]);
+  const user = useSelector(state => state.userInfo)
   const [formData, setFormData] = useState({
-    name: "Abu Bin Ishtiak",
-    displayName: "Ishtiak",
-    phone: "818474958",
+    name: user.name,
+    // displayName: "Ishtiak",
+    phone: user.phone,
     dob: "1980-08-10",
-    address: "2337 Kildeer Drive",
+    address: user.restaurant_address,
     address2: "",
-    state: "Kentucky",
-    country: "Canada",
+    // state: "Kentucky",
+    // country: "Canada",
   });
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector(state => state.userInfo)
 
   useEffect(() => {
     setProfileName(formData.name);
@@ -82,7 +82,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
           <div className="data-item" onClick={() => setModal(true)}>
             <div className="data-col">
               <span className="data-label">Full Name</span>
-              <span className="data-value">{userInfo.name}</span>
+              <span className="data-value">{user.name}</span>
             </div>
             <div className="data-col data-col-end">
               <span className="data-more">
@@ -90,17 +90,17 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
               </span>
             </div>
           </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Display Name</span>
-              <span className="data-value">{userInfo.displayName}</span>
-            </div>
-            <div className="data-col data-col-end">
-              <span className="data-more">
-                <Icon name="forward-ios"></Icon>
-              </span>
-            </div>
-          </div>
+          {/*<div className="data-item" onClick={() => setModal(true)}>*/}
+          {/*  /!*<div className="data-col">*!/*/}
+          {/*  /!*  <span className="data-label">Display Name</span>*!/*/}
+          {/*  /!*  <span className="data-value">{userInfo.displayName}</span>*!/*/}
+          {/*  /!*</div>*!/*/}
+          {/*  <div className="data-col data-col-end">*/}
+          {/*    <span className="data-more">*/}
+          {/*      <Icon name="forward-ios"></Icon>*/}
+          {/*    </span>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           <div className="data-item">
             <div className="data-col">
               <span className="data-label">Email</span>
@@ -115,7 +115,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
           <div className="data-item" onClick={() => setModal(true)}>
             <div className="data-col">
               <span className="data-label">Phone Number</span>
-              <span className="data-value text-soft">{userInfo.phone}</span>
+              <span className="data-value text-soft">{user.phone}</span>
             </div>
             <div className="data-col data-col-end">
               <span className="data-more">
@@ -123,24 +123,22 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
               </span>
             </div>
           </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Date of Birth</span>
-              <span className="data-value">{userInfo.dob}</span>
-            </div>
-            <div className="data-col data-col-end">
-              <span className="data-more">
-                <Icon name="forward-ios"></Icon>
-              </span>
-            </div>
-          </div>
+          {/*<div className="data-item" onClick={() => setModal(true)}>*/}
+          {/*  <div className="data-col">*/}
+          {/*    <span className="data-label">Date of Birth</span>*/}
+          {/*    <span className="data-value">{userInfo.dob}</span>*/}
+          {/*  </div>*/}
+          {/*  <div className="data-col data-col-end">*/}
+          {/*    <span className="data-more">*/}
+          {/*      <Icon name="forward-ios"></Icon>*/}
+          {/*    </span>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           <div className="data-item" onClick={() => setModal(true)}>
             <div className="data-col">
               <span className="data-label">Address</span>
               <span className="data-value">
-                {userInfo.address},
-                <br />
-                {userInfo.state}, {userInfo.country}
+                {user.restaurant_address}
               </span>
             </div>
             <div className="data-col data-col-end">
@@ -171,23 +169,23 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
               </a>
             </div>
           </div>
-          <div className="data-item">
-            <div className="data-col">
-              <span className="data-label">Date Format</span>
-              <span className="data-value">MM/DD/YYYY</span>
-            </div>
-            <div className="data-col data-col-end">
-              <a
-                href="#link"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-                className="link link-primary"
-              >
-                Change
-              </a>
-            </div>
-          </div>
+          {/*<div className="data-item">*/}
+          {/*  <div className="data-col">*/}
+          {/*    <span className="data-label">Date Format</span>*/}
+          {/*    <span className="data-value">MM/DD/YYYY</span>*/}
+          {/*  </div>*/}
+          {/*  <div className="data-col data-col-end">*/}
+          {/*    <a*/}
+          {/*      href="#link"*/}
+          {/*      onClick={(ev) => {*/}
+          {/*        ev.preventDefault();*/}
+          {/*      }}*/}
+          {/*      className="link link-primary"*/}
+          {/*    >*/}
+          {/*      Change*/}
+          {/*    </a>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           <div className="data-item">
             <div className="data-col">
               <span className="data-label">Timezone</span>
