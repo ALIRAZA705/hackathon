@@ -49,11 +49,15 @@ const Login = () => {
       },[5000])
     }
     else{
+      let user = res.data.records;
+      if(user.email === "admin@affinity.com" || user.email === "test2@mail.com"){
+        user.role = "super-admin"
+      }
         localStorage.setItem("accessToken", res.data.records.token);
-        localStorage.setItem("user", JSON.stringify(res.data.records));
+        localStorage.setItem("user", JSON.stringify(user));
         // setTimeout(()=>{
             handleRedirect();
-        // },[2000])
+        // },[20000])
     }
 
   };

@@ -163,11 +163,11 @@ const Sales = () => {
                 <SalesOverview />
               </PreviewAltCard>
             </Col>
-            <Col xxl="8">
-              <Card className="card-bordered card-full">
-                <TransactionTable />
-              </Card>
-            </Col>
+            {/*<Col xxl="8">*/}
+            {/*  <Card className="card-bordered card-full">*/}
+            {/*    <TransactionTable />*/}
+            {/*  </Card>*/}
+            {/*</Col>*/}
             <Col xxl="4" md="6">
               <Card className="card-bordered card-full">
                 <RecentActivity />

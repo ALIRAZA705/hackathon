@@ -118,21 +118,21 @@ const ProductDetails = ({ match }) => {
               <BlockHeadContent>
                 <BlockTitle>Product Details</BlockTitle>
                 <BlockDes className="text-soft">
-                  <p>An example page for product details</p>
+                  {/*<p>An example page for product details</p>*/}
                 </BlockDes>
               </BlockHeadContent>
               <BlockHeadContent>
-                <Link to={`${process.env.PUBLIC_URL}/product-card`}>
-                  <Button color="light" outline className="bg-white d-none d-sm-inline-flex">
-                    <Icon name="arrow-left"></Icon>
-                    <span>Back</span>
-                  </Button>
-                </Link>
-                <Link to={`${process.env.PUBLIC_URL}/product-card`}>
-                  <Button color="light" outline className="btn-icon bg-white d-inline-flex d-sm-none">
-                    <Icon name="arrow-left"></Icon>
-                  </Button>
-                </Link>
+                {/*<Link to={`${process.env.PUBLIC_URL}/product-card`}>*/}
+                {/*  <Button color="light" outline className="bg-white d-none d-sm-inline-flex">*/}
+                {/*    <Icon name="arrow-left"></Icon>*/}
+                {/*    <span>Back</span>*/}
+                {/*  </Button>*/}
+                {/*</Link>*/}
+                {/*<Link to={`${process.env.PUBLIC_URL}/product-card`}>*/}
+                {/*  <Button color="light" outline className="btn-icon bg-white d-inline-flex d-sm-none">*/}
+                {/*    <Icon name="arrow-left"></Icon>*/}
+                {/*  </Button>*/}
+                {/*</Link>*/}
               </BlockHeadContent>
             </BlockBetween>
           </BlockHead>
@@ -412,30 +412,30 @@ const ProductDetails = ({ match }) => {
                 <hr className="hr border-light" />
 
                 <Row className="g-gs flex-lg-row-reverse pt-5">
-                  <Col lg={5}>
-                    <div className="video">
-                      <img className="video-poster w-100" src={ProductVideo} alt="" />
-                      <ModalVideo
-                        channel="youtube"
-                        autoplay
-                        isOpen={videoOpen}
-                        videoId="SSo_EIwHSd4"
-                        onClose={() => setVideoOpen(false)}
-                      />
-                      <a
-                        className="video-play popup-video"
-                        href="#video"
-                        onClick={(ev) => {
-                          ev.preventDefault();
-                          setVideoOpen(true);
-                        }}
-                      >
-                        <Icon name="play"></Icon>
-                        <span>Watch Video</span>
-                      </a>
-                    </div>
-                  </Col>
-                  <Col lg={7}>
+                  {/*<Col lg={5}>*/}
+                  {/*  <div className="video">*/}
+                  {/*    <img className="video-poster w-100" src={ProductVideo} alt="" />*/}
+                  {/*    <ModalVideo*/}
+                  {/*      channel="youtube"*/}
+                  {/*      autoplay*/}
+                  {/*      isOpen={videoOpen}*/}
+                  {/*      videoId="SSo_EIwHSd4"*/}
+                  {/*      onClose={() => setVideoOpen(false)}*/}
+                  {/*    />*/}
+                  {/*    <a*/}
+                  {/*      className="video-play popup-video"*/}
+                  {/*      href="#video"*/}
+                  {/*      onClick={(ev) => {*/}
+                  {/*        ev.preventDefault();*/}
+                  {/*        setVideoOpen(true);*/}
+                  {/*      }}*/}
+                  {/*    >*/}
+                  {/*      <Icon name="play"></Icon>*/}
+                  {/*      <span>Watch Video</span>*/}
+                  {/*    </a>*/}
+                  {/*  </div>*/}
+                  {/*</Col>*/}
+                  <Col lg={12}>
                     <div className="product-details entry mr-xxl-3">
                       <h3>Product details of Comfy cushions</h3>
                       <p>
@@ -456,13 +456,6 @@ const ProductDetails = ({ match }) => {
                         Unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
                         eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.
                       </p>
-                      <h3>The best seats in the house</h3>
-                      <p>
-                        I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-                        born and I will give you a complete account of the system, and expound the actual teachings.
-                        Unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                        eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.
-                      </p>
                     </div>
                   </Col>
                 </Row>
@@ -470,69 +463,69 @@ const ProductDetails = ({ match }) => {
             </Card>
           </Block>
 
-          <Block size="lg">
-            <BlockHead>
-              <BlockBetween>
-                <BlockHeadContent>
-                  <BlockTitle>Related Product</BlockTitle>
-                </BlockHeadContent>
-              </BlockBetween>
-            </BlockHead>
-            <Slider {...sliderSettings}>
-              {data.map((item) => {
-                return (
-                  <Col key={item.id}>
-                    <Card className="card-bordered product-card mr-3 ml-3">
-                      <div className="product-thumb">
-                        <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>
-                          <img className="card-img-top" src={item.img} alt="" />
-                        </Link>
-                        <ul className="product-badges">
-                          {item.new && (
-                            <li>
-                              <Badge color="success">New</Badge>
-                            </li>
-                          )}
-                          {item.hot && (
-                            <li>
-                              <Badge color="danger">Hot</Badge>
-                            </li>
-                          )}
-                        </ul>
-                        <ul className="product-actions">
-                          <li>
-                            <a href="#cart" onClick={(ev) => ev.preventDefault()}>
-                              <Icon name="cart"></Icon>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#heart" onClick={(ev) => ev.preventDefault()}>
-                              <Icon name="heart"></Icon>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="card-inner text-center">
-                        <ul className="product-tags">
-                          <li>
-                            <a href="#product" onClick={(ev) => ev.preventDefault()}>
-                              {item.name}
-                            </a>
-                          </li>
-                        </ul>
-                        <h5 className="product-title">
-                          <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>{item.title}</Link>
-                        </h5>
-                        <div className="product-price text-primary h5">
-                          <small className="text-muted del fs-13px">${item.prevPrice}</small> ${item.newPrice}
-                        </div>
-                      </div>
-                    </Card>
-                  </Col>
-                );
-              })}
-            </Slider>
-          </Block>
+          {/*<Block size="lg">*/}
+          {/*  <BlockHead>*/}
+          {/*    <BlockBetween>*/}
+          {/*      <BlockHeadContent>*/}
+          {/*        <BlockTitle>Related Product</BlockTitle>*/}
+          {/*      </BlockHeadContent>*/}
+          {/*    </BlockBetween>*/}
+          {/*  </BlockHead>*/}
+          {/*  <Slider {...sliderSettings}>*/}
+          {/*    {data.map((item) => {*/}
+          {/*      return (*/}
+          {/*        <Col key={item.id}>*/}
+          {/*          <Card className="card-bordered product-card mr-3 ml-3">*/}
+          {/*            <div className="product-thumb">*/}
+          {/*              <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>*/}
+          {/*                <img className="card-img-top" src={item.img} alt="" />*/}
+          {/*              </Link>*/}
+          {/*              <ul className="product-badges">*/}
+          {/*                {item.new && (*/}
+          {/*                  <li>*/}
+          {/*                    <Badge color="success">New</Badge>*/}
+          {/*                  </li>*/}
+          {/*                )}*/}
+          {/*                {item.hot && (*/}
+          {/*                  <li>*/}
+          {/*                    <Badge color="danger">Hot</Badge>*/}
+          {/*                  </li>*/}
+          {/*                )}*/}
+          {/*              </ul>*/}
+          {/*              <ul className="product-actions">*/}
+          {/*                <li>*/}
+          {/*                  <a href="#cart" onClick={(ev) => ev.preventDefault()}>*/}
+          {/*                    <Icon name="cart"></Icon>*/}
+          {/*                  </a>*/}
+          {/*                </li>*/}
+          {/*                <li>*/}
+          {/*                  <a href="#heart" onClick={(ev) => ev.preventDefault()}>*/}
+          {/*                    <Icon name="heart"></Icon>*/}
+          {/*                  </a>*/}
+          {/*                </li>*/}
+          {/*              </ul>*/}
+          {/*            </div>*/}
+          {/*            <div className="card-inner text-center">*/}
+          {/*              <ul className="product-tags">*/}
+          {/*                <li>*/}
+          {/*                  <a href="#product" onClick={(ev) => ev.preventDefault()}>*/}
+          {/*                    {item.name}*/}
+          {/*                  </a>*/}
+          {/*                </li>*/}
+          {/*              </ul>*/}
+          {/*              <h5 className="product-title">*/}
+          {/*                <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>{item.title}</Link>*/}
+          {/*              </h5>*/}
+          {/*              <div className="product-price text-primary h5">*/}
+          {/*                <small className="text-muted del fs-13px">${item.prevPrice}</small> ${item.newPrice}*/}
+          {/*              </div>*/}
+          {/*            </div>*/}
+          {/*          </Card>*/}
+          {/*        </Col>*/}
+          {/*      );*/}
+          {/*    })}*/}
+          {/*  </Slider>*/}
+          {/*</Block>*/}
         </Content>
       )}
     </React.Fragment>
