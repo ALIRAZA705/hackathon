@@ -110,6 +110,7 @@ import Bookings from "../pages/others/Bookings";
 import DeliveredOrders from "../pages/others/DeliveredOrders";
 import PreparingOrders from "../pages/others/PreparingOrders";
 import ChatScreen from "../pages/others/ChatScreen";
+import Error404Modern from "../pages/error/404-modern";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -180,7 +181,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/product-list`} component={ProductList}></Route>
         {/*<Route exact path={`${process.env.PUBLIC_URL}/menu`} component={MenuList}></Route>*/}
         <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu`} component={MenuList}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/menu/add`} component={AddMenuPage}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu/add`} component={AddMenuPage}></Route>
 
         <Route // context api added
           exact
@@ -213,6 +214,7 @@ const Pages = () => {
 
         {/*Application*/}
         <Route exact path={`${process.env.PUBLIC_URL}/app-messages`} component={AppMessages}></Route>
+        {/*<Route exact path={`${process.env.PUBLIC_URL}/404`} component={Error404Modern}></Route>*/}
         {/*<Route exact path={`${process.env.PUBLIC_URL}/app-chat`} component={Chat}></Route>*/}
         {/*<Route exact path={`${process.env.PUBLIC_URL}/app-calender`} component={Calender}></Route>*/}
         {/*<Route exact path={`${process.env.PUBLIC_URL}/app-kanban`} component={Kanban}></Route>*/}

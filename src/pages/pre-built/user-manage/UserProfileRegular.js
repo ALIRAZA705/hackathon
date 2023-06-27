@@ -58,10 +58,10 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
       <BlockHead size="lg">
         <BlockBetween>
           <BlockHeadContent>
-            <BlockTitle tag="h4">Personal Information</BlockTitle>
-            <BlockDes>
-              <p>Basic info, like your name and address, that you use on Nio Platform.</p>
-            </BlockDes>
+            <BlockTitle tag="h4">Restaurant Information</BlockTitle>
+            {/*<BlockDes>*/}
+            {/*  <p>Basic info, like your name and address, that you use on Nio Platform.</p>*/}
+            {/*</BlockDes>*/}
           </BlockHeadContent>
           <BlockHeadContent className="align-self-start d-lg-none">
             <Button
@@ -81,7 +81,18 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
           </div>
           <div className="data-item" onClick={() => setModal(true)}>
             <div className="data-col">
-              <span className="data-label">Full Name</span>
+              <span className="data-label">Restaurant Name</span>
+              <span className="data-value">{user.business_name}</span>
+            </div>
+            <div className="data-col data-col-end">
+              <span className="data-more">
+                <Icon name="forward-ios"></Icon>
+              </span>
+            </div>
+          </div>
+          <div className="data-item" onClick={() => setModal(true)}>
+            <div className="data-col">
+              <span className="data-label">Owner Name</span>
               <span className="data-value">{user.name}</span>
             </div>
             <div className="data-col data-col-end">

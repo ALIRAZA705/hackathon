@@ -21,6 +21,8 @@ import {Link, Redirect} from "react-router-dom";
 import {getLoginUser} from "../../api/auth/auth";
 import { useHistory } from "react-router-dom";
 
+let user = {};
+
 const Login = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
@@ -28,7 +30,10 @@ const Login = () => {
   const [errorVal, setError] = useState("");
 
   const handleRedirect = () => {
-    window.location.href = '/dashboard';
+    if(user.role === "super-admin"){
+      window.location.href = '/dashboard';
+    }
+      window.location.href = `/restaurant/${user.id}/menu`;
     // history.push(`/dashboard`);
   }
 
@@ -49,7 +54,7 @@ const Login = () => {
       },[5000])
     }
     else{
-      let user = res.data.records;
+      user = res.data.records;
       if(user.email === "admin@affinity.com" || user.email === "test2@mail.com"){
         user.role = "super-admin"
       }
@@ -106,7 +111,8 @@ const Login = () => {
                     id="default-01"
                     name="name"
                     ref={register({ required: "This field is required" })}
-                    defaultValue="admin@affinity.com"
+                    // defaultValue="admin@affinity.com"
+                    defaultValue="test2@mail.com"
                     placeholder="Enter your email address or username"
                     className="form-control-lg form-control"
                   />
@@ -139,7 +145,7 @@ const Login = () => {
                     type={passState ? "text" : "password"}
                     id="password"
                     name="passcode"
-                    defaultValue="123"
+                    defaultValue="12345678"
                     ref={register({ required: "This field is required" })}
                     placeholder="Enter your passcode"
                     className={`form-control-lg form-control ${passState ? "is-hidden" : "is-shown"}`}

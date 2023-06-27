@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import menu from "./MenuData";
 import { NavLink, Link } from "react-router-dom";
 import Icon from "../../components/icon/Icon";
 import classNames from "classnames";
+import {setUser} from "../../store/state/userInfo";
+import {useDispatch, useSelector} from "react-redux";
 
 const MenuHeading = ({ heading }) => {
   return (
@@ -26,6 +28,7 @@ const MenuItem = ({ icon, link, text, sub, newTab, mobileView, sidebarToggle, ba
   } else {
     currentUrl = null;
   }
+
 
   const menuHeight = (el) => {
     var totalHeight = [];
@@ -204,13 +207,31 @@ const MenuSub = ({ icon, link, text, sub, sidebarToggle, mobileView, ...props })
 };
 
 const Menu = ({ sidebarToggle, mobileView }) => {
+  const [menuList, setMenuList] = useState(menu);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.userInfo)
+
+  useEffect(()=>{
+    let user = localStorage.getItem('user');
+    if(JSON.parse(user).role !== "super-admin"){
+      console.log("super admin found in menu gen")
+      const menu = menuList.filter(f=>
+        f.text !== "Restaurants"
+      )
+      setMenuList(menu)
+    }
+    dispatch(setUser(JSON.parse(user)));
+  },[user])
+
+
   return (
     <ul className="nk-menu nk-menu-md">
-      {menu.map((item) =>
+      {menuList.map((item) =>
         item.heading ? (
           <MenuHeading heading={item.heading} key={item.heading} />
         ) : (
-          item.text !== "Applications" && (
+          (item.text !== "Applications" ) &&
+          (
             <MenuItem
               key={item.text}
               link={item.link}

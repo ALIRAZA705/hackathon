@@ -62,7 +62,7 @@ const UserProfileLayout = () => {
                   <div className="user-card">
                     <UserAvatar text={findUpper(profileName)} theme="primary" />
                     <div className="user-info">
-                      <span className="lead-text">{profileName}</span>
+                      <span className="lead-text">{user.business_name? user.business_name : profileName}</span>
                       <span className="sub-text">{user.email}</span>
                     </div>
                     <div className="user-action">
@@ -84,18 +84,18 @@ const UserProfileLayout = () => {
                                 <span>Change Photo</span>
                               </DropdownItem>
                             </li>
-                            <li>
-                              <DropdownItem
-                                tag="a"
-                                href="#dropdownitem"
-                                onClick={(ev) => {
-                                  ev.preventDefault();
-                                }}
-                              >
-                                <Icon name="edit-fill"></Icon>
-                                <span>Update Profile</span>
-                              </DropdownItem>
-                            </li>
+                            {/*<li>*/}
+                            {/*  <DropdownItem*/}
+                            {/*    tag="a"*/}
+                            {/*    href="#dropdownitem"*/}
+                            {/*    onClick={(ev) => {*/}
+                            {/*      ev.preventDefault();*/}
+                            {/*    }}*/}
+                            {/*  >*/}
+                            {/*    <Icon name="edit-fill"></Icon>*/}
+                            {/*    <span>Update Profile</span>*/}
+                            {/*  </DropdownItem>*/}
+                            {/*</li>*/}
                           </ul>
                         </DropdownMenu>
                       </UncontrolledDropdown>

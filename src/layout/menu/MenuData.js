@@ -19,7 +19,7 @@ const menu = [
     },
     {
         icon: "book",
-        text: "Bookings",
+        text: "Recent Bookings",
         link: "/bookings",
     },
     {
@@ -27,10 +27,10 @@ const menu = [
         text: "Orders",
         active: false,
         subMenu: [
-            {
-                text: "All",
-                link: "/orders",
-            },
+            // {
+            //     text: "All",
+            //     link: "/orders",
+            // },
             {
                 text: "Preparing",
                 link: "/orders/preparing",

@@ -25,6 +25,9 @@ import {
     RSelect,
 } from "../../components/Component";
 import RestaurantCardMaterial from "../components/RestaurantCardMaterial";
+import {useDispatch, useSelector} from "react-redux";
+import Error404Modern from "../error/404-modern";
+import {Box} from "@mui/material";
 
 let restList = [
     {restId: 1, name: "Rest 1", restLogo: null, description: "rest desc 1", delivery:"15", type:["non-veg"], location:"isb", priceCategory: "$$", rating:"4" },
@@ -35,11 +38,17 @@ let restList = [
 ]
 
 const Restaurants = () => {
-
-    const [restuarrants, setRestaurants] = useState([]);
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.userInfo)
+    const [restaurants, setRestaurants] = useState([]);
 
     useEffect(()=>{
-        setRestaurants(restList);
+        if(user.role !== "super-admin"){
+            window.location.href="/404"
+        }
+        else{
+            setRestaurants(restList);
+        }
     },[])
 
     return (
@@ -66,7 +75,7 @@ const Restaurants = () => {
                         {/*<RestaurantCardMaterial/>*/}
                         {/*<RestaurantCardMaterial/>*/}
                         {
-                            restuarrants.map((r)=>(
+                            restaurants.map((r)=>(
                                 <RestaurantCardMaterial
                                     key={r.restId}
                                     id={r.restId}

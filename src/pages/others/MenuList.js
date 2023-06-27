@@ -82,7 +82,7 @@ const MenuList = (props) => {
   }, [onSearchText]);
 
   const handleAddProduct = () => {
-    history.push(`${process.env.PUBLIC_URL}/menu/add`)
+    history.push(`${process.env.PUBLIC_URL}/restaurant/${params.id}/menu/add`)
   }
 
   // OnChange function to get the input data
@@ -292,7 +292,7 @@ const MenuList = (props) => {
                       </div>
                     </li>
                     {
-                      user.role !== "super-admin" &&
+                      // user.role !== "super-admin" &&
                       <li className="nk-block-tools-opt">
                       <Button
                           className="toggle btn-icon d-md-none"
