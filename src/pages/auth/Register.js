@@ -42,7 +42,8 @@ const Register = ({ history }) => {
       password: data['passcode'],
       confirm_password: data['passcode'],
       phone_number: data['contact-number'],
-      own_riders: 'no'
+      own_riders: 'no',
+      user_login_status: "admin"
     }
     const res = await postRegisterUser(payload);
     setLoading(true);

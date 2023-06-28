@@ -9,8 +9,18 @@ axiosClient.defaults.baseURL = 'https://affinitycoders.com/wooeats/public/api';
 // axiosClient.defaults.baseURL = process.env.API_BASE_URL;
 // const baseURL = process.env.API_BASE_URL;
 
+
+//get token from local storage
+// export const getAccessToken = () => {
+//     return localStorage.getItem("accessToken");
+// };
+
+const accessToken = localStorage.getItem("accessToken");
+
+
 axiosClient.defaults.headers = {
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${accessToken}`,
     Accept: 'application/json'
 };
 

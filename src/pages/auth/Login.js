@@ -56,13 +56,13 @@ const Login = () => {
     else{
       user = res.data.records;
       if(user.email === "admin@affinity.com" || user.email === "test2@mail.com"){
-        user.role = "super-admin"
+        user.user_login_status = "super-admin"
       }
         localStorage.setItem("accessToken", res.data.records.token);
         localStorage.setItem("user", JSON.stringify(user));
-        // setTimeout(()=>{
+        setTimeout(()=>{
             handleRedirect();
-        // },[20000])
+        },[200000])
     }
 
   };
