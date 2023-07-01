@@ -111,6 +111,7 @@ import DeliveredOrders from "../pages/others/DeliveredOrders";
 import PreparingOrders from "../pages/others/PreparingOrders";
 import ChatScreen from "../pages/others/ChatScreen";
 import Error404Modern from "../pages/error/404-modern";
+import RestaurantMenuRedirect from "../pages/others/RestaurantMenuRedirect";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -180,6 +181,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/transaction-crypto`} component={TransListCrypto}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/product-list`} component={ProductList}></Route>
         {/*<Route exact path={`${process.env.PUBLIC_URL}/menu`} component={MenuList}></Route>*/}
+        <Route exact path={`${process.env.PUBLIC_URL}/restaurant/menu`} component={RestaurantMenuRedirect}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu`} component={MenuList}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu/add`} component={AddMenuPage}></Route>
 

@@ -29,7 +29,7 @@ import { Modal, ModalBody } from "reactstrap";
 import { RSelect } from "../../components/Component";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setUser} from "../../store/state/userInfo";
+import {setBusiness, setUser} from "../../store/state/userInfo";
 
 const MenuList = (props) => {
   const history = useHistory();
@@ -62,7 +62,11 @@ const MenuList = (props) => {
 
   useEffect(()=>{
     let user = localStorage.getItem('user');
-    dispatch(setUser(JSON.parse(user)));
+    user = JSON.parse(user);
+    dispatch(setUser(user));
+    if(user.busines){
+      dispatch(setBusiness(user.busines));
+    }
   },[user])
 
   useEffect(()=>{

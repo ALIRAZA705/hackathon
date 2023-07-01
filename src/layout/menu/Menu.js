@@ -3,7 +3,7 @@ import menu from "./MenuData";
 import { NavLink, Link } from "react-router-dom";
 import Icon from "../../components/icon/Icon";
 import classNames from "classnames";
-import {setUser} from "../../store/state/userInfo";
+import {setBusiness, setUser} from "../../store/state/userInfo";
 import {useDispatch, useSelector} from "react-redux";
 
 const MenuHeading = ({ heading }) => {
@@ -215,13 +215,25 @@ const Menu = ({ sidebarToggle, mobileView }) => {
   useEffect(()=>{
     if(!user){
       let user = localStorage.getItem('user');
-      dispatch(setUser(JSON.parse(user)));
+      user = JSON.parse(user);
+      dispatch(setUser(user));
+      if(user.busines){
+        dispatch(setBusiness(user.busines));
+      }
     }
-    if(user.role !== "super-admin"){
-      const menu = menuList.filter(f=>
+    if(user?.role !== "super-admin"){
+      console.log("not super")
+      const newMenu = menu.filter(f=>
           f.text !== "Restaurants"
       )
-      setMenuList(menu)
+      setMenuList(newMenu)
+    }
+    else if(user?.role === "super-admin") {
+      console.log("its... super")
+      const newMenu = menu.filter(f=>
+          f.text !== "Menu"
+      )
+      setMenuList(newMenu)
     }
   },[user])
 

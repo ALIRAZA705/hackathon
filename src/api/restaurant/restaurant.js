@@ -1,6 +1,6 @@
 import {
     deleteRequest,
-    getRequest, patchRequest,
+    getRequest, patchRequest, postFormDataRequest,
     postRequest
 } from "../methodCalls";
 import {
@@ -13,13 +13,13 @@ import {
 } from "../endpoints";
 
 export const getAllRestaurants = (params) => {
-    return getRequest(`${getAllRestaurantsURI}/`);
+    return getRequest(`${getAllRestaurantsURI}`);
 }
 
 export const getRestaurantById = (params) => {
     const id = params.id;
     const reqURI = getRestaurantByIdURI.replace(':id', id);
-    return getRequest(`${reqURI}/`);
+    return getRequest(`${reqURI}`);
 }
 
 export const addRestaurant = (payload) => {
@@ -29,7 +29,7 @@ export const addRestaurant = (payload) => {
 export const editRestaurant = (payload) => {
     const id = payload.id;
     const reqURI = editRestaurantURI.replace(':id', id);
-    return postRequest(reqURI, payload);
+    return postFormDataRequest(reqURI, payload);
 }
 
 export const deleteRestaurant = (payload) => {

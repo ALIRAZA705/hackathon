@@ -20,6 +20,7 @@ const accessToken = localStorage.getItem("accessToken");
 
 axiosClient.defaults.headers = {
     'Content-Type': 'application/json',
+    // "Content-Type": "multipart/form-data",
     'Authorization': `Bearer ${accessToken}`,
     Accept: 'application/json'
 };
