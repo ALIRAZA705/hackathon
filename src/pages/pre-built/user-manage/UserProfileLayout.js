@@ -161,34 +161,40 @@ const UserProfileLayout = () => {
                         <span>Security Setting</span>
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                          to={"#"}
-                          className={
-                            window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-setting` ? "active" : ""
-                          }
-                      >
-                        <Icon name="card-view"></Icon>
-                        <span>Business Image</span>
-                      </Link>
-                    </li>
-                    <Stack sx={{
-                      width: "100%",
-                      margin: "auto",
-                      textAlign: "center",
-                      justifyContent: "center"
-                    }}>
-                      <Box component="img" src={IMG_STORAGE_BASE_URL + user.busines_business_image}
-                           sx={{
-                             border: "1px solid none",
-                             borderRadius: "10px",
-                             width: "70%",
-                             height: "200px",
-                             margin: "auto",
-                           }}>
-                      </Box>
+                    {
+                      user.role === "admin" &&
+                      <li>
+                        <Link
+                            to={"#"}
+                            className={
+                              window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-setting` ? "active" : ""
+                            }
+                        >
+                          <Icon name="card-view"></Icon>
+                          <span>Business Image</span>
+                        </Link>
+                      </li>
+                    }
+                    {
+                      user.role === "admin" &&
+                      <Stack sx={{
+                        width: "100%",
+                        margin: "auto",
+                        textAlign: "center",
+                        justifyContent: "center"
+                      }}>
+                        <Box component="img" src={IMG_STORAGE_BASE_URL + user.busines_business_image}
+                             sx={{
+                               border: "1px solid none",
+                               borderRadius: "10px",
+                               width: "70%",
+                               height: "200px",
+                               margin: "auto",
+                             }}>
+                        </Box>
 
-                    </Stack>
+                      </Stack>
+                    }
 
 
 

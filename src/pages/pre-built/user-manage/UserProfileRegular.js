@@ -140,129 +140,132 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
       </BlockHead>
 
       <Block>
-        <div className="nk-data data-list">
-          <div className="data-head">
-            <h6 className="overline-title">Business Info</h6>
-          </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Business Name</span>
-              <span className="data-value">{user.busines_business_name}</span>
-            </div>
-            <div className="data-col data-col-end">
+          { (user.role === "admin") &&
+              <div className="nk-data data-list">
+                  <div className="data-head">
+                      <h6 className="overline-title">Business Info</h6>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                      <div className="data-col">
+                          <span className="data-label">Business Name</span>
+                          <span className="data-value">{user.busines_business_name}</span>
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more">
                 <Icon name="forward-ios"></Icon>
               </span>
-            </div>
-          </div>
-          <div className="data-item">
-            <div className="data-col">
-              <span className="data-label">Email</span>
-              <span className="data-value">{user.email}</span>
-            </div>
-            <div className="data-col data-col-end">
+                      </div>
+                  </div>
+                  <div className="data-item">
+                      <div className="data-col">
+                          <span className="data-label">Email</span>
+                          <span className="data-value">{user.email}</span>
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more disable">
                 <Icon name="lock-alt"></Icon>
               </span>
-            </div>
-          </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Phone Number</span>
-              <span className="data-value text-soft">{user.phone}</span>
-            </div>
-            <div className="data-col data-col-end">
+                      </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                      <div className="data-col">
+                          <span className="data-label">Phone Number</span>
+                          <span className="data-value text-soft">{user.phone}</span>
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more">
                 <Icon name="forward-ios"></Icon>
               </span>
-            </div>
-          </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Business Description</span>
-              <span className="data-value">
+                      </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                      <div className="data-col">
+                          <span className="data-label">Business Description</span>
+                          <span className="data-value">
                 {user.busines_business_description}
               </span>
-            </div>
-            <div className="data-col data-col-end">
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more">
                 <Icon name="forward-ios"></Icon>
               </span>
-            </div>
-          </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Business Type</span>
-              <span className="data-value">
+                      </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                      <div className="data-col">
+                          <span className="data-label">Business Type</span>
+                          <span className="data-value">
                 {user.busines_business_type}
               </span>
-            </div>
-            <div className="data-col data-col-end">
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more">
                 <Icon name="forward-ios"></Icon>
               </span>
-            </div>
-          </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Cuisine Types</span>
-              <span className="data-value">
+                      </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                      <div className="data-col">
+                          <span className="data-label">Cuisine Types</span>
+                          <span className="data-value">
                 {user.busines_cuisine_types}
               </span>
-            </div>
-            <div className="data-col data-col-end">
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more">
                 <Icon name="forward-ios"></Icon>
               </span>
-            </div>
-          </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Starting Price</span>
-              <span className="data-value">
+                      </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                      <div className="data-col">
+                          <span className="data-label">Starting Price</span>
+                          <span className="data-value">
                 {user.busines_starting_price}
               </span>
-            </div>
-            <div className="data-col data-col-end">
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more">
                 <Icon name="forward-ios"></Icon>
               </span>
-            </div>
-          </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Order Delivery Time</span>
-              <span className="data-value">
+                      </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                      <div className="data-col">
+                          <span className="data-label">Order Delivery Time</span>
+                          <span className="data-value">
                 {user.busines_ordr_delivery_time}
               </span>
-            </div>
-            <div className="data-col data-col-end">
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more">
                 <Icon name="forward-ios"></Icon>
               </span>
-            </div>
-          </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Restaurant Address</span>
-              <span className="data-value">
+                      </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                      <div className="data-col">
+                          <span className="data-label">Restaurant Address</span>
+                          <span className="data-value">
                 {user.busines_restaurant_address}
               </span>
-            </div>
-            <div className="data-col data-col-end">
+                      </div>
+                      <div className="data-col data-col-end">
               <span className="data-more">
                 <Icon name="forward-ios"></Icon>
               </span>
-            </div>
-          </div>
-        </div>
+                      </div>
+                  </div>
+              </div>
+          }
+
         <div className="nk-data data-list">
           <div className="data-head">
-            <h6 className="overline-title">Ower Details</h6>
+            <h6 className="overline-title">{user.role === "admin"? "Ower Details" : "Personal Details"}</h6>
           </div>
           <div className="data-item" onClick={() => setModal(true)}>
             <div className="data-col">
-              <span className="data-label">Owner Name</span>
+              <span className="data-label">{user.role === "admin"? "Ower Name" : "Full Name"}</span>
               <span className="data-value">{user.name}</span>
             </div>
             <div className="data-col data-col-end">
