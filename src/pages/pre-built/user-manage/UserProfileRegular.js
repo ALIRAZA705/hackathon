@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "../../../layout/head/Head";
 import DatePicker from "react-datepicker";
-import { Modal, ModalBody, FormGroup } from "reactstrap";
+import {Modal, ModalBody, FormGroup, Spinner, Alert} from "reactstrap";
 import {
   Block,
   BlockBetween,
@@ -13,7 +13,7 @@ import {
   Row,
   Col,
   Button,
-  RSelect,
+  RSelect, PreviewCard,
 } from "../../../components/Component";
 import { countryOptions, userData } from "./UserData";
 import { getDateStructured } from "../../../utils/Utils";
@@ -48,6 +48,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   const [userInfo, setUserInfo] = useState(userData[0]);
   const [files, setFiles] = useState([]);
   const [multipartData, setMultipartData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [errorVal, setError] = useState("");
   const user = useSelector(state => state.userInfo);
 
   const [formData, setFormData] = useState({
@@ -69,21 +71,26 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   }, [formData, setProfileName]);
 
   const onInputChange = (e) => {
+    console.log(e.target.name, e.target.value)
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const submitUpdateBusinessForm = async () => {
+    setLoading(true);
     let submitData = formData;
     submitData.id = user.busines_id;
     submitData.business_image = multipartData
-    // const data = multipartData
-    // Object.keys(submitData).forEach(i=>{
-    //   data.append(i, submitData[i])
-    // })
     console.log(submitData)
     const res = await editRestaurant(submitData);
     setUserInfo(submitData);
-    setModal(false);
+    setLoading(false);
+    // if(res.request.status === 200){
+    //
+    // }
+    setError(res.data.message)
+    setTimeout(()=>{
+      setModal(false);
+    },[5000])
   };
 
   // handles ondrop function of dropzone
@@ -401,7 +408,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                             submitForm();
                           }}
                         >
-                          Update
+                          {loading ? <Spinner size="sm" color="light" /> : "Update"}
                         </Button>
                       </li>
                       <li>
@@ -417,6 +424,14 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                         </a>
                       </li>
                     </ul>
+                    {errorVal && (
+                        <div className="mb-3">
+                          <Alert color="success" className="alert-icon">
+                            {" "}
+                            <Icon name="alert-circle" /> {errorVal}{" "}
+                          </Alert>
+                        </div>
+                    )}
                   </Col>
                 </Row>
               </div>
@@ -454,13 +469,13 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </Col>
                   <Col md="12">
                     <FormGroup>
-                      <label className="form-label" htmlFor="address-l1">
-                        Business Description
+                      <label className="form-label" htmlFor="address-l2">
+                        Description
                       </label>
                       <input
                           type="text"
-                          id="address-l1"
-                          name="address"
+                          id="Description-l2"
+                          name="business_description"
                           onChange={(e) => onInputChange(e)}
                           defaultValue={formData.business_description}
                           className="form-control"
@@ -477,8 +492,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                           placeholder="Select Business Type"
                           defaultValue={[
                             {
-                              value: formData.country,
-                              label: formData.country,
+                              value: formData.business_type,
+                              label: formData.business_type,
                             },
                           ]}
                           onChange={(e) => setFormData({ ...formData, business_type: e.value })}
@@ -495,8 +510,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                         placeholder="Select Cuisine Types"
                         defaultValue={[
                           {
-                            value: formData.country,
-                            label: formData.country,
+                            value: formData.cuisine_type,
+                            label: formData.cuisine_type,
                           },
                         ]}
                         onChange={(e) => setFormData({ ...formData, cuisine_type: e.value })}
@@ -511,7 +526,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       <input
                           type="text"
                           id="address-st"
-                          name="state"
+                          name="starting_price"
                           onChange={(e) => onInputChange(e)}
                           defaultValue={formData.starting_price}
                           className="form-control"
@@ -528,8 +543,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                           placeholder="Select Delivery Time"
                           defaultValue={[
                             {
-                              value: formData.country,
-                              label: formData.country,
+                              value: formData.ordr_delivery_time,
+                              label: formData.ordr_delivery_time,
                             },
                           ]}
                           onChange={(e) => setFormData({ ...formData, ordr_delivery_time: e.value })}
@@ -551,11 +566,50 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       />
                     </FormGroup>
                   </Col>
+                  <Col md="4">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-st">Business Image</label>
+                    <Stack direction="row" sx={{
+                      overflowX: "auto",
+                      flexShrink: "0"
+                    }}>
+                      <Dropzone
+                          multiple={false}
+                          onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}
+                      >
+                        {({ getRootProps, getInputProps }) => (
+                            <section>
+                              <div
+                                  {...getRootProps()}
+                                  className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                              >
+                                <input {...getInputProps()} />
+                                {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
+                                {files.map((file) => (
+                                    <div
+                                        key={file.name}
+                                        className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
+                                    >
+                                      <Stack direction="row">
+                                        {/*<div className="dz-image">*/}
+                                        <img height="100px" src={file.preview} alt="preview" />
+                                        {/*</div>*/}
+                                      </Stack>
+
+                                    </div>
+                                ))}
+                              </div>
+                            </section>
+                        )}
+                      </Dropzone>
+                    </Stack>
+                    </FormGroup>
+                  </Col>
                   <Col size="12">
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>
                         <Button color="primary" size="lg" onClick={() => submitUpdateBusinessForm()}>
-                          Update
+                          {loading ? <Spinner size="sm" color="light" /> : "Update"}
                         </Button>
                       </li>
                       <li>
@@ -571,6 +625,14 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                         </a>
                       </li>
                     </ul>
+                    {errorVal && (
+                        <div className="mb-3">
+                          <Alert color="success" className="alert-icon">
+                            {" "}
+                            <Icon name="alert-circle" /> {errorVal}{" "}
+                          </Alert>
+                        </div>
+                    )}
                   </Col>
                 </Row>
               </div>
@@ -705,6 +767,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   flexShrink: "0"
                 }}>
                   <Dropzone
+                      multiple={false}
                       onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}
                   >
                     {({ getRootProps, getInputProps }) => (
