@@ -379,27 +379,6 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       />
                     </FormGroup>
                   </Col>
-                  {/*<Col md="6">*/}
-                  {/*  <FormGroup>*/}
-                  {/*    <label className="form-label" htmlFor="birth-day">*/}
-                  {/*      Date of Birth*/}
-                  {/*    </label>*/}
-                  {/*    <DatePicker*/}
-                  {/*      selected={new Date(formData.dob)}*/}
-                  {/*      className="form-control"*/}
-                  {/*      onChange={(date) => setFormData({ ...formData, dob: getDateStructured(date) })}*/}
-                  {/*      maxDate={new Date()}*/}
-                  {/*    />*/}
-                  {/*  </FormGroup>*/}
-                  {/*</Col>*/}
-                  {/*<Col size="12">*/}
-                  {/*  <div className="custom-control custom-switch">*/}
-                  {/*    <input type="checkbox" className="custom-control-input form-control" id="latest-sale" />*/}
-                  {/*    <label className="custom-control-label" htmlFor="latest-sale">*/}
-                  {/*      Use full name to display{" "}*/}
-                  {/*    </label>*/}
-                  {/*  </div>*/}
-                  {/*</Col>*/}
                   <Col size="12">
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>

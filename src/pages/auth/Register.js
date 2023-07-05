@@ -49,7 +49,7 @@ const Register = ({ history }) => {
     setLoading(true);
     console.log("res :: ", res.request.status, res.response)
     if(res.request.status !== 200) {
-      let err= res.response.data.error? JSON.stringify(res.response.data.error) : "Error Register with these credentials";
+      let err= res.response.data.message? JSON.stringify(res.response.data.message) : "Error Register with these credentials";
       setError(err);
       setLoading(false);
       setTimeout(()=>{
