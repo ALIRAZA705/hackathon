@@ -18,8 +18,10 @@ import "./AddMenuItemForm.css";
 import ProductH from "../../images/product/h.png";
 import {useForm} from "react-hook-form";
 import {addNewMenuItem} from "../../api/menu/menu";
+import {useParams} from "react-router";
 
 const AddMenuItemForm = () => {
+    const params = useParams();
     const [loading, setLoading] = useState(false);
     const [errorVal, setError] = useState("");
     const [variants, setVariants] = useState(0);
@@ -28,14 +30,14 @@ const AddMenuItemForm = () => {
     const [priceDisable, setPriceDisable] = useState(false);
     const { errors, register, handleSubmit } = useForm();
     const [formData, setFormData] = useState({
-        restId: 111,
-        name: "",
+        // restId: 111,
+        item_name: "",
         img: null,
         sku: "",
-        price: 0,
+        regular_price: 0,
         stock: 0,
-        category: [],
-        categoryType: [],
+        category: "",
+        category_type: "",
         fav: false,
         check: false,
     });
@@ -45,21 +47,26 @@ const AddMenuItemForm = () => {
     };
 
     const onCategoryChange = (value) => {
-        let catArr = [];
-        value.forEach((v)=>{
-            console.log(v)
-            catArr.push(v.value)
-        })
-        setFormData({ ...formData, category: catArr });
+        // let catArr = [];
+        // value.forEach((v)=>{
+        //     console.log(v)
+        //     catArr.push(v.value)
+        // })
+        // setFormData({ ...formData, category: catArr });
+        //  for  non-array
+        setFormData({ ...formData, category: value[0].value });
     };
 
     const onCategoryTypeChange = (value) => {
-        let catTypeArr = [];
-        value.forEach((v)=>{
-            console.log(v)
-            catTypeArr.push(v.value)
-        })
-        setFormData({ ...formData, categoryType: catTypeArr });
+        // let catTypeArr = [];
+        // value.forEach((v)=>{
+            // console.log(v)
+            // catTypeArr.push(v.value)
+        // })
+        // setFormData({ ...formData, categoryType: catTypeArr });
+
+    //  for  non-array
+        setFormData({ ...formData, categoryType: value[0].value });
     };
 
 
@@ -77,20 +84,22 @@ const AddMenuItemForm = () => {
                 })
             )
         );
-        extractBase64Images(acceptedFiles);
+        setImages(acceptedFiles);
+        // extractBase64Images(acceptedFiles);
     };
 
-    const extractBase64Images = (acceptedFiles) => {
-        let imgs = []
-        acceptedFiles.forEach((f)=>{
-            let reader = new FileReader();
-            reader.readAsDataURL(f);
-            reader.onload = function () {
-                imgs.push(reader.result)
-                setImages(imgs)
-            };
-        })
-    }
+
+    // const extractBase64Images = (acceptedFiles) => {
+    //     let imgs = []
+    //     acceptedFiles.forEach((f)=>{
+    //         let reader = new FileReader();
+    //         reader.readAsDataURL(f);
+    //         reader.onload = function () {
+    //             imgs.push(reader.result)
+    //             setImages(imgs)
+    //         };
+    //     })
+    // }
 
     const onFormSubmit = async (form) => {
         setLoading(true);
@@ -103,12 +112,11 @@ const AddMenuItemForm = () => {
 
         const payload = {
             ...newFormData,
-            restaurantId: formData.restId,
+            restaurant_id: params.id,
             category: formData.category,
             categoryType: formData.categoryType,
             variants: [],
-            files,
-            images: images
+            restaurant_file: images
         };
 
         const variantsArr = [...Array(variants)];
@@ -151,14 +159,14 @@ const AddMenuItemForm = () => {
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                name="title"
+                                                name="item_name"
                                                 onChange={(e) => onInputChange(e)}
                                                 ref={register({
                                                     required: "This field is required",
                                                 })}
-                                                defaultValue={formData.name}
+                                                defaultValue={formData.item_name}
                                             />
-                                            {errors.title && <span className="invalid">{errors.title.message}</span>}
+                                            {errors.item_name && <span className="invalid">{errors.item_name.message}</span>}
                                         </div>
                                     </div>
                                 </Col>
@@ -228,7 +236,7 @@ const AddMenuItemForm = () => {
                                             <input
                                                 // disabled={priceDisable}
                                                 type="number"
-                                                name="price"
+                                                name="regular_price"
                                                 onChange={(e) => onInputChange(e)}
                                                 ref={ !priceDisable? register({
                                                     required: "This field is required",
@@ -236,9 +244,9 @@ const AddMenuItemForm = () => {
                                                     required: false,
                                                 }) }
                                                 className="form-control"
-                                                defaultValue={formData.price}
+                                                defaultValue={formData.regular_price}
                                             />
-                                            {errors.price && <span className="invalid">{errors.price.message}</span>}
+                                            {errors.regular_price && <span className="invalid">{errors.regular_price.message}</span>}
                                         </div>
                                     </div>
                                 </Col>
@@ -251,7 +259,7 @@ const AddMenuItemForm = () => {
                                             <input
                                                 type="number"
                                                 className="form-control"
-                                                name="salePrice"
+                                                name="sale_price"
                                                 onChange={(e) => onInputChange(e)}
                                                 ref={ !priceDisable? register({
                                                     required: "This field is required",
@@ -259,7 +267,7 @@ const AddMenuItemForm = () => {
                                                     required: false,
                                                 }) }
                                             />
-                                            {errors.salePrice && <span className="invalid">{errors.salePrice.message}</span>}
+                                            {errors.sale_price && <span className="invalid">{errors.sale_price.message}</span>}
                                         </div>
                                     </div>
                                 </Col>
@@ -329,13 +337,13 @@ const AddMenuItemForm = () => {
                                             <RSelect
                                                 isMulti
                                                 options={categoryOptions}
-                                                defaultValue={formData.category}
+                                                defaultValue={formData.category_type}
                                                 onChange={(e) => onCategoryTypeChange(e)}
                                                 ref={register({
                                                     required: "This field is required",
                                                 })}
                                             />
-                                            {errors.category && <span className="invalid">{errors.category.message}</span>}
+                                            {errors.category_type && <span className="invalid">{errors.category_type.message}</span>}
                                         </div>
                                     </div>
                                 </Col>
