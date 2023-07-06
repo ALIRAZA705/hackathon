@@ -1,8 +1,8 @@
 import {
-    getRequest,
+    getRequest, postFormDataRequest,
     postRequest
 } from "../methodCalls";
-import {changePasswordReqURI, forgotPasswordURI, loginURI, registerURI} from "../endpoints";
+import {changePasswordReqURI, editUserProfileURI, forgotPasswordURI, loginURI, registerURI} from "../endpoints";
 
 export const getLoginUser = (payload) => {
     return postRequest(loginURI, payload);
@@ -18,4 +18,8 @@ export const postForgotPassword = (payload) => {
 
 export const postChangePasswordReq = (payload) => {
     return postRequest(changePasswordReqURI, payload);
+}
+
+export const postEditUserProfile = (payload) => {
+    return postFormDataRequest(editUserProfileURI, payload);
 }

@@ -45,6 +45,7 @@ const User = () => {
                    borderRadius: "50%",
                    // marginRight: "1rem",
                    width: "40px",
+                   height: "40px"
                }}
           ></Box>
         {/*<UserAvatar icon="user-alt" className="sm" />*/}
@@ -61,6 +62,7 @@ const User = () => {
                        borderRadius: "50%",
                        marginRight: "1rem",
                        width: "50px",
+                         height: "50px"
                      }}
                 ></Box>
             {/*</div>*/}

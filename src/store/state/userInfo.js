@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {IMG_STORAGE_BASE_URL} from "../../config";
 
 const initialState = {
     // user : null,
@@ -22,7 +23,7 @@ export const userInfoSlice = createSlice({
             state.restaurant_address = data.restaurant_address;
             state.role = data.user_login_status ? data.user_login_status : "customer";
             // state.role = "super-admin";
-            state.profile_picture = data.img? data.img : "https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png";
+            state.profile_picture = data.profile_image? IMG_STORAGE_BASE_URL + data.profile_image : "https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png";
             state.user_status = data.user_status;
             state.register_from = data.register_from;
             state.email_verified_at = data.email_verified_at;

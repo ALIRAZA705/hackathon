@@ -2,6 +2,7 @@ export const loginURI = 'login';
 export const registerURI = 'register';
 export const forgotPasswordURI = 'accountemail';
 export const changePasswordReqURI = 'change_password';
+export const editUserProfileURI = 'editprofile';
 
 // Menu
 export const getAllMenuItemsURI = 'product';

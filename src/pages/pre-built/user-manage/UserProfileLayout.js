@@ -79,6 +79,7 @@ const UserProfileLayout = () => {
                            borderRadius: "50%",
                            marginRight: "1rem",
                            width: "50px",
+                           height: "50px"
                          }}
                     ></Box>
                     <div className="user-info">
@@ -167,7 +168,7 @@ const UserProfileLayout = () => {
                         <Link
                             to={"#"}
                             className={
-                              window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-setting` ? "active" : ""
+                              window.location.pathname === `${process.env.PUBLIC_URL}/business-image` ? "active" : ""
                             }
                         >
                           <Icon name="card-view"></Icon>
