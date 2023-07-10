@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import classNames from "classnames";
 import Toggle from "../sidebar/Toggle";
 import User from "./dropdown/user/User";
@@ -7,6 +7,8 @@ import AppDropdown from "./dropdown/app/App";
 import ChatDropdown from "./dropdown/chat/Chat";
 import { Icon } from "../../components/Component";
 import { Link } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setBusiness, setUser} from "../../store/state/userInfo";
 
 const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
   const headerClass = classNames({
@@ -17,6 +19,17 @@ const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
     [`${className}`]: className,
   });
   let currentUrl;
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.userInfo)
+
+  useEffect(()=>{
+    let user = localStorage.getItem('user');
+    user = JSON.parse(user);
+    dispatch(setUser(user));
+    if(user.busines){
+      dispatch(setBusiness(user.busines));
+    }
+  },[user])
 
   if (window.location.pathname !== undefined) {
     currentUrl = window.location.pathname;
@@ -35,8 +48,8 @@ const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
               <Icon name="dashlite" className="bg-purple-dim"></Icon>
             </div>
             <div className="nk-header-app-info">
-              <span className="sub-text">DashLite</span>
-              <span className="lead-text">Dashboard</span>
+              <span className="sub-text">WooEats</span>
+              <span className="lead-text">{user.busines_business_name? user.busines_business_name.toUpperCase() : "Dashboard"}</span>
             </div>
           </div>
           {/*<div className="nk-header-menu is-light">*/}

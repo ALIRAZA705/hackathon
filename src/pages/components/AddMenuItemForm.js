@@ -114,7 +114,8 @@ const AddMenuItemForm = () => {
             ...newFormData,
             restaurant_id: params.id,
             category: formData.category,
-            categoryType: formData.categoryType,
+            category_type: formData.categoryType,
+            description: formData.description,
             variants: [],
             restaurant_file: images
         };
@@ -127,8 +128,8 @@ const AddMenuItemForm = () => {
             payload.variants.push(variant)
         });
         const res = await addNewMenuItem(payload);
-        // console.log("res 111 :: ", res.request.status, res.response.data)
-        if(res.request.status !== 200) {
+        console.log("res 111 :: ", res.request.status, res.data.success)
+        if(res.request.status !== 200 && res.data.success) {
             setError(res.response.data.exception)
             setTimeout(()=>{
                 setError("")

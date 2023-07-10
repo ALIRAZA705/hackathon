@@ -14,6 +14,9 @@ export const userInfoSlice = createSlice({
     reducers:{
         setUser: (state, data) => {
             data = data.payload;
+            if(data.profile_image &&  !data.profile_image.startsWith("blob")){
+                data.profile_image = IMG_STORAGE_BASE_URL + data.profile_image;
+            }
             state.user_id = data.id;
             state.name = data.first_name + " " + data.last_name;
             state.first_name = data.first_name;
@@ -23,7 +26,7 @@ export const userInfoSlice = createSlice({
             state.restaurant_address = data.restaurant_address;
             state.role = data.user_login_status ? data.user_login_status : "customer";
             // state.role = "super-admin";
-            state.profile_picture = data.profile_image? IMG_STORAGE_BASE_URL + data.profile_image : "https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png";
+            state.profile_picture = data.profile_image? data.profile_image : "https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png";
             state.user_status = data.user_status;
             state.register_from = data.register_from;
             state.email_verified_at = data.email_verified_at;
@@ -34,6 +37,9 @@ export const userInfoSlice = createSlice({
         },
         setBusiness: (state, data) => {
             data = data.payload;
+            if(data.busines_business_image &&  !data.busines_business_image.startsWith("blob")){
+                data.busines_business_image = IMG_STORAGE_BASE_URL + data.busines_business_image;
+            }
             state.busines_id =  data.id;
             state.busines_user_id = data.user_id;
             state.busines_business_name = data.business_name;

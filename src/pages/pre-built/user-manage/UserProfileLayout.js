@@ -184,7 +184,7 @@ const UserProfileLayout = () => {
                         textAlign: "center",
                         justifyContent: "center"
                       }}>
-                        <Box component="img" src={IMG_STORAGE_BASE_URL + user.busines_business_image}
+                        <Box component="img" src={user.busines_business_image}
                              sx={{
                                border: "1px solid none",
                                borderRadius: "10px",

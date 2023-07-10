@@ -6,7 +6,7 @@ export const editUserProfileURI = 'editprofile';
 
 // Menu
 export const getAllMenuItemsURI = 'product';
-export const addMenuItemURI = 'product/create';
+export const addMenuItemURI = 'restaurant_menue';
 export const editMenuItemURI = `product/:id/edit`;
 export const deleteMenuItemURI = 'product/delete';
 export const getMenuItemByRestIdURI = `restaurant/:id/product`;

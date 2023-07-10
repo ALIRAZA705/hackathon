@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Head from "../../../layout/head/Head";
 import DatePicker from "react-datepicker";
 import {Modal, ModalBody, FormGroup, Spinner, Alert} from "reactstrap";
@@ -22,6 +22,7 @@ import {editRestaurant} from "../../../api/restaurant/restaurant";
 import { Stack } from "@mui/material"
 import Dropzone from "react-dropzone";
 import {postEditUserProfile} from "../../../api/auth/auth";
+import {setBusiness, setUser} from "../../../store/state/userInfo";
 
 
 export const cuisineTypesDD = [
@@ -47,7 +48,9 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   const [modal, setModal] = useState(false);
   const [modalTab, setModalTab] = useState("1");
   const [userInfo, setUserInfo] = useState(userData[0]);
+  const [updatedUser, setUpdatedUser] = useState(null);
   const [files, setFiles] = useState([]);
+  const [apiStatus, setApiStatus] = useState('success');
   const [multipartData, setMultipartData] = useState(null);
   const [multipartUserProfileData, setMultipartUserProfileData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -72,6 +75,27 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
     setProfileName(formData.name);
   }, [formData, setProfileName]);
 
+  const localStorageUser = useMemo(()=>{
+    let user = localStorage.getItem('user');
+    user = JSON.parse(user);
+    return user;
+  },[dispatch])
+
+
+  useEffect(()=>{
+    let user = localStorageUser;
+    dispatch(setUser(user));
+    if(user.busines){
+      dispatch(setBusiness(user.busines));
+      const entries = Object.entries(user.busines);
+      for (const [key, value] of entries) {
+        user[key] = value;
+      }
+    }
+    delete user.busines
+    setFormData(user)
+  },[updatedUser])
+
   const onInputChange = (e) => {
     console.log(e.target.name, e.target.value)
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -86,31 +110,83 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
       phone_number: formData.phone_number,
       profile_image : multipartUserProfileData,
     };
-    console.log(submitData);
+    Object.keys(submitData).forEach(
+        (key) => (submitData[key] === null) && delete submitData[key]);
     const res = await postEditUserProfile(submitData);
-    setError(res.data.message)
+    setError(res.response?.data?.message? res.response.data.message : res.data.message)
     setLoading(false);
-    setTimeout(()=>{
-      setModal(false);
-    },[5000])
+    if(res.status === 200){
+      setApiStatus('success')
+      let loggedInUser = localStorage.getItem('user');
+      loggedInUser = JSON.parse(loggedInUser);
+      loggedInUser = Object.assign(loggedInUser, submitData)
+      if(submitData.profile_image){
+        loggedInUser.profile_image = submitData.profile_image.preview;
+      }
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(loggedInUser));
+      // setUpdatedUser(loggedInUser)
+      setTimeout(()=>{
+        setModal(false);
+        setError("")
+      },[5000])
+    }
+    else{
+      setApiStatus('danger')
+      setTimeout(()=>{
+        setError("")
+        setApiStatus('success')
+      },[2000])
+    }
+
   }
 
   const submitUpdateBusinessForm = async () => {
     setLoading(true);
-    let submitData = formData;
-    submitData.id = user.busines_id;
-    submitData.business_image = multipartData
-    console.log(submitData)
+    let submitData = {
+      business_name: formData.business_name,
+      business_type: formData.business_type,
+      cuisine_type: formData.cuisine_type,
+      ordr_delivery_time: formData.ordr_delivery_time,
+      restaurant_address: formData.restaurant_address,
+      starting_price: formData.starting_price,
+      user_id: user.user_id,
+      business_description : formData.business_description,
+      id : user.busines_id,
+      business_image : multipartData,
+    };
+    Object.keys(submitData).forEach(
+        (key) => (submitData[key] === null) && delete submitData[key]);
     const res = await editRestaurant(submitData);
-    setUserInfo(submitData);
+    setError(res.response?.data?.message? res.response.data.message : res.data.message)
     setLoading(false);
-    // if(res.request.status === 200){
-    //
-    // }
-    setError(res.data.message)
-    setTimeout(()=>{
-      setModal(false);
-    },[5000])
+    console.log(res)
+    if(res.status === 200 && res.data.success == true){
+      setApiStatus('success')
+      let loggedInUser = localStorage.getItem('user');
+      loggedInUser = JSON.parse(loggedInUser);
+      let buz = Object.assign(loggedInUser.busines, submitData);
+      delete loggedInUser.busines;
+      loggedInUser.busines = buz;
+      if(submitData.business_image){
+        loggedInUser.busines.business_image = submitData.business_image.preview;
+      }
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(loggedInUser));
+      setUpdatedUser(loggedInUser)
+      setTimeout(()=>{
+        setModal(false);
+        setError("")
+      },[5000])
+    }
+    else {
+      setApiStatus('danger')
+      setTimeout(() => {
+        setError("")
+        setApiStatus('success')
+      }, [2000])
+
+    }
   };
 
   // handles ondrop function of dropzone
@@ -363,9 +439,9 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       </label>
                       <input
                         type="text"
-                        id="full-name"
+                        id="first_name_profile"
                         className="form-control"
-                        name="name"
+                        name="first_name"
                         onChange={(e) => onInputChange(e)}
                         defaultValue={formData.first_name}
                         placeholder="Enter Full name"
@@ -379,9 +455,9 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       </label>
                       <input
                         type="text"
-                        id="display-name"
+                        id="last_name_profile"
                         className="form-control"
-                        name="displayName"
+                        name="last_name"
                         onChange={(e) => onInputChange(e)}
                         defaultValue={formData.last_name}
                         placeholder="Enter display name"
@@ -397,7 +473,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                         type="number"
                         id="phone-no"
                         className="form-control"
-                        name="phone"
+                        name="phone_number"
                         onChange={(e) => onInputChange(e)}
                         defaultValue={formData.phone_number}
                         placeholder="Phone Number"
@@ -474,7 +550,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                     </ul>
                     {errorVal && (
                         <div className="mb-3">
-                          <Alert color="success" className="alert-icon">
+                          <Alert color={apiStatus} className="alert-icon">
                             {" "}
                             <Icon name="alert-circle" /> {errorVal}{" "}
                           </Alert>
@@ -493,7 +569,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       <input
                         type="text"
                         id="address-l1"
-                        name="address"
+                        name="business_name"
                         onChange={(e) => onInputChange(e)}
                         defaultValue={formData.business_name}
                         className="form-control"
@@ -607,7 +683,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       <input
                           type="text"
                           id="address-st"
-                          name="state"
+                          name="restaurant_address"
                           onChange={(e) => onInputChange(e)}
                           defaultValue={formData.restaurant_address}
                           className="form-control"
@@ -675,7 +751,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                     </ul>
                     {errorVal && (
                         <div className="mb-3">
-                          <Alert color="success" className="alert-icon">
+                          <Alert color={apiStatus} className="alert-icon">
                             {" "}
                             <Icon name="alert-circle" /> {errorVal}{" "}
                           </Alert>
