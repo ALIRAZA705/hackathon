@@ -37,8 +37,8 @@ export const userInfoSlice = createSlice({
         },
         setBusiness: (state, data) => {
             data = data.payload;
-            if(data.busines_business_image &&  !data.busines_business_image.startsWith("blob")){
-                data.busines_business_image = IMG_STORAGE_BASE_URL + data.busines_business_image;
+            if(data.business_image &&  !data.business_image.startsWith("blob")){
+                data.business_image = IMG_STORAGE_BASE_URL + data.business_image;
             }
             state.busines_id =  data.id;
             state.busines_user_id = data.user_id;
