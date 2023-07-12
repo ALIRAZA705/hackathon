@@ -26,13 +26,13 @@ export const addNewMenuItem = (payload) => {
 }
 
 export const editMenuItem = (payload) => {
-    const id = payload.id;
-    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
-    return patchRequest(reqURI, payload);
+    const id = payload.menu_id;
+    const reqURI = editMenuItemURI.replace(':id', id);
+    return postFormDataRequest(reqURI, payload);
 }
 
 export const deleteMenuItem = (payload) => {
     const id = payload.id;
-    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
+    const reqURI = deleteMenuItemURI.replace(':id', id);
     return deleteRequest(reqURI, payload);
 }
