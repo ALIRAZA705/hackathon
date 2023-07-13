@@ -112,6 +112,7 @@ import PreparingOrders from "../pages/others/PreparingOrders";
 import ChatScreen from "../pages/others/ChatScreen";
 import Error404Modern from "../pages/error/404-modern";
 import RestaurantMenuRedirect from "../pages/others/RestaurantMenuRedirect";
+import DispatchedOrders from "../pages/others/DispatchedOrders";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -361,6 +362,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/svg-icons`} component={SVGIconPage}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders`} component={Orders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders/preparing`} component={PreparingOrders}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/orders/dispatched`} component={DispatchedOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders/delivered`} component={DeliveredOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/bookings`} component={Bookings}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Sales}></Route>

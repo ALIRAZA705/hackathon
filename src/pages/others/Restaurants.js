@@ -32,6 +32,7 @@ import {Spinner} from "reactstrap";
 import {setBusiness, setUser} from "../../store/state/userInfo";
 import {getAllRestaurants} from "../../api/restaurant/restaurant";
 import {getLoginUser} from "../../api/auth/auth";
+import RestaurantCard from "../components/RestaurantCard";
 
 let restList = [
     {id: 1, business_name: "Rest 1", business_image: null, business_description: "rest desc 1", ordr_delivery_time:"15", cuisine_type:["non-veg"], restaurant_address:"isb", starting_price: "$$", rating:"4" },
@@ -105,21 +106,37 @@ const Restaurants = () => {
                         <Block className="card-row">
                             {
                                 restaurants.map((r) => (
-                                    <RestaurantCardMaterial
-                                        key={r.id}
-                                        id={r.id}
-                                        name={r.business_name}
-                                        restLogo={r.business_image}
-                                        description={r.business_description}
-                                        delivery={r.ordr_delivery_time}
-                                        type={[r.cuisine_type]}
-                                        location={r.restaurant_address}
-                                        priceCategory={r.starting_price}
-                                        rating={r.rating}
-                                    />
+                                    // <RestaurantCardMaterial
+                                    //     key={r.id}
+                                    //     id={r.id}
+                                    //     name={r.business_name}
+                                    //     restLogo={r.business_image}
+                                    //     description={r.business_description}
+                                    //     delivery={r.ordr_delivery_time}
+                                    //     type={[r.cuisine_type]}
+                                    //     location={r.restaurant_address}
+                                    //     priceCategory={r.starting_price}
+                                    //     rating={r.rating}
+                                    // />
+
+                                <RestaurantCard
+                                key={r.id}
+                                id={r.id}
+                                name={r.business_name}
+                                restLogo={r.business_image}
+                                description={r.business_description}
+                                delivery={r.ordr_delivery_time}
+                                type={[r.cuisine_type]}
+                                location={r.restaurant_address}
+                                priceCategory={r.starting_price}
+                                rating={r.rating}
+                                />
                                 ))
                             }
+
+
                         </Block>
+
                     </div>
 
                 </Content>

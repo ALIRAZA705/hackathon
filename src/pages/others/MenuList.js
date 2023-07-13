@@ -17,9 +17,18 @@ import {
   DataTableBody,
   DataTableRow,
   DataTableItem,
-  PaginationComponent,
+  PaginationComponent, PreviewCard,
 } from "../../components/Component";
-import {Card, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle, Badge, Spinner} from "reactstrap";
+import {
+  Card,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownToggle,
+  Badge,
+  Spinner,
+  Alert
+} from "reactstrap";
 import { productData, categoryOptions } from "../pre-built/products/ProductData";
 import SimpleBar from "simplebar-react";
 import { useForm } from "react-hook-form";
@@ -30,7 +39,7 @@ import { RSelect } from "../../components/Component";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setBusiness, setUser} from "../../store/state/userInfo";
-import {getMenuItemsByRestId} from "../../api/menu/menu";
+import {deleteMenuItem, getMenuItemsByRestId} from "../../api/menu/menu";
 import {menuTableDataMapper} from "../../helper/menuTableHelper";
 import {Box} from "@mui/material";
 import AddMenuItemForm from "../components/AddMenuItemForm";
@@ -42,6 +51,7 @@ const MenuList = (props) => {
   const user = useSelector(state => state.userInfo)
   const [data, setData] = useState([]);
   const [smOption, setSmOption] = useState(false);
+  const [errorVal, setError] = useState("");
   const [selectedRestaurant, setSelectedRestaurant] = useState(null)
   const [formData, setFormData] = useState({
     name: "",
@@ -233,10 +243,20 @@ const MenuList = (props) => {
   };
 
   // function to delete a product
-  const deleteProduct = (id) => {
+  const deleteProduct = async (id) => {
     let defaultData = data;
-    defaultData = defaultData.filter((item) => item.id !== id);
-    setData([...defaultData]);
+    const res = await deleteMenuItem({id});
+    if(res.status !== 200){
+      let err = res.response.data.message ? (JSON.stringify(res.response.data.message) + ": Error Deleting Menu Item") : "Error Deleting Menu Item";
+      setError(err)
+      setTimeout(()=>{
+        setError("")
+      },[2000])
+    }
+    else{
+      defaultData = defaultData.filter((item) => item.id !== id);
+      setData([...defaultData]);
+    }
   };
 
   // function to delete the seletected item
@@ -360,22 +380,32 @@ const MenuList = (props) => {
                 </BlockBetween>
               </BlockHead>
               <Block>
+                {errorVal && (
+                    <div className="mb-3">
+                      <Alert color="danger" className="alert-icon">
+                        {" "}
+                        <Icon name="alert-circle" /> {errorVal}{" "}
+                      </Alert>
+                    </div>
+                )}
                 <Card className="card-bordered">
-                  <div className="card-inner-group">
+                  <Box sx={{
+                    px: "2vw"
+                  }} className="card-inner-group">
                     <div className="card-inner p-0">
                       <DataTableBody>
                         <DataTableHead>
-                          <DataTableRow className="nk-tb-col-check">
-                            <div className="custom-control custom-control-sm custom-checkbox notext">
-                              <input
-                                  type="checkbox"
-                                  className="custom-control-input form-control"
-                                  id="uid_1"
-                                  onChange={(e) => selectorCheck(e)}
-                              />
-                              <label className="custom-control-label" htmlFor="uid_1"></label>
-                            </div>
-                          </DataTableRow>
+                          {/*<DataTableRow className="nk-tb-col-check">*/}
+                          {/*  <div className="custom-control custom-control-sm custom-checkbox notext">*/}
+                          {/*    <input*/}
+                          {/*        type="checkbox"*/}
+                          {/*        className="custom-control-input form-control"*/}
+                          {/*        id="uid_1"*/}
+                          {/*        onChange={(e) => selectorCheck(e)}*/}
+                          {/*    />*/}
+                          {/*    <label className="custom-control-label" htmlFor="uid_1"></label>*/}
+                          {/*  </div>*/}
+                          {/*</DataTableRow>*/}
                           <DataTableRow size="sm">
                             <span>Name</span>
                           </DataTableRow>
@@ -451,19 +481,19 @@ const MenuList = (props) => {
                               return (
                                   // <div >
                                   <DataTableItem key={item.id}>
-                                    <DataTableRow className="nk-tb-col-check">
-                                      <div className="custom-control custom-control-sm custom-checkbox notext">
-                                        <input
-                                            type="checkbox"
-                                            className="custom-control-input form-control"
-                                            defaultChecked={item.check}
-                                            id={item.id + "uid1"}
-                                            key={Math.random()}
-                                            onChange={(e) => onSelectChange(e, item.id)}
-                                        />
-                                        <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
-                                      </div>
-                                    </DataTableRow>
+                                    {/*<DataTableRow className="nk-tb-col-check">*/}
+                                    {/*  <div className="custom-control custom-control-sm custom-checkbox notext">*/}
+                                    {/*    <input*/}
+                                    {/*        type="checkbox"*/}
+                                    {/*        className="custom-control-input form-control"*/}
+                                    {/*        defaultChecked={item.check}*/}
+                                    {/*        id={item.id + "uid1"}*/}
+                                    {/*        key={Math.random()}*/}
+                                    {/*        onChange={(e) => onSelectChange(e, item.id)}*/}
+                                    {/*    />*/}
+                                    {/*    <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>*/}
+                                    {/*  </div>*/}
+                                    {/*</DataTableRow>*/}
                                     <DataTableRow size="sm">
                               <span className="tb-product" onClick={() => {
                                 window.location.href = `/menu/${item.id}`
@@ -585,7 +615,7 @@ const MenuList = (props) => {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </Box>
                 </Card>
               </Block>
 
@@ -787,18 +817,18 @@ const MenuList = (props) => {
                     <Row className="gy-3">
                       <Col lg={6}>
                         <span className="sub-text">Product Name</span>
-                        <span className="caption-text">{formData.name}</span>
+                        <span className="caption-text">{formData.item_name}</span>
                       </Col>
                       <Col lg={6}>
                         <span className="sub-text">Product Price</span>
-                        <span className="caption-text">$ {formData.price}</span>
+                        <span className="caption-text">$ {formData.regular_price}</span>
                       </Col>
                       <Col lg={6}>
                         <span className="sub-text">Product Category</span>
                         <span className="caption-text">
                     {formData.category.map((item) => (
                         <Badge className="mr-1" color="secondary">
-                          {item.value}
+                          {item.category}
                         </Badge>
                     ))}
                   </span>
