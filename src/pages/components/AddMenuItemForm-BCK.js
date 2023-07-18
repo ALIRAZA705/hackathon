@@ -103,8 +103,7 @@ const AddMenuItemForm = (props) => {
         setLoading(true);
         let newFormData = form;
         for(let each of Object.keys(newFormData)){
-            if(each.startsWith("variant-price-") || each.startsWith("variant-name-") || each.startsWith("variant-picture-")
-                || each.startsWith("addon-price-") || each.startsWith("addon-name-") || each.startsWith("addon-picture-")){
+            if(each.startsWith("variant-price-") || each.startsWith("variant-name-")){
                 delete form[each];
             }
         }
@@ -116,40 +115,21 @@ const AddMenuItemForm = (props) => {
             category: formData.category,
             category_type: formData.categoryType,
             description: formData.description,
-            // variants: [],
-            optional_menue_type: "Simple",
-            optional_variant_type: "Optional",
-            required_variant_name: [],
-            required_variant_price: [],
-            required_variant_image: [],
-            optional_variant_name: [],
-            optional_variant_image: [],
-            optional_variant_price: [],
+            variants: [],
             restaurant_file: images
         };
 
         const variantsArr = [...Array(variants)];
         variantsArr.map((v,i)=>{
-            // let variant={};
-            // variant['variant-name'] = formData['variant-name-'+i];
-            // variant['variant-price'] = formData['variant-price-'+i];
-            // variant['variant-picture'] = formData['variant-picture-'+i];
+            let variant={};
+            variant['variant-name'] = formData['variant-name-'+i];
+            variant['variant-price'] = formData['variant-price-'+i];
+            variant['variant-picture'] = formData['variant-picture-'+i];
             // variant['variant-picture'] = URL.createObjectURL(formData['variant-picture-'+i]);
-            // payload.variants.push(variant)
-            payload.required_variant_name.push(formData['variant-name-'+i])
-            payload.required_variant_price.push(formData['variant-price-'+i])
-            payload.required_variant_image.push(formData['variant-picture-'+i])
+            payload.variants.push(variant)
         });
-
-        const addonsArr = [...Array(addons)];
-        addonsArr.map((v,i)=>{
-            payload.optional_variant_name.push(formData['addon-name-'+i])
-            payload.optional_variant_price.push(formData['addon-price-'+i])
-            payload.optional_variant_image.push(formData['addon-picture-'+i])
-        });
-        console.log("payload ::::::: ", payload)
-
         let res;
+        console.log("payload ::::::: ", payload)
         if(props.edit){
            res = await editMenuItem(payload);
         }
