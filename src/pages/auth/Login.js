@@ -34,15 +34,22 @@ const Login = () => {
       console.log("super")
       window.location.href = '/dashboard';
     }
-    else{
+    else if(user.user_login_status === "admin"){
       window.location.href = `/restaurant/${user.busines.id}/menu`;
+    }
+    else{
+      setError("Wrong Email / Not an Admin");
+      setLoading(false);
+      setTimeout(()=>{
+        setError("")
+      },[5000])
     }
     // history.push(`/dashboard`);
   }
 
   const onFormSubmit = async (formData) => {
     const payload = {
-      email: formData.name,
+      email: formData.email,
       password: formData.passcode
     }
     setLoading(true);
@@ -112,10 +119,10 @@ const Login = () => {
                   <input
                     type="text"
                     id="default-01"
-                    name="name"
+                    name="email"
                     ref={register({ required: "This field is required" })}
                     // defaultValue="admin@affinity.com"
-                    defaultValue="test2@mail.com"
+                    defaultValue="superadmin@gmail.com"
                     placeholder="Enter your email address or username"
                     className="form-control-lg form-control"
                   />
@@ -148,7 +155,7 @@ const Login = () => {
                     type={passState ? "text" : "password"}
                     id="password"
                     name="passcode"
-                    defaultValue="12345678"
+                    defaultValue="12345678@w"
                     ref={register({ required: "This field is required" })}
                     placeholder="Enter your passcode"
                     className={`form-control-lg form-control ${passState ? "is-hidden" : "is-shown"}`}

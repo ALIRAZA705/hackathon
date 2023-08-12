@@ -228,7 +228,11 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
       <BlockHead size="lg">
         <BlockBetween>
           <BlockHeadContent>
-            <BlockTitle tag="h4">Restaurant Information</BlockTitle>
+            <BlockTitle tag="h4">
+              {
+                user.role === "super-admin" ? "Admin Information" : "Restaurant Information"
+              }
+            </BlockTitle>
           </BlockHeadContent>
           <BlockHeadContent className="align-self-start d-lg-none">
             <Button
