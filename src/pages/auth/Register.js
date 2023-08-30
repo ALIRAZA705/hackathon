@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import "./register.css";
 import PageContainer from "../../layout/page-container/PageContainer";
 import Head from "../../layout/head/Head";
@@ -19,25 +19,65 @@ import {Spinner, FormGroup, UncontrolledDropdown, DropdownToggle, DropdownMenu, 
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import {postRegisterUser} from "../../api/auth/auth";
+import {getCuisineList} from "../../api/misc/misc";
 
 const Register = ({ history }) => {
   const [passState, setPassState] = useState(false);
   const [loading, setLoading] = useState(false);
   const [businessType, setBusinessType] = useState('None');
   const [cuisineType, setCuisineType] = useState('None');
+  const [cuisineDropdown, setCuisineDropdown] = useState([]);
   const { errors, register, handleSubmit } = useForm();
   const [errorVal, setError] = useState("");
 
+
+  const getCuisineDropdown = async () =>{
+
+  }
+
+  const cuisineList = useMemo(()=>{
+    if(localStorage.getItem("cuisineList")){
+      return JSON.parse(localStorage.getItem("cuisineList")).data;
+    }
+    else{
+      return null;
+    }
+  },[])
+
+
+  useEffect(async()=>{
+    console.log(cuisineList, !cuisineList)
+    if(!cuisineList){
+      const res = await getCuisineList()
+      if(res.status === 200){
+        localStorage.setItem("cuisineList", JSON.stringify(res.data.records))
+        setCuisineDropdown(res.data.records.data)
+      }
+      else  setCuisineDropdown([])
+    }
+    else{
+      console.log("cuisineList:::::::::::: ", cuisineList)
+      setCuisineDropdown(cuisineList)
+    }
+  },[cuisineList])
+
   const handleFormSubmit = async (data) => {
     data['business-type'] = businessType;
-    data['cuisine-type'] = cuisineType;
+    data['cuisine-id'] = function(){
+      return cuisineDropdown.filter((i)=>{
+        if(i.cuisine_name === cuisineType){
+          return i.id;
+        }
+      }
+      )
+    }()[0].id;
     const payload = {
       first_name: data['first-name'],
       last_name: data['last-name'],
       email: data['email'],
       business_name: data['business-name'],
       business_type: data['business-type'],
-      cuisine_type: data['cuisine-type'],
+      cuisine_id: data['cuisine-id'],
       restaurant_address: data['restaurant-address'],
       password: data['passcode'],
       confirm_password: data['passcode'],
@@ -268,30 +308,34 @@ const Register = ({ history }) => {
                     </div>
                     <DropdownMenu>
                       <ul className="link-list-opt">
-                        <li>
-                          <DropdownItem tag="a" href="#links" onClick={(ev) => {
-                            ev.preventDefault()
-                            setCuisineType('Veg')
-                          }}>
-                            <span>Veg</span>
-                          </DropdownItem>
-                        </li>
-                        <li>
-                          <DropdownItem tag="a" href="#links" onClick={(ev) => {
-                            ev.preventDefault()
-                            setCuisineType('Non-Veg')
-                          }}>
-                            <span>Non-Veg</span>
-                          </DropdownItem>
-                        </li>
-                        <li>
-                          <DropdownItem tag="a" href="#links" onClick={(ev) => {
-                            ev.preventDefault()
-                            setCuisineType('Continental')
-                          }}>
-                            <span>Continental</span>
-                          </DropdownItem>
-                        </li>
+                        {
+                          cuisineDropdown.map(item =>(
+                              <li>
+                                <DropdownItem tag="a" href="#links" onClick={(ev) => {
+                                  ev.preventDefault()
+                                  setCuisineType(item.cuisine_name)
+                                }}>
+                                  <span>{item.cuisine_name}</span>
+                                </DropdownItem>
+                              </li>
+                          ))
+                        }
+                        {/*<li>*/}
+                        {/*  <DropdownItem tag="a" href="#links" onClick={(ev) => {*/}
+                        {/*    ev.preventDefault()*/}
+                        {/*    setCuisineType('Non-Veg')*/}
+                        {/*  }}>*/}
+                        {/*    <span>Non-Veg</span>*/}
+                        {/*  </DropdownItem>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*  <DropdownItem tag="a" href="#links" onClick={(ev) => {*/}
+                        {/*    ev.preventDefault()*/}
+                        {/*    setCuisineType('Continental')*/}
+                        {/*  }}>*/}
+                        {/*    <span>Continental</span>*/}
+                        {/*  </DropdownItem>*/}
+                        {/*</li>*/}
                       </ul>
                     </DropdownMenu>
                   </UncontrolledDropdown>

@@ -23,13 +23,22 @@ import { Stack } from "@mui/material"
 import Dropzone from "react-dropzone";
 import {postEditUserProfile} from "../../../api/auth/auth";
 import {setBusiness, setUser} from "../../../store/state/userInfo";
+import {getCuisineList} from "../../../api/misc/misc";
 
 
-export const cuisineTypesDD = [
-  { value: "Veg", label: "Veg" },
-  { value: "Non-Veg", label: "Non-Veg" },
-  { value: "Continental", label: "Continental" },
-];
+// export const cuisineTypesDD = cuisineDropdown.map(
+//     (i)=>{
+//       list.push(
+//           {value: i.cuisine_name, label: i.cuisine_name, id: i.id}
+//       )
+//     }
+// )
+
+//     [
+//   { value: "Veg", label: "Veg" },
+//   { value: "Non-Veg", label: "Non-Veg" },
+//   { value: "Continental", label: "Continental" },
+// ];
 
 export const businessTypeDD = [
   { value: "Restaurant", label: "Restaurant" },
@@ -49,6 +58,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   const [modalTab, setModalTab] = useState("1");
   const [userInfo, setUserInfo] = useState(userData[0]);
   const [updatedUser, setUpdatedUser] = useState(null);
+  const [cuisineDropdown, setCuisineDropdown] = useState([]);
   const [files, setFiles] = useState([]);
   const [apiStatus, setApiStatus] = useState('success');
   const [multipartData, setMultipartData] = useState(null);
@@ -56,6 +66,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   const [loading, setLoading] = useState(false);
   const [errorVal, setError] = useState("");
   const user = useSelector(state => state.userInfo);
+
 
   const [formData, setFormData] = useState({
     first_name: user.first_name,
@@ -95,6 +106,32 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
     delete user.busines
     setFormData(user)
   },[updatedUser])
+
+  const cuisineList = useMemo(()=>{
+    if(localStorage.getItem("cuisineList")){
+      console.log("asddddddddddd", localStorage.getItem("cuisineList"))
+      return JSON.parse(localStorage.getItem("cuisineList")).data;
+    }
+    else{
+      return null;
+    }
+  },[])
+
+
+  useEffect(async()=>{
+    console.log("asdddddddddddddvsdasv", cuisineList, !cuisineList)
+    if(!cuisineList){
+      const res = await getCuisineList()
+      if(res.status === 200){
+        localStorage.setItem("cuisineList", JSON.stringify(res.data.records))
+        setCuisineDropdown(res.data.records.data)
+      }
+      else  setCuisineDropdown([])
+    }
+    else{
+      setCuisineDropdown(cuisineList)
+    }
+  },[cuisineList])
 
   const onInputChange = (e) => {
     console.log(e.target.name, e.target.value)
@@ -147,6 +184,14 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
     let submitData = {
       business_name: formData.business_name,
       business_type: formData.business_type,
+      cuisine_id: function(){
+        return cuisineDropdown.filter((i)=>{
+              if(i.cuisine_name === formData.cuisine_type){
+                return i.id;
+              }
+            }
+        )
+      }()[0].id,
       cuisine_type: formData.cuisine_type,
       ordr_delivery_time: formData.ordr_delivery_time,
       restaurant_address: formData.restaurant_address,
@@ -221,6 +266,19 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
     setModal(false);
   };
 
+  const cuisineTypesDD = useMemo(()=>{
+    console.log(cuisineDropdown)
+    let list = [];
+    cuisineDropdown.map(
+        (i)=>{
+          list.push(
+              {value: i.cuisine_name, label: i.cuisine_name, id: i.id}
+          )
+        }
+    )
+    return list;
+  },[cuisineDropdown])
+
 
   return (
     <React.Fragment>
@@ -251,7 +309,10 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   <div className="data-head">
                       <h6 className="overline-title">Business Info</h6>
                   </div>
-                  <div className="data-item" onClick={() => setModal(true)}>
+                  <div className="data-item" onClick={() => {
+                    setModal(true)
+                    setModalTab("1")
+                  }}>
                       <div className="data-col">
                           <span className="data-label">Business Name</span>
                           <span className="data-value">{user.busines_business_name}</span>
@@ -273,7 +334,10 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
               </span>
                       </div>
                   </div>
-                  <div className="data-item" onClick={() => setModal(true)}>
+                  <div className="data-item" onClick={() => {
+                    setModal(true)
+                    setModalTab("1")
+                  }}>
                       <div className="data-col">
                           <span className="data-label">Phone Number</span>
                           <span className="data-value text-soft">{user.phone}</span>
@@ -284,7 +348,10 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
               </span>
                       </div>
                   </div>
-                  <div className="data-item" onClick={() => setModal(true)}>
+                  <div className="data-item" onClick={() => {
+                    setModal(true)
+                    setModalTab("1")
+                  }}>
                       <div className="data-col">
                           <span className="data-label">Business Description</span>
                           <span className="data-value">
@@ -297,7 +364,10 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
               </span>
                       </div>
                   </div>
-                  <div className="data-item" onClick={() => setModal(true)}>
+                  <div className="data-item" onClick={() => {
+                    setModal(true)
+                    setModalTab("1")
+                  }}>
                       <div className="data-col">
                           <span className="data-label">Business Type</span>
                           <span className="data-value">
@@ -310,7 +380,10 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
               </span>
                       </div>
                   </div>
-                  <div className="data-item" onClick={() => setModal(true)}>
+                  <div className="data-item" onClick={() => {
+                    setModal(true)
+                    setModalTab("1")
+                  }}>
                       <div className="data-col">
                           <span className="data-label">Cuisine Types</span>
                           <span className="data-value">
@@ -323,7 +396,10 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
               </span>
                       </div>
                   </div>
-                  <div className="data-item" onClick={() => setModal(true)}>
+                  <div className="data-item" onClick={() => {
+                    setModal(true)
+                    setModalTab("1")
+                  }}>
                       <div className="data-col">
                           <span className="data-label">Starting Price</span>
                           <span className="data-value">
@@ -336,7 +412,10 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
               </span>
                       </div>
                   </div>
-                  <div className="data-item" onClick={() => setModal(true)}>
+                  <div className="data-item" onClick={() => {
+                    setModal(true)
+                    setModalTab("1")
+                  }}>
                       <div className="data-col">
                           <span className="data-label">Order Delivery Time</span>
                           <span className="data-value">
@@ -349,7 +428,10 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
               </span>
                       </div>
                   </div>
-                  <div className="data-item" onClick={() => setModal(true)}>
+                  <div className="data-item" onClick={() => {
+                    setModal(true)
+                    setModalTab("1")
+                  }}>
                       <div className="data-col">
                           <span className="data-label">Restaurant Address</span>
                           <span className="data-value">
@@ -369,9 +451,12 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
           <div className="data-head">
             <h6 className="overline-title">{user.role === "admin"? "Ower Details" : "Personal Details"}</h6>
           </div>
-          <div className="data-item" onClick={() => setModal(true)}>
+          <div className="data-item" onClick={() => {
+            setModal(true)
+            setModalTab("2")
+          }}>
             <div className="data-col">
-              <span className="data-label">{user.role === "admin"? "Ower Name" : "Full Name"}</span>
+              <span className="data-label">{user.role === "admin"? "Owner Name" : "Full Name"}</span>
               <span className="data-value">{user.name}</span>
             </div>
             <div className="data-col data-col-end">

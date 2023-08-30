@@ -24,3 +24,6 @@ export const getOrdersByRestIdURI = `restaurant/:id/orders`;
 export const addOrderByRestIdURI = 'restaurant/:id/orders';
 export const editOrderURI = 'order/:id';
 export const deleteOrderURI = 'order/:id';
+
+// MISC
+export const cuisineListURI = 'cuisine_list';

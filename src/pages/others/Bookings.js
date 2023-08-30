@@ -335,99 +335,102 @@ const Bookings = () => {
                                 </div>
                             </div>
                         </div>
-                        <DataTableBody>
-                            <DataTableHead>
-                                <DataTableRow>
-                                    <span>Order</span>
-                                </DataTableRow>
-                                <DataTableRow>
-                                    <span >Date</span>
-                                </DataTableRow>
-                                <DataTableRow>
-                                    <span>Customer</span>
-                                </DataTableRow>
-                                <DataTableRow>
-                                    <span>Details</span>
-                                </DataTableRow>
-                                <DataTableRow>
-                                    <span >Amount</span>
-                                </DataTableRow>
+                        <div style={{marginLeft: "4rem"}}>
+                            <DataTableBody>
+                                <DataTableHead>
+                                    <DataTableRow>
+                                        <span>Order</span>
+                                    </DataTableRow>
+                                    <DataTableRow>
+                                        <span >Date</span>
+                                    </DataTableRow>
+                                    <DataTableRow>
+                                        <span>Customer</span>
+                                    </DataTableRow>
+                                    <DataTableRow>
+                                        <span>Details</span>
+                                    </DataTableRow>
+                                    <DataTableRow>
+                                        <span >Amount</span>
+                                    </DataTableRow>
 
-                                <DataTableRow>
-                                {/*    removed code */}
-                                    <span >Order Action</span>
-                                </DataTableRow>
-                            </DataTableHead>
+                                    <DataTableRow>
+                                        {/*    removed code */}
+                                        <span >Order Action</span>
+                                    </DataTableRow>
+                                </DataTableHead>
 
-                            {currentItems.length > 0
-                                ? currentItems.map((item) => (
-                                    <DataTableItem key={item.id}>
-                                        {/* removed */}
-                                        <DataTableRow>
-                                            <a href="#id" onClick={(ev) => ev.preventDefault()}>
-                                                #{item.orderId}
-                                            </a>
-                                        </DataTableRow>
-                                        <DataTableRow>
-                                            <span>{item.date}</span>
-                                        </DataTableRow>
-                                        <DataTableRow>
-                                            <span>{item.customer}</span>
-                                        </DataTableRow>
-                                        <DataTableRow >
-                                            {/*<span className="tb-sub text-primary">{item.purchased}</span>*/}
-                                            <span>{item.purchased}</span>
-                                        </DataTableRow>
-                                        <DataTableRow>
-                                            <span>$ {item.total}</span>
-                                        </DataTableRow>
-                                        <DataTableRow>
-                                            <Stack direction="row" gap={2}>
-                                                <Button
-                                                    sx={{
-                                                        border: "1px solid #1ee0ac",
-                                                        background: "#1ee0ac !important",
-                                                        borderRadius: "30px"
-                                                    }}
-                                                    href="#markasdone"
-                                                    onClick={(ev) => {
-                                                        ev.preventDefault();
-                                                        selectorMarkAsDelivered();
-                                                    }}
-                                                >
-                                                    {/*<Icon name="truck"></Icon>*/}
-                                                    <Typography sx={{
-                                                        textTransform: "none",
-                                                        color: "white",
-                                                        fontSize: "13px"
-                                                    }}>Approve</Typography>
-                                                </Button>
-                                                <Button
-                                                    sx={{
-                                                        border: "1px solid #f4bd0e",
-                                                        background: "#f4bd0e !important",
-                                                        borderRadius: "30px"
-                                                    }}
-                                                    href="#markasdone"
-                                                    onClick={(ev) => {
-                                                        ev.preventDefault();
-                                                        selectorMarkAsDelivered();
-                                                    }}
-                                                >
-                                                    {/*<Icon name="truck"></Icon>*/}
-                                                    <Typography sx={{
-                                                        textTransform: "none",
-                                                        color: "white",
-                                                        fontSize: "13px"
-                                                    }}>Decline</Typography>
-                                                </Button>
-                                            </Stack>
-                                        {/*    removed */}
-                                        </DataTableRow>
-                                    </DataTableItem>
-                                ))
-                                : null}
-                        </DataTableBody>
+                                {currentItems.length > 0
+                                    ? currentItems.map((item) => (
+                                        <DataTableItem key={item.id}>
+                                            {/* removed */}
+                                            <DataTableRow>
+                                                <a href="#id" onClick={(ev) => ev.preventDefault()}>
+                                                    #{item.orderId}
+                                                </a>
+                                            </DataTableRow>
+                                            <DataTableRow>
+                                                <span>{item.date}</span>
+                                            </DataTableRow>
+                                            <DataTableRow>
+                                                <span>{item.customer}</span>
+                                            </DataTableRow>
+                                            <DataTableRow >
+                                                {/*<span className="tb-sub text-primary">{item.purchased}</span>*/}
+                                                <span>{item.purchased}</span>
+                                            </DataTableRow>
+                                            <DataTableRow>
+                                                <span>$ {item.total}</span>
+                                            </DataTableRow>
+                                            <DataTableRow>
+                                                <Stack direction="row" gap={2}>
+                                                    <Button
+                                                        sx={{
+                                                            border: "1px solid #1ee0ac",
+                                                            background: "#1ee0ac !important",
+                                                            borderRadius: "30px"
+                                                        }}
+                                                        href="#markasdone"
+                                                        onClick={(ev) => {
+                                                            ev.preventDefault();
+                                                            selectorMarkAsDelivered();
+                                                        }}
+                                                    >
+                                                        {/*<Icon name="truck"></Icon>*/}
+                                                        <Typography sx={{
+                                                            textTransform: "none",
+                                                            color: "white",
+                                                            fontSize: "13px"
+                                                        }}>Approve</Typography>
+                                                    </Button>
+                                                    <Button
+                                                        sx={{
+                                                            border: "1px solid #f4bd0e",
+                                                            background: "#f4bd0e !important",
+                                                            borderRadius: "30px"
+                                                        }}
+                                                        href="#markasdone"
+                                                        onClick={(ev) => {
+                                                            ev.preventDefault();
+                                                            selectorMarkAsDelivered();
+                                                        }}
+                                                    >
+                                                        {/*<Icon name="truck"></Icon>*/}
+                                                        <Typography sx={{
+                                                            textTransform: "none",
+                                                            color: "white",
+                                                            fontSize: "13px"
+                                                        }}>Decline</Typography>
+                                                    </Button>
+                                                </Stack>
+                                                {/*    removed */}
+                                            </DataTableRow>
+                                        </DataTableItem>
+                                    ))
+                                    : null}
+                            </DataTableBody>
+                        </div>
+
                         <PreviewAltCard>
                             {data.length > 0 ? (
                                 <PaginationComponent
