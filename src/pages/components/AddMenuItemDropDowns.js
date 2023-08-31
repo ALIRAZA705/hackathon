@@ -1,15 +1,18 @@
 
 export const variantTypes = [
     {
-        value: "Optional",
-        label: "Optional",
-    },
-    {
         value: "Required",
         label: "Required",
     },
 ];
 
+
+export const addonTypes = [
+    {
+        value: "Optional",
+        label: "Optional",
+    },
+];
 
 export const menuTypes = [
     {

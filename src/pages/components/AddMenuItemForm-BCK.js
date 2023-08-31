@@ -129,7 +129,7 @@ const AddMenuItemForm = (props) => {
             payload.variants.push(variant)
         });
         let res;
-        console.log("payload ::::::: ", payload)
+        console.log("payload :::1111:::: ", payload)
         if(props.edit){
            res = await editMenuItem(payload);
         }
