@@ -45,6 +45,7 @@ const Orders = (props) => {
     const indexOfLastItem = currentPage * itemPerPage;
     const indexOfFirstItem = indexOfLastItem - itemPerPage;
     const [data, setData] = useState([]);
+    const [isSuperAdmin, setIsSuperAdmin] = useState(true)
     const [onSearch, setonSearch] = useState(false);
     const [currentItems, setCurrentItems] = useState(data.slice(indexOfFirstItem, indexOfLastItem));
     const [formData, setFormData] = useState({
@@ -84,6 +85,15 @@ const Orders = (props) => {
             setCurrentItems(data.slice(indexOfFirstItem, indexOfLastItem))
         // }
     },[data])
+
+    useEffect(()=>{
+        if(JSON.parse(localStorage.getItem("user")).user_login_status === "super-admin"){
+            setIsSuperAdmin(true);
+        }
+        else{
+            setIsSuperAdmin(false);
+        }
+    },[])
 
 
     // Sorting data
@@ -615,89 +625,92 @@ const Orders = (props) => {
                                                     />
                                                 </li>
                                                 <li>
-                                                    <UncontrolledDropdown>
-                                                        <DropdownToggle tag="a" className="btn btn-icon dropdown-toggle btn-trigger">
-                                                            <Icon name="more-h"></Icon>
-                                                        </DropdownToggle>
-                                                        <DropdownMenu right>
-                                                            <ul className="link-list-opt no-bdr">
-                                                                {/*<li>*/}
-                                                                {/*    <DropdownItem*/}
-                                                                {/*        tag="a"*/}
-                                                                {/*        href="#dropdown"*/}
-                                                                {/*        onClick={(ev) => {*/}
-                                                                {/*            ev.preventDefault();*/}
-                                                                {/*            loadDetail(item.id);*/}
-                                                                {/*            toggle("details");*/}
-                                                                {/*        }}*/}
-                                                                {/*    >*/}
-                                                                {/*        <Icon name="eye"></Icon>*/}
-                                                                {/*        <span>Order Details</span>*/}
-                                                                {/*    </DropdownItem>*/}
-                                                                {/*</li>*/}
-                                                                {/*{item.order_status === "Pending" && (*/}
-                                                                {/*    <li>*/}
-                                                                {/*        <DropdownItem*/}
-                                                                {/*            tag="a"*/}
-                                                                {/*            onClick={(ev) => {*/}
-                                                                {/*                ev.preventDefault();*/}
-                                                                {/*                changeOrderStatus({id: item.id, order_status:"Preparing" })*/}
-                                                                {/*                deleteOrder(item.id);*/}
-                                                                {/*            }}*/}
-                                                                {/*        >*/}
-                                                                {/*            <Icon name="truck"></Icon>*/}
-                                                                {/*            <span>Mark as Preparing</span>*/}
-                                                                {/*        </DropdownItem>*/}
-                                                                {/*    </li>*/}
-                                                                {/*)}*/}
-                                                                {item.order_status === "Preparing" && (
+                                                    {
+                                                        !isSuperAdmin &&
+                                                        <UncontrolledDropdown>
+                                                            <DropdownToggle tag="a" className="btn btn-icon dropdown-toggle btn-trigger">
+                                                                <Icon name="more-h"></Icon>
+                                                            </DropdownToggle>
+                                                            <DropdownMenu right>
+                                                                <ul className="link-list-opt no-bdr">
+                                                                    {/*<li>*/}
+                                                                    {/*    <DropdownItem*/}
+                                                                    {/*        tag="a"*/}
+                                                                    {/*        href="#dropdown"*/}
+                                                                    {/*        onClick={(ev) => {*/}
+                                                                    {/*            ev.preventDefault();*/}
+                                                                    {/*            loadDetail(item.id);*/}
+                                                                    {/*            toggle("details");*/}
+                                                                    {/*        }}*/}
+                                                                    {/*    >*/}
+                                                                    {/*        <Icon name="eye"></Icon>*/}
+                                                                    {/*        <span>Order Details</span>*/}
+                                                                    {/*    </DropdownItem>*/}
+                                                                    {/*</li>*/}
+                                                                    {/*{item.order_status === "Pending" && (*/}
+                                                                    {/*    <li>*/}
+                                                                    {/*        <DropdownItem*/}
+                                                                    {/*            tag="a"*/}
+                                                                    {/*            onClick={(ev) => {*/}
+                                                                    {/*                ev.preventDefault();*/}
+                                                                    {/*                changeOrderStatus({id: item.id, order_status:"Preparing" })*/}
+                                                                    {/*                deleteOrder(item.id);*/}
+                                                                    {/*            }}*/}
+                                                                    {/*        >*/}
+                                                                    {/*            <Icon name="truck"></Icon>*/}
+                                                                    {/*            <span>Mark as Preparing</span>*/}
+                                                                    {/*        </DropdownItem>*/}
+                                                                    {/*    </li>*/}
+                                                                    {/*)}*/}
+                                                                    {item.order_status === "Preparing" && (
+                                                                        <li>
+                                                                            <DropdownItem
+                                                                                tag="a"
+                                                                                href="#dropdown"
+                                                                                onClick={(ev) => {
+                                                                                    ev.preventDefault();
+                                                                                    changeOrderStatus({id: item.id, order_status:"Ready To Deliver" })
+                                                                                    deleteOrder(item.id);
+                                                                                }}
+                                                                            >
+                                                                                <Icon name="truck"></Icon>
+                                                                                <span>Mark as Dispatched</span>
+                                                                            </DropdownItem>
+                                                                        </li>
+                                                                    )}
+                                                                    {item.order_status === "Ready To Deliver" && (
+                                                                        <li>
+                                                                            <DropdownItem
+                                                                                tag="a"
+                                                                                href="#dropdown"
+                                                                                onClick={(ev) => {
+                                                                                    ev.preventDefault();
+                                                                                    changeOrderStatus({id: item.id, order_status:"Delivered" })
+                                                                                    deleteOrder(item.id);
+                                                                                }}
+                                                                            >
+                                                                                <Icon name="truck"></Icon>
+                                                                                <span>Mark as Delivered</span>
+                                                                            </DropdownItem>
+                                                                        </li>
+                                                                    )}
                                                                     <li>
                                                                         <DropdownItem
                                                                             tag="a"
                                                                             href="#dropdown"
                                                                             onClick={(ev) => {
                                                                                 ev.preventDefault();
-                                                                                changeOrderStatus({id: item.id, order_status:"Ready To Deliver" })
                                                                                 deleteOrder(item.id);
                                                                             }}
                                                                         >
-                                                                            <Icon name="truck"></Icon>
-                                                                            <span>Mark as Dispatched</span>
+                                                                            <Icon name="trash"></Icon>
+                                                                            <span>Remove Order</span>
                                                                         </DropdownItem>
                                                                     </li>
-                                                                )}
-                                                                {item.order_status === "Ready To Deliver" && (
-                                                                    <li>
-                                                                        <DropdownItem
-                                                                            tag="a"
-                                                                            href="#dropdown"
-                                                                            onClick={(ev) => {
-                                                                                ev.preventDefault();
-                                                                                changeOrderStatus({id: item.id, order_status:"Delivered" })
-                                                                                deleteOrder(item.id);
-                                                                            }}
-                                                                        >
-                                                                            <Icon name="truck"></Icon>
-                                                                            <span>Mark as Delivered</span>
-                                                                        </DropdownItem>
-                                                                    </li>
-                                                                )}
-                                                                <li>
-                                                                    <DropdownItem
-                                                                        tag="a"
-                                                                        href="#dropdown"
-                                                                        onClick={(ev) => {
-                                                                            ev.preventDefault();
-                                                                            deleteOrder(item.id);
-                                                                        }}
-                                                                    >
-                                                                        <Icon name="trash"></Icon>
-                                                                        <span>Remove Order</span>
-                                                                    </DropdownItem>
-                                                                </li>
-                                                            </ul>
-                                                        </DropdownMenu>
-                                                    </UncontrolledDropdown>
+                                                                </ul>
+                                                            </DropdownMenu>
+                                                        </UncontrolledDropdown>
+                                                    }
                                                 </li>
                                             </ul>
                                         </DataTableRow>
@@ -859,32 +872,32 @@ const Orders = (props) => {
                             <Row className="gy-3">
                                 <Col lg={6}>
                                     <span className="sub-text">Order Id</span>
-                                    <span className="caption-text">{formData.orderId}</span>
+                                    <span className="caption-text">{formData.id}</span>
                                 </Col>
                                 <Col lg={6}>
                                     <span className="sub-text">Status</span>
                                     <span
-                                        className={`dot bg-${formData.status === "Delivered" ? "success" : "warning"} d-mb-none`}
+                                        className={`dot bg-${formData.order_status === "Delivered" ? "success" : "warning"} d-mb-none`}
                                     ></span>
                                     <span
                                         className={`badge badge-sm badge-dot has-bg badge-${
                                             formData.status === "Delivered" ? "success" : "warning"
                                         } d-none d-mb-inline-flex`}
                                     >
-                    {formData.status}
+                    {formData.order_status}
                   </span>
                                 </Col>
                                 <Col lg={6}>
                                     <span className="sub-text">Customer</span>
-                                    <span className="caption-text">{formData.customer}</span>
+                                    <span className="caption-text">{formData.customer_name}</span>
                                 </Col>
                                 <Col lg={6}>
                                     <span className="sub-text">Purchased Product</span>
-                                    <span className="caption-text">{formData.purchased}</span>
+                                    <span className="caption-text">{formData.restaurant_data?.restaurant_menue[0]?.item_name}</span>
                                 </Col>
                                 <Col lg={6}>
                                     <span className="sub-text">Total Price</span>
-                                    <span className="caption-text">{formData.total}</span>
+                                    <span className="caption-text">$ {formData.amount_captured}</span>
                                 </Col>
                             </Row>
                         </div>
