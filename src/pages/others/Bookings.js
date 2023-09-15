@@ -35,9 +35,10 @@ import {
 } from "reactstrap";
 import { useForm } from "react-hook-form";
 import { getDateStructured } from "../../utils/Utils";
+import {changeOrderStatus, getOrdersByRestId} from "../../api/order/order";
 
 const Bookings = () => {
-    const [data, setData] = useState(orderData);
+    const [data, setData] = useState([]);
     const [onSearch, setonSearch] = useState(false);
     const [formData, setFormData] = useState({
         id: null,
@@ -70,15 +71,27 @@ const Bookings = () => {
         }
     };
 
+    // fetch data from API
+    useEffect(async()=>{
+        const res = await getOrdersByRestId();
+        console.log("res ordersss : ", res?.data?.records)
+        if(res?.status === 200){
+            let preparing = res?.data?.records.filter(r=>r.order_status === "Pending")
+            setData(preparing)
+        }
+        else
+            setData([])
+    },[])
+
     // Changing state value when searching name
     useEffect(() => {
         if (onSearchText !== "") {
-            const filteredObject = orderData.filter((item) => {
+            const filteredObject = data.filter((item) => {
                 return item.orderId.includes(onSearchText);
             });
             setData([...filteredObject]);
         } else {
-            setData([...orderData]);
+            // setData([...orderData]);
         }
     }, [onSearchText]);
 
@@ -226,16 +239,16 @@ const Bookings = () => {
                                 <div className="card-tools mr-n1">
                                     <ul className="btn-toolbar gx-1">
                                         <li>
-                                            <Button
-                                                href="#search"
-                                                onClick={(ev) => {
-                                                    ev.preventDefault();
-                                                    setonSearch(true);
-                                                }}
-                                                className="btn-icon search-toggle toggle-search"
-                                            >
-                                                <Icon name="search"></Icon>
-                                            </Button>
+                                            {/*<Button*/}
+                                            {/*    href="#search"*/}
+                                            {/*    onClick={(ev) => {*/}
+                                            {/*        ev.preventDefault();*/}
+                                            {/*        setonSearch(true);*/}
+                                            {/*    }}*/}
+                                            {/*    className="btn-icon search-toggle toggle-search"*/}
+                                            {/*>*/}
+                                            {/*    <Icon name="search"></Icon>*/}
+                                            {/*</Button>*/}
                                         </li>
                                         <li className="btn-toolbar-sep"></li>
                                         {/*  removed code */}
@@ -350,6 +363,9 @@ const Bookings = () => {
                                     <DataTableRow>
                                         <span>Details</span>
                                     </DataTableRow>
+                                    <DataTableRow size="md">
+                                        <span className="sub-text">Quantity</span>
+                                    </DataTableRow>
                                     <DataTableRow>
                                         <span >Amount</span>
                                     </DataTableRow>
@@ -366,21 +382,24 @@ const Bookings = () => {
                                             {/* removed */}
                                             <DataTableRow>
                                                 <a href="#id" onClick={(ev) => ev.preventDefault()}>
-                                                    #{item.orderId}
+                                                    #{item.id}
                                                 </a>
                                             </DataTableRow>
                                             <DataTableRow>
-                                                <span>{item.date}</span>
+                                                <span>{item.created_at.split("T")[0]}</span>
                                             </DataTableRow>
                                             <DataTableRow>
-                                                <span>{item.customer}</span>
+                                                <span>{item.customer_name}</span>
                                             </DataTableRow>
                                             <DataTableRow >
                                                 {/*<span className="tb-sub text-primary">{item.purchased}</span>*/}
-                                                <span>{item.purchased}</span>
+                                                <span>{item.restaurant_data.restaurant_menue[0].item_name}</span>
                                             </DataTableRow>
                                             <DataTableRow>
-                                                <span>$ {item.total}</span>
+                                                <span>$ {item.item_delivered_quantity}</span>
+                                            </DataTableRow>
+                                            <DataTableRow>
+                                                <span>$ {item.amount_captured}</span>
                                             </DataTableRow>
                                             <DataTableRow>
                                                 <Stack direction="row" gap={2}>
@@ -393,7 +412,8 @@ const Bookings = () => {
                                                         href="#markasdone"
                                                         onClick={(ev) => {
                                                             ev.preventDefault();
-                                                            selectorMarkAsDelivered();
+                                                            changeOrderStatus({id: item.id, order_status:"Preparing" })
+                                                            deleteOrder(item.id);
                                                         }}
                                                     >
                                                         {/*<Icon name="truck"></Icon>*/}
@@ -412,7 +432,8 @@ const Bookings = () => {
                                                         href="#markasdone"
                                                         onClick={(ev) => {
                                                             ev.preventDefault();
-                                                            selectorMarkAsDelivered();
+                                                            changeOrderStatus({id: item.id, order_status:"Rejected" })
+                                                            deleteOrder(item.id);
                                                         }}
                                                     >
                                                         {/*<Icon name="truck"></Icon>*/}

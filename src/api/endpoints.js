@@ -20,9 +20,9 @@ export const getRestaurantByIdURI = `restaurant/:id`;
 
 // Orders
 // export const getAllOrdersURI = 'restaurants';
-export const getOrdersByRestIdURI = `restaurant/:id/orders`;
+export const getOrdersByRestIdURI = `order_list`;
 export const addOrderByRestIdURI = 'restaurant/:id/orders';
-export const editOrderURI = 'order/:id';
+export const changeOrderStatusURI = 'change_order_status/:id';
 export const deleteOrderURI = 'order/:id';
 
 // rider

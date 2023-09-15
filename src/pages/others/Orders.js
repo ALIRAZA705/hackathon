@@ -35,6 +35,7 @@ import {
 } from "reactstrap";
 import { useForm } from "react-hook-form";
 import { getDateStructured } from "../../utils/Utils";
+import {changeOrderStatus} from "../../api/order/order";
 
 const Orders = (props) => {
     const [onSearchText, setSearchText] = useState("");
@@ -507,6 +508,9 @@ const Orders = (props) => {
                                 <DataTableRow size="md">
                                     <span className="sub-text">Purchased</span>
                                 </DataTableRow>
+                                <DataTableRow size="md">
+                                    <span className="sub-text">Quantity</span>
+                                </DataTableRow>
                                 <DataTableRow>
                                     <span className="sub-text">Total</span>
                                 </DataTableRow>
@@ -514,41 +518,6 @@ const Orders = (props) => {
                                 <DataTableRow className="nk-tb-col-tools">
                                     <ul className="nk-tb-actions gx-1 my-n1">
                                         <li>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle tag="a" className="btn btn-trigger dropdown-toggle btn-icon mr-n1">
-                                                    <Icon name="more-h"></Icon>
-                                                </DropdownToggle>
-                                                <DropdownMenu right>
-                                                    <ul className="link-list-opt no-bdr">
-                                                        <li>
-                                                            <DropdownItem
-                                                                tag="a"
-                                                                href="#markasdone"
-                                                                onClick={(ev) => {
-                                                                    ev.preventDefault();
-                                                                    selectorMarkAsDelivered();
-                                                                }}
-                                                            >
-                                                                <Icon name="truck"></Icon>
-                                                                <span>Mark As Delivered</span>
-                                                            </DropdownItem>
-                                                        </li>
-                                                        <li>
-                                                            <DropdownItem
-                                                                tag="a"
-                                                                href="#remove"
-                                                                onClick={(ev) => {
-                                                                    ev.preventDefault();
-                                                                    selectorDeleteOrder();
-                                                                }}
-                                                            >
-                                                                <Icon name="trash"></Icon>
-                                                                <span>Remove Orders</span>
-                                                            </DropdownItem>
-                                                        </li>
-                                                    </ul>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
                                         </li>
                                     </ul>
                                 </DataTableRow>
@@ -572,11 +541,11 @@ const Orders = (props) => {
                                         </DataTableRow>
                                         <DataTableRow>
                                             <a href="#id" onClick={(ev) => ev.preventDefault()}>
-                                                #{item.orderId}
+                                                #{item.id}
                                             </a>
                                         </DataTableRow>
                                         <DataTableRow size="md">
-                                            <span>{item.date}</span>
+                                            <span>{item.created_at.split("T")[0]}</span>
                                         </DataTableRow>
                                         {/*<DataTableRow>*/}
                                         {/*    <Stack direction="row" gap={1} sx={{*/}
@@ -604,26 +573,29 @@ const Orders = (props) => {
                                             {/*</Stack>*/}
                                         {/*</DataTableRow>*/}
                                         <DataTableRow size="sm">
-                                            <span className="tb-sub">{item.customer}</span>
+                                            <span className="tb-sub">{item.customer_name}</span>
                                         </DataTableRow>
                                         <DataTableRow size="md">
-                                            <span className="tb-sub text-primary">{item.purchased}</span>
+                                            <span className="tb-sub text-primary">{item.restaurant_data.restaurant_menue[0].item_name}</span>
+                                        </DataTableRow>
+                                        <DataTableRow size="md">
+                                            <span className="tb-sub text-primary">{item.item_delivered_quantity}</span>
                                         </DataTableRow>
                                         <DataTableRow>
-                                            <span className="tb-lead">$ {item.total}</span>
+                                            <span className="tb-lead">$ {item.amount_captured}</span>
                                         </DataTableRow>
                                         <DataTableRow className="nk-tb-col-tools">
                                             <ul className="nk-tb-actions gx-1">
                                                 {item.status !== "Delivered" && (
                                                     <li className="nk-tb-action-hidden" onClick={() => markAsDelivered(item.id)}>
-                                                        <TooltipComponent
-                                                            tag="a"
-                                                            containerClassName="btn btn-trigger btn-icon"
-                                                            id={"delivery" + item.id}
-                                                            icon="truck"
-                                                            direction="top"
-                                                            text="Mark as Delivered"
-                                                        />
+                                                        {/*<TooltipComponent*/}
+                                                        {/*    tag="a"*/}
+                                                        {/*    containerClassName="btn btn-trigger btn-icon"*/}
+                                                        {/*    id={"delivery" + item.id}*/}
+                                                        {/*    icon="truck"*/}
+                                                        {/*    direction="top"*/}
+                                                        {/*    text="Mark as Delivered"*/}
+                                                        {/*/>*/}
                                                     </li>
                                                 )}
                                                 <li
@@ -649,28 +621,60 @@ const Orders = (props) => {
                                                         </DropdownToggle>
                                                         <DropdownMenu right>
                                                             <ul className="link-list-opt no-bdr">
-                                                                <li>
-                                                                    <DropdownItem
-                                                                        tag="a"
-                                                                        href="#dropdown"
-                                                                        onClick={(ev) => {
-                                                                            ev.preventDefault();
-                                                                            loadDetail(item.id);
-                                                                            toggle("details");
-                                                                        }}
-                                                                    >
-                                                                        <Icon name="eye"></Icon>
-                                                                        <span>Order Details</span>
-                                                                    </DropdownItem>
-                                                                </li>
-                                                                {item.status !== "Delivered" && (
+                                                                {/*<li>*/}
+                                                                {/*    <DropdownItem*/}
+                                                                {/*        tag="a"*/}
+                                                                {/*        href="#dropdown"*/}
+                                                                {/*        onClick={(ev) => {*/}
+                                                                {/*            ev.preventDefault();*/}
+                                                                {/*            loadDetail(item.id);*/}
+                                                                {/*            toggle("details");*/}
+                                                                {/*        }}*/}
+                                                                {/*    >*/}
+                                                                {/*        <Icon name="eye"></Icon>*/}
+                                                                {/*        <span>Order Details</span>*/}
+                                                                {/*    </DropdownItem>*/}
+                                                                {/*</li>*/}
+                                                                {/*{item.order_status === "Pending" && (*/}
+                                                                {/*    <li>*/}
+                                                                {/*        <DropdownItem*/}
+                                                                {/*            tag="a"*/}
+                                                                {/*            onClick={(ev) => {*/}
+                                                                {/*                ev.preventDefault();*/}
+                                                                {/*                changeOrderStatus({id: item.id, order_status:"Preparing" })*/}
+                                                                {/*                deleteOrder(item.id);*/}
+                                                                {/*            }}*/}
+                                                                {/*        >*/}
+                                                                {/*            <Icon name="truck"></Icon>*/}
+                                                                {/*            <span>Mark as Preparing</span>*/}
+                                                                {/*        </DropdownItem>*/}
+                                                                {/*    </li>*/}
+                                                                {/*)}*/}
+                                                                {item.order_status === "Preparing" && (
                                                                     <li>
                                                                         <DropdownItem
                                                                             tag="a"
                                                                             href="#dropdown"
                                                                             onClick={(ev) => {
                                                                                 ev.preventDefault();
-                                                                                markAsDelivered(item.id);
+                                                                                changeOrderStatus({id: item.id, order_status:"Ready To Deliver" })
+                                                                                deleteOrder(item.id);
+                                                                            }}
+                                                                        >
+                                                                            <Icon name="truck"></Icon>
+                                                                            <span>Mark as Dispatched</span>
+                                                                        </DropdownItem>
+                                                                    </li>
+                                                                )}
+                                                                {item.order_status === "Ready To Deliver" && (
+                                                                    <li>
+                                                                        <DropdownItem
+                                                                            tag="a"
+                                                                            href="#dropdown"
+                                                                            onClick={(ev) => {
+                                                                                ev.preventDefault();
+                                                                                changeOrderStatus({id: item.id, order_status:"Delivered" })
+                                                                                deleteOrder(item.id);
                                                                             }}
                                                                         >
                                                                             <Icon name="truck"></Icon>
