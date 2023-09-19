@@ -31,11 +31,13 @@ import {
     DropdownItem,
     FormGroup,
     ModalBody,
-    Modal,
+    Modal, Spinner, Alert,
 } from "reactstrap";
 import { useForm } from "react-hook-form";
 import { getDateStructured } from "../../utils/Utils";
 import {changeOrderStatus} from "../../api/order/order";
+import {ordrDeliveryTimeDD} from "../pre-built/user-manage/UserProfileRegular";
+import {getAllRiders} from "../../api/rider/rider";
 
 const Orders = (props) => {
     const [onSearchText, setSearchText] = useState("");
@@ -47,6 +49,8 @@ const Orders = (props) => {
     const [data, setData] = useState([]);
     const [isSuperAdmin, setIsSuperAdmin] = useState(true)
     const [onSearch, setonSearch] = useState(false);
+    const [riders, setRiders] = useState([]);
+    const [riderErr, setRiderErr] = useState(null);
     const [currentItems, setCurrentItems] = useState(data.slice(indexOfFirstItem, indexOfLastItem));
     const [formData, setFormData] = useState({
         id: null,
@@ -61,6 +65,7 @@ const Orders = (props) => {
     const [view, setView] = useState({
         add: false,
         details: false,
+        rider: false
     });
 
 
@@ -232,6 +237,22 @@ const Orders = (props) => {
         setData([...newData]);
     };
 
+    const getRidersList = async () => {
+        const res = await getAllRiders();
+        // console.log("res for riders list::: ", res)
+        if(res.status == 200){
+            let riderDD = [];
+            const data = res.data.records.data;
+            data.forEach((r)=>{
+                riderDD.push({
+                    value: r.id,
+                    label: r.first_name + " " + r.last_name
+                })
+            })
+            setRiders(riderDD);
+        }
+
+    }
 
 
     // Change Page
@@ -669,12 +690,15 @@ const Orders = (props) => {
                                                                                 href="#dropdown"
                                                                                 onClick={(ev) => {
                                                                                     ev.preventDefault();
-                                                                                    changeOrderStatus({id: item.id, order_status:"Ready To Deliver" })
-                                                                                    deleteOrder(item.id);
+                                                                                    loadDetail(item.id);
+                                                                                    getRidersList();
+                                                                                    setView({ add: false, details: false, rider: true });
+                                                                                    // changeOrderStatus({id: item.id, order_status:"Ready To Deliver" })
+                                                                                    // deleteOrder(item.id);
                                                                                 }}
                                                                             >
                                                                                 <Icon name="truck"></Icon>
-                                                                                <span>Mark as Dispatched</span>
+                                                                                <span>Assign Rider & Dispatch</span>
                                                                             </DropdownItem>
                                                                         </li>
                                                                     )}
@@ -899,6 +923,73 @@ const Orders = (props) => {
                                     <span className="sub-text">Total Price</span>
                                     <span className="caption-text">$ {formData.amount_captured}</span>
                                 </Col>
+                            </Row>
+                        </div>
+                    </ModalBody>
+                </Modal>
+
+                <Modal isOpen={view.rider} toggle={() => onFormCancel()} className="modal-dialog-centered" size="sm">
+                    <ModalBody>
+                        <a href="#cancel" className="close">
+                            {" "}
+                            <Icon
+                                name="cross-sm"
+                                onClick={(ev) => {
+                                    ev.preventDefault();
+                                    onFormCancel();
+                                }}
+                            ></Icon>
+                        </a>
+                        <div className="nk-tnx-details mt-sm-3">
+                            <div className="nk-modal-head mb-3">
+                                <h5 className="title">Assign a Rider</h5>
+                            </div>
+                            <Row className="gy-3">
+                                <Col lg={2}>
+                                </Col>
+                                <Col lg={8}>
+                                    <span className="sub-text">Available Riders</span>
+                                    <RSelect
+                                        options={riders}
+                                        placeholder="Select Delivery Time"
+                                        defaultValue={[
+                                            {
+                                                value: formData.ordr_delivery_time,
+                                                label: formData.ordr_delivery_time,
+                                            },
+                                        ]}
+                                        onChange={(e) => setFormData({ ...formData, ordr_delivery_time: e.value })}
+                                    />
+                                </Col>
+                                <Col lg={2}>
+                                </Col>
+                                <Col lg={2}>
+                                </Col>
+                                <Col lg={8}>
+                                    <Button color="primary" size="lg" onClick={async () => {
+                                        // setRiderErr("Err rider")
+                                        await changeOrderStatus({id: formData.id, order_status:"Ready To Deliver" })
+                                        deleteOrder(formData.id);
+                                    }}>
+                                        {false ? <Spinner size="sm" color="light" /> : "Assign & Dispatch"}
+                                    </Button>
+                                </Col>
+                                <Col lg={2}>
+                                </Col>
+
+                                <Col lg={2}></Col>
+                                <Col lg={8}>
+                                    {riderErr && (
+                                        <div className="mb-3">
+                                            <Alert color='danger' className="alert-icon">
+                                                {" "}
+                                                <Icon name="alert-circle" /> {riderErr}{" "}
+                                            </Alert>
+                                        </div>
+                                    )}
+                                </Col>
+                                <Col lg={2}></Col>
+
                             </Row>
                         </div>
                     </ModalBody>

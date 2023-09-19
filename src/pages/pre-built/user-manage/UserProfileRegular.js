@@ -311,7 +311,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </div>
                   <div className="data-item" onClick={() => {
                     setModal(true)
-                    setModalTab("1")
+                    setModalTab("2")
                   }}>
                       <div className="data-col">
                           <span className="data-label">Business Name</span>
@@ -336,7 +336,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </div>
                   <div className="data-item" onClick={() => {
                     setModal(true)
-                    setModalTab("1")
+                    setModalTab("2")
                   }}>
                       <div className="data-col">
                           <span className="data-label">Phone Number</span>
@@ -350,7 +350,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </div>
                   <div className="data-item" onClick={() => {
                     setModal(true)
-                    setModalTab("1")
+                    setModalTab("2")
                   }}>
                       <div className="data-col">
                           <span className="data-label">Business Description</span>
@@ -366,7 +366,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </div>
                   <div className="data-item" onClick={() => {
                     setModal(true)
-                    setModalTab("1")
+                    setModalTab("2")
                   }}>
                       <div className="data-col">
                           <span className="data-label">Business Type</span>
@@ -382,7 +382,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </div>
                   <div className="data-item" onClick={() => {
                     setModal(true)
-                    setModalTab("1")
+                    setModalTab("2")
                   }}>
                       <div className="data-col">
                           <span className="data-label">Cuisine Types</span>
@@ -398,7 +398,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </div>
                   <div className="data-item" onClick={() => {
                     setModal(true)
-                    setModalTab("1")
+                    setModalTab("2")
                   }}>
                       <div className="data-col">
                           <span className="data-label">Starting Price</span>
@@ -414,7 +414,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </div>
                   <div className="data-item" onClick={() => {
                     setModal(true)
-                    setModalTab("1")
+                    setModalTab("2")
                   }}>
                       <div className="data-col">
                           <span className="data-label">Order Delivery Time</span>
@@ -430,7 +430,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </div>
                   <div className="data-item" onClick={() => {
                     setModal(true)
-                    setModalTab("1")
+                    setModalTab("2")
                   }}>
                       <div className="data-col">
                           <span className="data-label">Restaurant Address</span>
@@ -453,7 +453,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
           </div>
           <div className="data-item" onClick={() => {
             setModal(true)
-            setModalTab("2")
+            setModalTab("1")
           }}>
             <div className="data-col">
               <span className="data-label">{user.role === "admin"? "Owner Name" : "Full Name"}</span>
@@ -574,7 +574,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   <Col md="4">
                     <FormGroup>
                       <label className="form-label" htmlFor="phone-no">
-                        Profile Picture
+                        Restaurant Logo
                       </label>
                       <Stack direction="row" sx={{
                         overflowX: "auto",
@@ -783,7 +783,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </Col>
                   <Col md="4">
                     <FormGroup>
-                      <label className="form-label" htmlFor="address-st">Business Image</label>
+                      <label className="form-label" htmlFor="address-st">Restaurant Banner Image</label>
                     <Stack direction="row" sx={{
                       overflowX: "auto",
                       flexShrink: "0"
