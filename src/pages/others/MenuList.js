@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from "../../layout/head/Head";
 import Content from "../../layout/content/Content";
+import {useHistory} from "react-router-dom";
 import {
   Block,
   BlockHead,
@@ -28,6 +29,7 @@ import { Modal, ModalBody } from "reactstrap";
 import { RSelect } from "../../components/Component";
 
 const MenuList = () => {
+  const history = useHistory();
   const [data, setData] = useState(productData);
   const [smOption, setSmOption] = useState(false);
   const [formData, setFormData] = useState({
@@ -62,6 +64,10 @@ const MenuList = () => {
       setData([...productData]);
     }
   }, [onSearchText]);
+
+  const handleAddProduct = () => {
+    history.push(`${process.env.PUBLIC_URL}/menu/add`)
+  }
 
   // OnChange function to get the input data
   const onInputChange = (e) => {
@@ -305,9 +311,7 @@ const MenuList = () => {
                       <Button
                         className="toggle d-none d-md-inline-flex"
                         color="primary"
-                        onClick={() => {
-                          toggle("add");
-                        }}
+                        onClick={handleAddProduct}
                       >
                         <Icon name="plus"></Icon>
                         <span>Add Product</span>

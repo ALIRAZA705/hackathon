@@ -104,6 +104,7 @@ import TinymcePreview from "../pages/components/forms/rich-editor/TinymcePreview
 import KnobPreview from "../pages/components/charts/KnobPreview";
 import { FileManagerContextProvider } from "../pages/app/file-manager/FileManagerContext";
 import Restaurants from "../pages/others/Restaurants";
+import AddMenuPage from "../pages/others/AddMenuPage";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -173,6 +174,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/transaction-crypto`} component={TransListCrypto}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/product-list`} component={ProductList}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/menu`} component={MenuList}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/menu/add`} component={AddMenuPage}></Route>
 
         <Route // context api added
           exact
