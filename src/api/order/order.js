@@ -1,14 +1,20 @@
 import {
     deleteRequest,
-    getRequest, patchRequest,
+    getRequest, patchRequest, postFormDataRequest,
     postRequest
 } from "../methodCalls";
-import {getOrdersByRestIdURI, addOrderByRestIdURI, editOrderURI, deleteOrderURI} from "../endpoints";
+import {
+    getOrdersByRestIdURI,
+    addOrderByRestIdURI,
+    editOrderURI,
+    deleteOrderURI,
+    changeOrderStatusURI
+} from "../endpoints";
 
 
 export const getOrdersByRestId = (params) => {
-    const id = params.id;
-    const reqURI = getOrdersByRestIdURI.replace(':id', id);
+    // const id = params.id;
+    const reqURI = getOrdersByRestIdURI;
     return getRequest(`${reqURI}`);
 }
 
@@ -18,10 +24,10 @@ export const addOrderByRestId = (payload) => {
     return postRequest(`${reqURI}`, payload);
 }
 
-export const editOrder = (payload) => {
+export const changeOrderStatus = (payload) => {
     const id = payload.id;
-    const reqURI = editOrderURI.replace(':id', id);
-    return patchRequest(reqURI, payload);
+    const reqURI = changeOrderStatusURI.replace(':id', id);
+    return postFormDataRequest(reqURI, payload);
 }
 
 export const deleteOrder = (payload) => {
