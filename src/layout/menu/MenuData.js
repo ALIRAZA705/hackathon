@@ -1,14 +1,14 @@
 const menu = [
-  {
-    heading: "Dashboards",
-  },
-    {
-        // icon: "speed",
-        icon: "dashboard",
-        text: "Sales Dashboard",
-        link: "/dashboard",
-        dashboard: true,
-    },
+  // {
+  //   heading: "Dashboards",
+  // },
+  //   {
+  //       // icon: "speed",
+  //       icon: "dashboard",
+  //       text: "Sales Dashboard",
+  //       link: "/dashboard",
+  //       dashboard: true,
+  //   },
     {
         heading: "Management",
     },
@@ -62,7 +62,13 @@ const menu = [
         icon: "chat",
         theme: "bg-purple-dim",
     },
-
+    {
+        // icon: "speed",
+        icon: "dashboard",
+        text: "Stats",
+        link: "/dashboard",
+        dashboard: true,
+    },
     // {
     //     icon: "users",
     //     text: "User Manage",
