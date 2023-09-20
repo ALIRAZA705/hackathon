@@ -70,6 +70,7 @@ Running React-Dashlite:
 6.  Once you serve your application by default it will take their
     default port so you can open port
     using [**localhost://3000**](<javascript:void(0)>)
+<<<<<<< HEAD
 
 **Build Application**
 
@@ -142,4 +143,3 @@ delivered
 canceled
 -> add reason to cancel the order (* mandatory)
 }
-
