@@ -34,13 +34,6 @@ import {getAllRestaurants} from "../../api/restaurant/restaurant";
 import {getLoginUser} from "../../api/auth/auth";
 import RestaurantCard from "../components/RestaurantCard";
 
-let restList = [
-    {id: 1, business_name: "Rest 1", business_image: null, business_description: "rest desc 1", ordr_delivery_time:"15", cuisine_type:["non-veg"], restaurant_address:"isb", starting_price: "$$", rating:"4" },
-    // {restId: 2, name: "Rest 2", restLogo: null, description: "rest desc 2", delivery:"25", type:["non-veg"], location:"f-7, capital", priceCategory: "$$", rating:"4.2" },
-    // {restId: 3, name: "Rest 3", restLogo: null, description: "rest desc 3", delivery:"15", type:["veg"], location:"isb", priceCategory: "$$", rating:"3.7" },
-    // {restId: 4, name: "Rest 4", restLogo: null, description: "rest desc 4", delivery:"35", type:["non-veg", "continental"], location:"saddar", priceCategory: "$$$", rating:"4" },
-    // {restId: 5, name: "Rest 5", restLogo: null, description: "rest desc 5", delivery:"12", type:["veg"], location:"isb", priceCategory: "$$$", rating:"5" },
-]
 
 const Restaurants = () => {
     const dispatch = useDispatch();
@@ -129,6 +122,7 @@ const Restaurants = () => {
                                 type={[r.cuisine_type]}
                                 location={r.restaurant_address}
                                 priceCategory={r.starting_price}
+                                startingPrice={r.starting_price}
                                 rating={r.rating}
                                 />
                                 ))
