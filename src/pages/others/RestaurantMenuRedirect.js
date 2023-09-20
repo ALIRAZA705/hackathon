@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from "../../layout/head/Head";
 import Content from "../../layout/content/Content";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import {
   Block,
   BlockHead,
@@ -34,7 +34,8 @@ import {Box} from "@mui/material";
 
 const RestaurantMenuRedirect = (props) => {
   const history = useHistory();
-  const params = useParams();
+  const { search } = useLocation();
+  console.log(" ::::::::::::::::: params" , search)
   const dispatch = useDispatch()
 ;
   const [businessId, setBusinessId] = useState(null)
@@ -54,8 +55,15 @@ const RestaurantMenuRedirect = (props) => {
 
   useEffect(()=>{
     if(businessId){
+      console.log("here i am 111 1")
       window.location.href = `/restaurant/${businessId}/menu`
     }
+    else if((window.location.search).length != 0){
+      console.log("here i am 2")
+      const id = (window.location.search).split("=")[1]
+      window.location.href = `/restaurant/${id}/menu`
+    }
+    console.log("here i am 22222")
   },[businessId])
 
 

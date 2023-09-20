@@ -20,7 +20,7 @@ import {useForm} from "react-hook-form";
 import {addNewMenuItem, editMenuItem} from "../../api/menu/menu";
 import {useParams} from "react-router";
 import {UploadButton} from "../../components/UploadButton";
-import {variantTypes, menuTypes } from "./AddMenuItemDropDowns";
+import {variantTypes, menuTypes, addonTypes} from "./AddMenuItemDropDowns";
 
 const AddMenuItemForm = (props) => {
     const params = useParams();
@@ -43,8 +43,8 @@ const AddMenuItemForm = (props) => {
         stock: 0,
         category: "",
         category_type: "",
-        required_variant_type: "Required",
-        required_menue_type: "Optional",
+        required_variant_type: null,
+        required_menue_type: null,
         fav: false,
         check: false,
     });
@@ -84,6 +84,8 @@ const AddMenuItemForm = (props) => {
 
     const deleteAllVariants = () => {
         setVariants(0);
+        setFormData({ ...formData, required_menue_type: null, required_variant_type: null });
+        // setFormData({ ...formData, });
         setPriceDisable(false)
     }
 
@@ -108,6 +110,7 @@ const AddMenuItemForm = (props) => {
 
 
     const onFormSubmit = async (form) => {
+        console.log("form", form)
         setLoading(true);
         let newFormData = form;
         for(let each of Object.keys(newFormData)){
@@ -125,8 +128,10 @@ const AddMenuItemForm = (props) => {
             category_type: formData.categoryType,
             description: formData.description,
             // variants: [],
-            optional_menue_type: "Simple",
-            optional_variant_type: "Optional",
+            required_menue_type: formData.required_menue_type,
+            required_variant_type: formData.required_variant_type,
+            optional_menue_type: formData.optional_menue_type,
+            optional_variant_type: formData.optional_variant_type,
             required_variant_name: [],
             required_variant_price: [],
             required_variant_image: [],
@@ -164,8 +169,9 @@ const AddMenuItemForm = (props) => {
         else{
             res = await addNewMenuItem(payload);
         }
-        if(res.response.data.success === false) {
-            const err= res.response.data.records.error?  res.response.data.records.error : res.response.data.message;
+
+        if(res?.response?.data?.success === false) {
+            const err= res.response?.data?.records?.error?  res.response.data.records.error : res.response?.data?.message? res.response.data.message : res;
             setError(err)
             setTimeout(()=>{
                 setError("")
@@ -175,7 +181,12 @@ const AddMenuItemForm = (props) => {
         else{
             // setError("Menu successfully added")
             // history.push(`${process.env.PUBLIC_URL}/menu`)
-            window.location.href = '/restaurant/menu';
+
+            if(JSON.parse(localStorage.getItem("user")).user_login_status === "super-admin"){
+                 window.location.href =  "/restaurant/" + payload.restaurant_id + "/menu";
+            }
+            else
+                window.location.href = '/restaurant/menu';
         }
     }
 
@@ -399,10 +410,13 @@ const AddMenuItemForm = (props) => {
                                     }}>
                                         <Stack className="vertical-center" direction="row" gap={2}>
                                             <h6>Add Item Variations</h6>
-                                            <Button className="btn-round btn-icon" color="primary" size="sm"
-                                                    onClick={updateVariants}>
-                                                <Icon name="plus" />
-                                            </Button>
+                                            {   variants === 0?
+                                                <Button className="btn-round btn-icon" color="primary" size="sm"
+                                                        onClick={updateVariants}>
+                                                    <Icon name="plus" />
+                                                </Button>
+                                                : null
+                                            }
                                         </Stack>
                                         {   variants > 0?
                                             <Button className="btn-round btn-icon" color="danger" size="sm"
@@ -508,27 +522,27 @@ const AddMenuItemForm = (props) => {
                                                              </div>
                                                          </div>
                                                      </Col>
-                                                     <Col md="2">
-                                                         <Stack direction="row" gap={2}>
-                                                             <UploadButton
-                                                                 setUploadFile={(f)=>{
-                                                                     // const a= {`variant-price-${idx}`: f}
-                                                                     setFormData({ ...formData, [`variant-picture-${idx}`]: f });
-                                                                 }}
-                                                             />
-                                                             <Box>
-                                                                 <img
-                                                                     style={{
-                                                                         padding: "1px",
-                                                                         border: "1px dotted grey"
-                                                                     }}
-                                                                     width="30px"
-                                                                     height="30px"
-                                                                     src={formData[`variant-picture-${idx}`]? URL.createObjectURL(formData[`variant-picture-${idx}`]) : null}
-                                                                 />
-                                                             </Box>
-                                                         </Stack>
-                                                     </Col>
+                                                     {/*<Col md="2">*/}
+                                                     {/*    <Stack direction="row" gap={2}>*/}
+                                                     {/*        <UploadButton*/}
+                                                     {/*            setUploadFile={(f)=>{*/}
+                                                     {/*                // const a= {`variant-price-${idx}`: f}*/}
+                                                     {/*                setFormData({ ...formData, [`variant-picture-${idx}`]: f });*/}
+                                                     {/*            }}*/}
+                                                     {/*        />*/}
+                                                     {/*        <Box>*/}
+                                                     {/*            <img*/}
+                                                     {/*                style={{*/}
+                                                     {/*                    padding: "1px",*/}
+                                                     {/*                    border: "1px dotted grey"*/}
+                                                     {/*                }}*/}
+                                                     {/*                width="30px"*/}
+                                                     {/*                height="30px"*/}
+                                                     {/*                src={formData[`variant-picture-${idx}`]? URL.createObjectURL(formData[`variant-picture-${idx}`]) : null}*/}
+                                                     {/*            />*/}
+                                                     {/*        </Box>*/}
+                                                     {/*    </Stack>*/}
+                                                     {/*</Col>*/}
                                                      <Col md="1">
                                                              <Stack direction="row" gap={2}>
                                                                  {
@@ -543,7 +557,7 @@ const AddMenuItemForm = (props) => {
                                                                          null
                                                                  }
                                                                  {
-                                                                     variants-1 == idx?
+                                                                     variants-1 == idx && (formData[`variant-name-${idx}`])?
                                                                      <Button className="btn-round btn-icon" color="primary" size="sm"
                                                                              onClick={updateVariants}>
                                                                          <Icon name="plus" />
@@ -564,10 +578,14 @@ const AddMenuItemForm = (props) => {
 
                                 <Stack className="vertical-center" direction="row" gap={2}>
                                     <h6>Addons (Optional)</h6>
-                                    <Button className="btn-round btn-icon" color="primary" size="sm"
-                                            onClick={updateAddons}>
-                                        <Icon name="plus" />
-                                    </Button>
+                                    {
+                                        addons === 0?
+                                            <Button className="btn-round btn-icon" color="primary" size="sm"
+                                                    onClick={updateAddons}>
+                                                <Icon name="plus" />
+                                            </Button>
+                                            : null
+                                    }
                                 </Stack>
                                 <Divider color="white" width="100%"/>
                                 <Col size="12">
@@ -584,7 +602,7 @@ const AddMenuItemForm = (props) => {
                                                         </label>
                                                         <div className="form-control-wrap">
                                                             <RSelect
-                                                                options={variantTypes}
+                                                                options={addonTypes}
                                                                 defaultValue={formData.optional_variant_type}
                                                                 onChange={(e) => {
                                                                     setFormData({ ...formData, optional_variant_type: e.value });
@@ -624,7 +642,7 @@ const AddMenuItemForm = (props) => {
                                     }
                                     {
                                         [...Array(addons)].map((val, idx)=> (
-                                            <Col size="10">
+                                            <Col size="11">
                                                 <Stack direction="row" sx={{
                                                     flexWrap: "wrap",
                                                     margin: "1rem 0 1rem 0"
@@ -662,26 +680,48 @@ const AddMenuItemForm = (props) => {
                                                             </div>
                                                         </div>
                                                     </Col>
-                                                    <Col md="2">
-                                                        <UploadButton
-                                                            setUploadFile={(f)=>{
-                                                                // const a= {`variant-price-${idx}`: f}
-                                                                setFormData({ ...formData, [`addon-picture-${idx}`]: f });
-                                                            }}
-                                                        />
-                                                    </Col>
+                                                    {/*<Col md="2">*/}
+                                                    {/*    <Stack direction="row" gap={2}>*/}
+                                                    {/*        <UploadButton*/}
+                                                    {/*            setUploadFile={(f)=>{*/}
+                                                    {/*                // const a= {`variant-price-${idx}`: f}*/}
+                                                    {/*                setFormData({ ...formData, [`addon-picture-${idx}`]: f });*/}
+                                                    {/*            }}*/}
+                                                    {/*        />*/}
+                                                    {/*        <img*/}
+                                                    {/*            style={{*/}
+                                                    {/*                padding: "1px",*/}
+                                                    {/*                border: "1px dotted grey"*/}
+                                                    {/*            }}*/}
+                                                    {/*            width="30px"*/}
+                                                    {/*            height="30px"*/}
+                                                    {/*            src={formData[`addon-picture-${idx}`]? URL.createObjectURL(formData[`addon-picture-${idx}`]) : null}*/}
+                                                    {/*        />*/}
+                                                    {/*    </Stack>*/}
+                                                    {/*</Col>*/}
                                                     <Col md="1">
-                                                        <Box>
-                                                            <img
-                                                                style={{
-                                                                    padding: "1px",
-                                                                    border: "1px dotted grey"
-                                                                }}
-                                                                width="30px"
-                                                                height="30px"
-                                                                src={formData[`addon-picture-${idx}`]? URL.createObjectURL(formData[`addon-picture-${idx}`]) : null}
-                                                            />
-                                                        </Box>
+                                                        <Stack direction="row" gap={2}>
+                                                            {
+                                                                !(formData[`addon-name-${idx}`])?
+                                                                    <Button className="btn-icon" color="danger" size="sm"
+                                                                            onClick={() => {
+                                                                                setAddons(addons - 1);
+                                                                            }}>
+                                                                        <Icon name="cross"/>
+                                                                    </Button>
+                                                                    :
+                                                                    null
+                                                            }
+                                                            {
+                                                                addons-1 == idx && (formData[`addon-name-${idx}`])?
+                                                                    <Button className="btn-round btn-icon" color="primary" size="sm"
+                                                                            onClick={updateAddons}>
+                                                                        <Icon name="plus" />
+                                                                    </Button>
+                                                                    :
+                                                                    null
+                                                            }
+                                                        </Stack>
                                                     </Col>
                                                 </Stack>
                                             </Col>
