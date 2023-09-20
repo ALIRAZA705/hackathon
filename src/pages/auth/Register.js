@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./register.css";
 import PageContainer from "../../layout/page-container/PageContainer";
 import Head from "../../layout/head/Head";
 import AuthFooter from "./AuthFooter";
@@ -14,16 +15,21 @@ import {
   Icon,
   PreviewCard,
 } from "../../components/Component";
-import { Spinner, FormGroup } from "reactstrap";
+import {Spinner, FormGroup, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from "reactstrap";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Register = ({ history }) => {
   const [passState, setPassState] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [businessType, setBusinessType] = useState('None');
+  const [cuisineType, setCuisineType] = useState('None');
   const { errors, register, handleSubmit } = useForm();
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (data) => {
+    data['business-type'] = businessType;
+    data['cuisine-type'] = cuisineType;
+    console.log(data)
     setLoading(true);
     setTimeout(() => history.push(`${process.env.PUBLIC_URL}/auth-success`), 2000);
   };
@@ -43,21 +49,21 @@ const Register = ({ history }) => {
               <BlockContent>
                 <BlockTitle tag="h4">Register</BlockTitle>
                 <BlockDes>
-                  <p>Create New Dashlite Account</p>
+                  <p>Create A New Account</p>
                 </BlockDes>
               </BlockContent>
             </BlockHead>
             <form className="is-alter" onSubmit={handleSubmit(handleFormSubmit)}>
               <FormGroup>
                 <label className="form-label" htmlFor="name">
-                  Name
+                  Business Name
                 </label>
                 <div className="form-control-wrap">
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Enter your name"
+                    id="business-name"
+                    name="business-name"
+                    placeholder="Enter your Business Name"
                     ref={register({ required: true })}
                     className="form-control-lg form-control"
                   />
@@ -65,9 +71,92 @@ const Register = ({ history }) => {
                 </div>
               </FormGroup>
               <FormGroup>
+                <label className="form-label" htmlFor="name">
+                  Business Type
+                </label>
+                <div>
+                  <UncontrolledDropdown>
+                    <div className="btn-group">
+                      <DropdownToggle className="dropdown-toggle-split flex-row" color="secondary">
+                        {businessType}
+                        <Icon name="chevron-down"></Icon>
+                      </DropdownToggle>
+                    </div>
+                    <DropdownMenu>
+                      <ul className="link-list-opt">
+                        <li>
+                          <DropdownItem tag="a" href="#links" onClick={(ev) => {
+                            ev.preventDefault()
+                            setBusinessType('Restaurant')
+                          }}>
+                            <span>Restaurant</span>
+                          </DropdownItem>
+                        </li>
+                        <li>
+                          <DropdownItem tag="a" href="#links" onClick={(ev) => {
+                            ev.preventDefault()
+                            setBusinessType('Home Kitchen')
+                          }}>
+                            <span>Home Kitchen</span>
+                          </DropdownItem>
+                        </li>
+                      </ul>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </div>
+              </FormGroup>
+              <FormGroup>
+                <label className="form-label" htmlFor="name">
+                  First Name
+                </label>
+                <div className="form-control-wrap">
+                  <input
+                      type="text"
+                      id="first-name"
+                      name="first-name"
+                      placeholder="Enter your First Name"
+                      ref={register({ required: true })}
+                      className="form-control-lg form-control"
+                  />
+                  {errors.name && <p className="invalid">This field is required</p>}
+                </div>
+              </FormGroup>
+              <FormGroup>
+                <label className="form-label" htmlFor="name">
+                  Last Name
+                </label>
+                <div className="form-control-wrap">
+                  <input
+                      type="text"
+                      id="last-name"
+                      name="last-name"
+                      placeholder="Enter your  Last Name"
+                      ref={register({ required: true })}
+                      className="form-control-lg form-control"
+                  />
+                  {errors.name && <p className="invalid">This field is required</p>}
+                </div>
+              </FormGroup>
+              <FormGroup>
+                <label className="form-label" htmlFor="name">
+                  Contact Number
+                </label>
+                <div className="form-control-wrap">
+                  <input
+                      type="number"
+                      id="contact-number"
+                      name="contact-number"
+                      placeholder="Enter your Contact Number"
+                      ref={register({ required: true })}
+                      className="form-control-lg form-control"
+                  />
+                  {errors.name && <p className="invalid">This field is required</p>}
+                </div>
+              </FormGroup>
+              <FormGroup>
                 <div className="form-label-group">
                   <label className="form-label" htmlFor="default-01">
-                    Email or Username
+                    Email
                   </label>
                 </div>
                 <div className="form-control-wrap">
@@ -86,31 +175,90 @@ const Register = ({ history }) => {
               <FormGroup>
                 <div className="form-label-group">
                   <label className="form-label" htmlFor="password">
-                    Passcode
+                    Password
                   </label>
                 </div>
                 <div className="form-control-wrap">
                   <a
-                    href="#password"
-                    onClick={(ev) => {
-                      ev.preventDefault();
-                      setPassState(!passState);
-                    }}
-                    className={`form-icon lg form-icon-right passcode-switch ${passState ? "is-hidden" : "is-shown"}`}
+                      href="#password"
+                      onClick={(ev) => {
+                        ev.preventDefault();
+                        setPassState(!passState);
+                      }}
+                      className={`form-icon lg form-icon-right passcode-switch ${passState ? "is-hidden" : "is-shown"}`}
                   >
                     <Icon name="eye" className="passcode-icon icon-show"></Icon>
 
                     <Icon name="eye-off" className="passcode-icon icon-hide"></Icon>
                   </a>
                   <input
-                    type={passState ? "text" : "password"}
-                    id="password"
-                    name="passcode"
-                    ref={register({ required: "This field is required" })}
-                    placeholder="Enter your passcode"
-                    className={`form-control-lg form-control ${passState ? "is-hidden" : "is-shown"}`}
+                      type={passState ? "text" : "password"}
+                      id="password"
+                      name="passcode"
+                      ref={register({ required: "This field is required" })}
+                      placeholder="Enter your passcode"
+                      className={`form-control-lg form-control ${passState ? "is-hidden" : "is-shown"}`}
                   />
                   {errors.passcode && <span className="invalid">{errors.passcode.message}</span>}
+                </div>
+              </FormGroup>
+              <FormGroup>
+                <label className="form-label" htmlFor="name">
+                  Restaurant Address
+                </label>
+                <div className="form-control-wrap">
+                  <input
+                      type="text"
+                      id="restaurant-address"
+                      name="restaurant-address"
+                      placeholder="Enter your Restaurant Address"
+                      ref={register({ required: true })}
+                      className="form-control-lg form-control"
+                  />
+                  {errors.name && <p className="invalid">This field is required</p>}
+                </div>
+              </FormGroup>
+              <FormGroup>
+                <label className="form-label" htmlFor="name">
+                  Cuisine Types
+                </label>
+                <div>
+                  <UncontrolledDropdown>
+                    <div className="btn-group">
+                      <DropdownToggle className="dropdown-toggle-split flex-row" color="secondary">
+                          {cuisineType}
+                          <Icon name="chevron-down"></Icon>
+                       </DropdownToggle>
+                    </div>
+                    <DropdownMenu>
+                      <ul className="link-list-opt">
+                        <li>
+                          <DropdownItem tag="a" href="#links" onClick={(ev) => {
+                            ev.preventDefault()
+                            setCuisineType('Veg')
+                          }}>
+                            <span>Veg</span>
+                          </DropdownItem>
+                        </li>
+                        <li>
+                          <DropdownItem tag="a" href="#links" onClick={(ev) => {
+                            ev.preventDefault()
+                            setCuisineType('Non-Veg')
+                          }}>
+                            <span>Non-Veg</span>
+                          </DropdownItem>
+                        </li>
+                        <li>
+                          <DropdownItem tag="a" href="#links" onClick={(ev) => {
+                            ev.preventDefault()
+                            setCuisineType('Continental')
+                          }}>
+                            <span>Continental</span>
+                          </DropdownItem>
+                        </li>
+                      </ul>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
                 </div>
               </FormGroup>
               <FormGroup>
@@ -118,6 +266,7 @@ const Register = ({ history }) => {
                   {loading ? <Spinner size="sm" color="light" /> : "Register"}
                 </Button>
               </FormGroup>
+
             </form>
             <div className="form-note-s2 text-center pt-4">
               {" "}
