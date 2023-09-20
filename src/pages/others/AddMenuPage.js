@@ -27,6 +27,7 @@ import Dropzone from "react-dropzone";
 import { Modal, ModalBody } from "reactstrap";
 import { RSelect } from "../../components/Component";
 import AddMenuItemForm from "../components/AddMenuItemForm";
+import {useParams} from "react-router";
 
 const AddMenuPage = () => {
   const [data, setData] = useState(productData);

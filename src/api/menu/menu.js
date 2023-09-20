@@ -1,6 +1,6 @@
 import {
     deleteRequest,
-    getRequest, patchRequest,
+    getRequest, patchRequest, postFormDataRequest,
     postRequest
 } from "../methodCalls";
 import {getAllMenuItemsURI, editMenuItemURI, deleteMenuItemURI, getMenuItemByRestIdURI, addMenuItemURI} from "../endpoints";
@@ -16,7 +16,7 @@ export const getMenuItemByRestId = (params) => {
 }
 
 export const addNewMenuItem = (payload) => {
-    return postRequest(addMenuItemURI, payload);
+    return postFormDataRequest(addMenuItemURI, payload);
 }
 
 export const editMenuItem = (payload) => {
