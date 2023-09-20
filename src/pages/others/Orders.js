@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from "react";
 import Head from "../../layout/head/Head";
 import Content from "../../layout/content/Content";
 import DatePicker from "react-datepicker";
-import {Stack} from "@mui/material";
+import {Stack, Box} from "@mui/material";
 import { orderData, filterCoin, filterPaymentmethod, filterStatus, filterType } from "./OrderData";
 import {
     Block,
@@ -235,7 +235,7 @@ const Orders = (props) => {
                 <BlockHead size="sm">
                     <BlockBetween>
                         <BlockHeadContent>
-                            <BlockTitle page>Orders</BlockTitle>
+                            <BlockTitle page>{`${props.name} Orders`}</BlockTitle>
                         </BlockHeadContent>
                         { !props.name &&
                             <BlockHeadContent>
@@ -269,9 +269,20 @@ const Orders = (props) => {
                     <DataTable className="card-stretch">
                         <div className="card-inner">
                             <div className="card-title-group">
-                                <div className="card-title">
-                                    <h5 className="title">All Orders</h5>
-                                </div>
+                                    <Box  sx={{
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        px: "30px",
+                                        py: "3px",
+                                        background: `${props.name === "Delivered" ? "#D7F5F0" : "#F7F0D8"}`,
+                                        border: `1px solid ${props.name === "Delivered" ? "#1EE0AC" : "#F4BD0E"}`,
+                                        borderRadius: "30px"
+                                    }}>
+                                        <div className="card-title">
+                                    <h5 className="title">{`${props.name} Orders List`}</h5>
+                                        </div>
+                                    </Box>
+
                                 <div className="card-tools mr-n1">
                                     <ul className="btn-toolbar gx-1">
                                         <li>
@@ -487,9 +498,9 @@ const Orders = (props) => {
                                 <DataTableRow size="md">
                                     <span className="sub-text">Date</span>
                                 </DataTableRow>
-                                <DataTableRow>
-                                    <span className="sub-text">Status</span>
-                                </DataTableRow>
+                                {/*<DataTableRow>*/}
+                                {/*    <span className="sub-text">Status</span>*/}
+                                {/*</DataTableRow>*/}
                                 <DataTableRow size="sm">
                                     <span className="sub-text">Customer</span>
                                 </DataTableRow>
@@ -567,22 +578,22 @@ const Orders = (props) => {
                                         <DataTableRow size="md">
                                             <span>{item.date}</span>
                                         </DataTableRow>
-                                        <DataTableRow>
-                                            <Stack direction="row" gap={1} sx={{
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                width: "80px",
-                                                background: `${item.status === "Delivered" ? "#D7F5F0" : "#F7F0D8"}`,
-                                                border: `1px solid ${item.status === "Delivered" ? "#1EE0AC" : "#F4BD0E"}`,
-                                                borderRadius: "30px"
-                                            }}>
-                                                <span
-                                                    className={`dot bg-${item.status === "Delivered" ? "success" : "warning"} d-mb-none`}
+                                        {/*<DataTableRow>*/}
+                                        {/*    <Stack direction="row" gap={1} sx={{*/}
+                                        {/*        justifyContent: "center",*/}
+                                        {/*        alignItems: "center",*/}
+                                        {/*        width: "80px",*/}
+                                        {/*        background: `${item.status === "Delivered" ? "#D7F5F0" : "#F7F0D8"}`,*/}
+                                        {/*        border: `1px solid ${item.status === "Delivered" ? "#1EE0AC" : "#F4BD0E"}`,*/}
+                                        {/*        borderRadius: "30px"*/}
+                                        {/*    }}>*/}
+                                        {/*        <span*/}
+                                        {/*            className={`dot bg-${item.status === "Delivered" ? "success" : "warning"} d-mb-none`}*/}
 
-                                                ></span>
-                                                <span>
-                                                    {item.status}
-                                                </span>
+                                                {/*></span>*/}
+                                                {/*<span>*/}
+                                                {/*    {item.status}*/}
+                                                {/*</span>*/}
                                               {/*  <span*/}
                                               {/*      className={`badge badge-sm badge-dot has-bg badge-${*/}
                                               {/*          item.status === "Delivered" ? "success" : "warning"*/}
@@ -590,8 +601,8 @@ const Orders = (props) => {
                                               {/*  >*/}
                                               {/*{item.status}*/}
                                               {/*   </span>*/}
-                                            </Stack>
-                                        </DataTableRow>
+                                            {/*</Stack>*/}
+                                        {/*</DataTableRow>*/}
                                         <DataTableRow size="sm">
                                             <span className="tb-sub">{item.customer}</span>
                                         </DataTableRow>

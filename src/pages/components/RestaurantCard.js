@@ -1,53 +1,130 @@
-import React from "react";
-import Content from "../../layout/content/Content";
-import Head from "../../layout/head/Head";
-import SlideA from "../../images/slides/slide-a.jpg";
+import {Card, CardMedia, CardContent,Stack, Box, Typography, useTheme } from "@mui/material";
+import {useHistory} from "react-router-dom";
+import React, {useState, useRef, useEffect} from "react";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import {useDispatch, useSelector} from "react-redux";
+import {setBusiness, setUser} from "../../store/state/userInfo";
+import {IMG_STORAGE_BASE_URL} from "../../config";
+import {CardTitle, Button} from "reactstrap";
 
-import {
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardFooter,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardLink,
-  Button,
-} from "reactstrap";
-import { Block, BlockHead, BlockHeadContent, BlockTitle, BlockDes, BackTo } from "../../components/block/Block";
-import { PreviewCard, CodeBlock } from "../../components/preview/Preview";
+const RestaurantCard = (props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.userInfo)
+  const [favColor, setFavColor] = useState("white");
+  const { id, name, restLogo, description, delivery, type, location, priceCategory, rating } = props;
+  let bckImage = restLogo? (IMG_STORAGE_BASE_URL + restLogo) : "https://burgerlab.com.pk/wp-content/uploads/2022/02/Untitled-1-1-1.jpg?c062ef&c062ef"
 
-const RestaurantCard = ({ ...props }) => {
-  return (
-    <React.Fragment>
-      <Content page="component">
+  useEffect(()=>{
+    let user = localStorage.getItem('user');
+    user = JSON.parse(user);
+    dispatch(setUser(user));
+    if(user.busines){
+      dispatch(setBusiness(user.busines));
+    }
+    // setUser(user)
+  },[user])
 
-        <Block size="lg">
-          {/*<PreviewCard>*/}
-          {/*  <Row>*/}
-              <Col lg="4">
-                <Card className="card-bordered">
-                  <CardImg top src={SlideA} alt="" />
-                  <CardBody className="card-inner">
-                    <CardTitle tag="h5">Card with stretched link</CardTitle>
-                    <CardText>
-                      Some quick example text to build on the card title and make up the bulk of the card"s content.
-                    </CardText>
-                    <Button color="primary">Go somewhere</Button>
-                  </CardBody>
-                </Card>
-              </Col>
-            {/*</Row>*/}
-          {/*</PreviewCard>*/}
-        </Block>
+  const handleCardClick = (e) => {
+    console.log(history)
+    history.push(`${process.env.PUBLIC_URL}/restaurant/${id}/menu`);
+  };
+
+  const handleFavoriteIconClick = (e) => {
+    e.stopPropagation();
+    if(favColor === 'white'){
+      setFavColor("red")
+    }
+    else
+      setFavColor("white")
+  };
 
 
-      </Content>
-    </React.Fragment>
-  );
-};
+  return(
+      // Card Starts here
+      // <Col lg="4">
+      <Card className="pointer-on-hover" onClick={handleCardClick}
+            sx={{ maxWidth: 265,
+              minWidth: 265,
+              borderRadius: "5px"}}>
+        <CardMedia sx={{
+          height: 180,
+          // background: "linear-gradient(to right top, #051937, #003656, #005671, #097787, #3a9998)",
+        }}
+                   image={bckImage}
+        >
+
+          {
+            user.role !== "super-admin" &&
+            <CardContent sx={{
+              color: favColor,
+              opacity: favColor === 'white' ? "50%" : "100%",
+              textAlign: "right",
+            }}>
+              <FavoriteIcon className="pointer-on-hover" onClick={handleFavoriteIconClick}/>
+            </CardContent>
+          }
+        </CardMedia>
+
+        {/*Card Content / Text Area*/}
+        <CardContent height="100%"
+                     sx={{
+                       // border: "2px solid orange",
+                       borderTop: "none",
+                       borderRadius: "0px 0px 25px 25px",
+                       padding: "15px 30px 15px 30px !important",
+                     }}>
+          {/* name of rest... */}
+          <CardTitle tag="h5">{name}</CardTitle>
+
+
+          {/* delivery time & See menu button */}
+          <Stack direction="row"
+                 sx={{
+                   justifyContent: "space-between",
+                   alignItems: "center"
+                 }}>
+            <Box>
+              <Stack direction="row">
+                {/*    <AccessTimeIcon/>*/}
+                <Typography gutterBottom sx={{
+                  paddingBottom: "0.5rem",
+                  fontSize: "14px",
+                  color: "#8A8A8A"
+                }}>
+                  {
+                    type.map((t)=>(
+                        `${t} . `
+                    ))
+                  }
+                </Typography>
+              </Stack>
+            </Box>
+          </Stack>
+
+          {/* Restaturant Type: Non-Veg & Price Category */}
+          {user.role !== "super-admin" &&
+          <Stack direction="row"
+                 sx={{
+                   padding: "0.5rem",
+                   justifyContent: "right",
+                   alignItems: "center"}}>
+            <Typography sx={{
+              color: "#fa4f26",
+            }}>
+              {priceCategory? priceCategory : "$$$"}
+            </Typography>
+
+          </Stack>
+          }
+          <Button color="primary">Go somewhere</Button>
+        </CardContent>
+        {/*Card Content / Text Area Ends */}
+
+      </Card>
+
+      // </Col>
+  )
+}
 
 export default RestaurantCard;
