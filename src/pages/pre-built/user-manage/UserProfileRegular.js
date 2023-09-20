@@ -19,6 +19,8 @@ import { countryOptions, userData } from "./UserData";
 import { getDateStructured } from "../../../utils/Utils";
 import {useDispatch, useSelector} from "react-redux";
 import {editRestaurant} from "../../../api/restaurant/restaurant";
+import { Stack } from "@mui/material"
+import Dropzone from "react-dropzone";
 
 
 export const cuisineTypesDD = [
@@ -39,20 +41,25 @@ export const ordrDeliveryTimeDD = [
   { value: "30-45 min", label: "30-45 min" },
 ];
 
-const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
+const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, updateSm, setProfileName }) => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [modalTab, setModalTab] = useState("1");
   const [userInfo, setUserInfo] = useState(userData[0]);
+  const [files, setFiles] = useState([]);
+  const [multipartData, setMultipartData] = useState(null);
   const user = useSelector(state => state.userInfo);
 
   const [formData, setFormData] = useState({
+    first_name: user.first_name,
+    last_name: user.last_name,
     name: user.name,
     business_name: user.busines_business_name,
+    business_description: user.busines_business_description,
     phone_number: user.phone,
     restaurant_address: user.busines_restaurant_address,
     business_type: user.busines_business_type,
-    cuisine_types: user.busines_cuisine_types,
+    cuisine_type: user.busines_cuisine_types,
     starting_price: user.busines_starting_price,
     ordr_delivery_time: user.busines_ordr_delivery_time,
   });
@@ -68,12 +75,35 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
   const submitUpdateBusinessForm = async () => {
     let submitData = formData;
     submitData.id = user.busines_id;
+    submitData.business_image = multipartData
+    // const data = multipartData
+    // Object.keys(submitData).forEach(i=>{
+    //   data.append(i, submitData[i])
+    // })
     console.log(submitData)
     const res = await editRestaurant(submitData);
     setUserInfo(submitData);
     setModal(false);
   };
 
+  // handles ondrop function of dropzone
+  const handleDropChange = (acceptedFiles) => {
+    setFiles(
+        acceptedFiles.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+        )
+    );
+    // acceptedFiles.map(f=>{
+    //   let data = new FormData();
+    //   data.append('business_image', f)
+    //   console.log(data)
+    // })
+    // console.log("data :::: ", data);
+    setMultipartData(acceptedFiles[0])
+    // extractBase64Images(acceptedFiles);
+  };
 
   const submitForm = () => {
     let submitData = {
@@ -133,6 +163,19 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
             <div className="data-col">
               <span className="data-label">Phone Number</span>
               <span className="data-value text-soft">{user.phone}</span>
+            </div>
+            <div className="data-col data-col-end">
+              <span className="data-more">
+                <Icon name="forward-ios"></Icon>
+              </span>
+            </div>
+          </div>
+          <div className="data-item" onClick={() => setModal(true)}>
+            <div className="data-col">
+              <span className="data-label">Business Description</span>
+              <span className="data-value">
+                {user.busines_business_description}
+              </span>
             </div>
             <div className="data-col data-col-end">
               <span className="data-more">
@@ -409,6 +452,21 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                       />
                     </FormGroup>
                   </Col>
+                  <Col md="12">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-l1">
+                        Business Description
+                      </label>
+                      <input
+                          type="text"
+                          id="address-l1"
+                          name="address"
+                          onChange={(e) => onInputChange(e)}
+                          defaultValue={formData.business_description}
+                          className="form-control"
+                      />
+                    </FormGroup>
+                  </Col>
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-st">
@@ -441,7 +499,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                             label: formData.country,
                           },
                         ]}
-                        onChange={(e) => setFormData({ ...formData, cuisine_types: e.value })}
+                        onChange={(e) => setFormData({ ...formData, cuisine_type: e.value })}
                       />
                     </FormGroup>
                   </Col>
@@ -515,6 +573,166 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                     </ul>
                   </Col>
                 </Row>
+              </div>
+            </div>
+          </div>
+        </ModalBody>
+      </Modal>
+
+
+      <Modal isOpen={changePhotoModal} className="modal-dialog-centered" size="lg" toggle={() => {
+        handleChangePhotoModal(false)
+        setModal(false)
+      }}>
+        <ModalBody>
+          <a
+              href="#dropdownitem"
+              onClick={(ev) => {
+                ev.preventDefault();
+                handleChangePhotoModal(false)
+                setModal(false);
+              }}
+              className="close"
+          >
+            <Icon name="cross-sm"></Icon>
+          </a>
+          <div className="p-2">
+            <h5 className="title">Update Picture</h5>
+
+            <div className="tab-content">
+              <div className={`tab-pane ${modalTab === "1" ? "active" : ""}`} id="personal">
+                {/*<Row className="gy-4">*/}
+                {/*  <Col md="6">*/}
+                {/*    <FormGroup>*/}
+                {/*      <label className="form-label" htmlFor="full-name">*/}
+                {/*        First Name*/}
+                {/*      </label>*/}
+                {/*      <input*/}
+                {/*          type="text"*/}
+                {/*          id="full-name"*/}
+                {/*          className="form-control"*/}
+                {/*          name="name"*/}
+                {/*          onChange={(e) => onInputChange(e)}*/}
+                {/*          defaultValue={formData.first_name}*/}
+                {/*          placeholder="Enter Full name"*/}
+                {/*      />*/}
+                {/*    </FormGroup>*/}
+                {/*  </Col>*/}
+                {/*  <Col md="6">*/}
+                {/*    <FormGroup>*/}
+                {/*      <label className="form-label" htmlFor="display-name">*/}
+                {/*        Last Name*/}
+                {/*      </label>*/}
+                {/*      <input*/}
+                {/*          type="text"*/}
+                {/*          id="display-name"*/}
+                {/*          className="form-control"*/}
+                {/*          name="displayName"*/}
+                {/*          onChange={(e) => onInputChange(e)}*/}
+                {/*          defaultValue={formData.last_name}*/}
+                {/*          placeholder="Enter display name"*/}
+                {/*      />*/}
+                {/*    </FormGroup>*/}
+                {/*  </Col>*/}
+                {/*  <Col md="6">*/}
+                {/*    <FormGroup>*/}
+                {/*      <label className="form-label" htmlFor="phone-no">*/}
+                {/*        Phone Number*/}
+                {/*      </label>*/}
+                {/*      <input*/}
+                {/*          type="number"*/}
+                {/*          id="phone-no"*/}
+                {/*          className="form-control"*/}
+                {/*          name="phone"*/}
+                {/*          onChange={(e) => onInputChange(e)}*/}
+                {/*          defaultValue={formData.phone_number}*/}
+                {/*          placeholder="Phone Number"*/}
+                {/*      />*/}
+                {/*    </FormGroup>*/}
+                {/*  </Col>*/}
+                {/*  /!*<Col md="6">*!/*/}
+                {/*  /!*  <FormGroup>*!/*/}
+                {/*  /!*    <label className="form-label" htmlFor="birth-day">*!/*/}
+                {/*  /!*      Date of Birth*!/*/}
+                {/*  /!*    </label>*!/*/}
+                {/*  /!*    <DatePicker*!/*/}
+                {/*  /!*      selected={new Date(formData.dob)}*!/*/}
+                {/*  /!*      className="form-control"*!/*/}
+                {/*  /!*      onChange={(date) => setFormData({ ...formData, dob: getDateStructured(date) })}*!/*/}
+                {/*  /!*      maxDate={new Date()}*!/*/}
+                {/*  /!*    />*!/*/}
+                {/*  /!*  </FormGroup>*!/*/}
+                {/*  /!*</Col>*!/*/}
+                {/*  /!*<Col size="12">*!/*/}
+                {/*  /!*  <div className="custom-control custom-switch">*!/*/}
+                {/*  /!*    <input type="checkbox" className="custom-control-input form-control" id="latest-sale" />*!/*/}
+                {/*  /!*    <label className="custom-control-label" htmlFor="latest-sale">*!/*/}
+                {/*  /!*      Use full name to display{" "}*!/*/}
+                {/*  /!*    </label>*!/*/}
+                {/*  /!*  </div>*!/*/}
+                {/*  /!*</Col>*!/*/}
+                {/*  <Col size="12">*/}
+                {/*    <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">*/}
+                {/*      <li>*/}
+                {/*        <Button*/}
+                {/*            color="primary"*/}
+                {/*            size="lg"*/}
+                {/*            onClick={(ev) => {*/}
+                {/*              ev.preventDefault();*/}
+                {/*              submitForm();*/}
+                {/*            }}*/}
+                {/*        >*/}
+                {/*          Update*/}
+                {/*        </Button>*/}
+                {/*      </li>*/}
+                {/*      <li>*/}
+                {/*        <a*/}
+                {/*            href="#dropdownitem"*/}
+                {/*            onClick={(ev) => {*/}
+                {/*              ev.preventDefault();*/}
+                {/*              setModal(false);*/}
+                {/*            }}*/}
+                {/*            className="link link-light"*/}
+                {/*        >*/}
+                {/*          Cancel*/}
+                {/*        </a>*/}
+                {/*      </li>*/}
+                {/*    </ul>*/}
+                {/*  </Col>*/}
+                {/*</Row>*/}
+                <Stack direction="row" sx={{
+                  overflowX: "auto",
+                  flexShrink: "0"
+                }}>
+                  <Dropzone
+                      onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                        <section>
+                          <div
+                              {...getRootProps()}
+                              className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                          >
+                            <input {...getInputProps()} />
+                            {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
+                            {files.map((file) => (
+                                <div
+                                    key={file.name}
+                                    className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
+                                >
+                                  <Stack direction="row">
+                                    {/*<div className="dz-image">*/}
+                                    <img height="100px" src={file.preview} alt="preview" />
+                                    {/*</div>*/}
+                                  </Stack>
+
+                                </div>
+                            ))}
+                          </div>
+                        </section>
+                    )}
+                  </Dropzone>
+                </Stack>
               </div>
             </div>
           </div>

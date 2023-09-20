@@ -29,11 +29,11 @@ const Login = () => {
   const [passState, setPassState] = useState(false);
   const [errorVal, setError] = useState("");
 
-  const handleRedirect = () => {
+  const handleRedirect = (user) => {
     if(user.role === "super-admin"){
       window.location.href = '/dashboard';
     }
-      window.location.href = `/restaurant/${user.id}/menu`;
+      window.location.href = `/restaurant/${user.busines.id}/menu`;
     // history.push(`/dashboard`);
   }
 
@@ -60,9 +60,9 @@ const Login = () => {
       }
         localStorage.setItem("accessToken", res.data.records.token);
         localStorage.setItem("user", JSON.stringify(user));
-        setTimeout(()=>{
-            handleRedirect();
-        },[200000])
+        // setTimeout(()=>{
+            handleRedirect(user);
+        // },[200000])
     }
 
   };

@@ -5,22 +5,29 @@ import UserProfileSettingPage from "./UserProfileSetting";
 import UserProfileNotificationPage from "./UserProfileNotification";
 import UserProfileActivityPage from "./UserProfileActivity";
 import { Route, Switch, Link } from "react-router-dom";
-import { Icon, UserAvatar } from "../../../components/Component";
+import {Col, Icon, UserAvatar} from "../../../components/Component";
 import { findUpper } from "../../../utils/Utils";
 import { Card, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle } from "reactstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {setUser} from "../../../store/state/userInfo";
+import {setBusiness, setUser} from "../../../store/state/userInfo";
+import {Box, Stack} from "@mui/material";
+import Dropzone from "react-dropzone";
 
 const UserProfileLayout = () => {
   const [sm, updateSm] = useState(false);
   const [mobileView, setMobileView] = useState(false);
   const user = useSelector(state => state.userInfo)
   const [profileName, setProfileName] = useState(user.name);
+  const [changePhotoModal, setChangePhotoModal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(()=>{
     let user = localStorage.getItem('user');
-    dispatch(setUser(JSON.parse(user)));
+    user = JSON.parse(user);
+    dispatch(setUser(user));
+    if(user.busines){
+      dispatch(setBusiness(user.busines));
+    }
   },[user])
 
 
@@ -47,6 +54,10 @@ const UserProfileLayout = () => {
     };
   }, []);
 
+  const handleChangePhotoModal = (val) =>{
+    setChangePhotoModal(val);
+  }
+
   return (
     <React.Fragment>
       <Content>
@@ -60,9 +71,17 @@ const UserProfileLayout = () => {
               <div className="card-inner-group">
                 <div className="card-inner">
                   <div className="user-card">
-                    <UserAvatar text={findUpper(profileName)} theme="primary" />
+                    {/*<UserAvatar text={findUpper(profileName)} theme="primary" />*/}
+                    <Box component="img"
+                         src={user.profile_picture}
+                         sx={{
+                           borderRadius: "50%",
+                           marginRight: "1rem",
+                           width: "50px",
+                         }}
+                    ></Box>
                     <div className="user-info">
-                      <span className="lead-text">{user.business_name? user.business_name : profileName}</span>
+                      <span className="lead-text">{user.busines_business_name? user.busines_business_name : profileName}</span>
                       <span className="sub-text">{user.email}</span>
                     </div>
                     <div className="user-action">
@@ -78,6 +97,7 @@ const UserProfileLayout = () => {
                                 href="#dropdownitem"
                                 onClick={(ev) => {
                                   ev.preventDefault();
+                                  setChangePhotoModal(true)
                                 }}
                               >
                                 <Icon name="camera-fill"></Icon>
@@ -164,6 +184,50 @@ const UserProfileLayout = () => {
                         <span>Security Setting</span>
                       </Link>
                     </li>
+
+
+
+
+                    {/*/!*upload image her starts *!/*/}
+                    {/*<li>*/}
+                    {/*  <Stack direction="row" sx={{*/}
+                    {/*    overflowX: "auto",*/}
+                    {/*    flexShrink: "0"*/}
+                    {/*  }}>*/}
+                    {/*    <Dropzone*/}
+                    {/*        onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}*/}
+                    {/*    >*/}
+                    {/*      {({ getRootProps, getInputProps }) => (*/}
+                    {/*          <section>*/}
+                    {/*            <div*/}
+                    {/*                {...getRootProps()}*/}
+                    {/*                className="dropzone upload-zone small bg-lighter my-2 dz-clickable"*/}
+                    {/*            >*/}
+                    {/*              <input {...getInputProps()} />*/}
+                    {/*              {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}*/}
+                    {/*              {files.map((file) => (*/}
+                    {/*                  <div*/}
+                    {/*                      key={file.name}*/}
+                    {/*                      className="dz-preview dz-processing dz-image-preview dz-error dz-complete"*/}
+                    {/*                  >*/}
+                    {/*                    <Stack direction="row">*/}
+                    {/*                      /!*<div className="dz-image">*!/*/}
+                    {/*                      <img height="100px" src={file.preview} alt="preview" />*/}
+                    {/*                      /!*</div>*!/*/}
+                    {/*                    </Stack>*/}
+
+                    {/*                  </div>*/}
+                    {/*              ))}*/}
+                    {/*            </div>*/}
+                    {/*          </section>*/}
+                    {/*      )}*/}
+                    {/*    </Dropzone>*/}
+                    {/*  </Stack>*/}
+                    {/*</li>*/}
+                    {/*/!*upload image her ends  *!/*/}
+
+
+
                   </ul>
                 </div>
               </div>
@@ -174,7 +238,7 @@ const UserProfileLayout = () => {
                 <Route
                   exact
                   path={`${process.env.PUBLIC_URL}/user-profile-regular`}
-                  render={() => <UserProfileRegularPage updateSm={updateSm} sm={sm} setProfileName={setProfileName} />}
+                  render={() => <UserProfileRegularPage changePhotoModal={changePhotoModal} handleChangePhotoModal={handleChangePhotoModal} updateSm={updateSm} sm={sm} setProfileName={setProfileName} />}
                 ></Route>
                 <Route
                   exact

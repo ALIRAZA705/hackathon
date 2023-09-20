@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom";
 import React, {useState, useRef, useEffect} from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useDispatch, useSelector} from "react-redux";
-import {setUser} from "../../store/state/userInfo";
+import {setBusiness, setUser} from "../../store/state/userInfo";
 
 const RestaurantCardMaterial = (props) => {
     const history = useHistory();
@@ -15,8 +15,12 @@ const RestaurantCardMaterial = (props) => {
 
     useEffect(()=>{
         let user = localStorage.getItem('user');
-        dispatch(setUser(JSON.parse(user)));
-        setUser(user)
+        user = JSON.parse(user);
+        dispatch(setUser(user));
+        if(user.busines){
+            dispatch(setBusiness(user.busines));
+        }
+        // setUser(user)
     },[user])
 
     const handleCardClick = (e) => {

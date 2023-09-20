@@ -18,6 +18,11 @@ const menu = [
         link: "/restaurants",
     },
     {
+        icon: "users",
+        text: "Menu",
+        link: "/restaurant/menu",
+    },
+    {
         icon: "book",
         text: "Recent Bookings",
         link: "/bookings",

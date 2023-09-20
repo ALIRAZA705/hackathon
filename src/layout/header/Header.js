@@ -69,9 +69,9 @@ const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
               <li className="notification-dropdown mr-n1" onClick={() => setVisibility(false)}>
                 <Notification />
               </li>
-              <li className="list-apps-dropdown d-lg-none" onClick={() => setVisibility(false)}>
-                <AppDropdown />
-              </li>
+              {/*<li className="list-apps-dropdown d-lg-none" onClick={() => setVisibility(false)}>*/}
+              {/*  <AppDropdown />*/}
+              {/*</li>*/}
               <li className="user-dropdown" onClick={() => setVisibility(false)}> 
                 <User />
               </li>
