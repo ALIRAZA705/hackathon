@@ -4,10 +4,10 @@ import {
 } from "../methodCalls";
 import {loginURI, registerURI} from "../endpoints";
 
-export const getLoginUser = () => {
-    return getRequest(loginURI);
+export const getLoginUser = (payload) => {
+    return postRequest(loginURI, payload);
 }
 
-export const postRegisterUser = () => {
-    return postRequest(registerURI);
+export const postRegisterUser = (payload) => {
+    return postRequest(registerURI, payload);
 }
