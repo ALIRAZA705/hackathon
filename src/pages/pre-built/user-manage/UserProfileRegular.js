@@ -21,6 +21,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {editRestaurant} from "../../../api/restaurant/restaurant";
 import { Stack } from "@mui/material"
 import Dropzone from "react-dropzone";
+import {postEditUserProfile} from "../../../api/auth/auth";
 
 
 export const cuisineTypesDD = [
@@ -48,6 +49,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   const [userInfo, setUserInfo] = useState(userData[0]);
   const [files, setFiles] = useState([]);
   const [multipartData, setMultipartData] = useState(null);
+  const [multipartUserProfileData, setMultipartUserProfileData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorVal, setError] = useState("");
   const user = useSelector(state => state.userInfo);
@@ -74,6 +76,24 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
     console.log(e.target.name, e.target.value)
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const submitUserProfileForm = async () => {
+    setLoading(true);
+    let submitData = {
+      first_name : formData.first_name,
+      last_name : formData.last_name,
+      email : user.email,
+      phone_number: formData.phone_number,
+      profile_image : multipartUserProfileData,
+    };
+    console.log(submitData);
+    const res = await postEditUserProfile(submitData);
+    setError(res.data.message)
+    setLoading(false);
+    setTimeout(()=>{
+      setModal(false);
+    },[5000])
+  }
 
   const submitUpdateBusinessForm = async () => {
     setLoading(true);
@@ -102,14 +122,18 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
             })
         )
     );
-    // acceptedFiles.map(f=>{
-    //   let data = new FormData();
-    //   data.append('business_image', f)
-    //   console.log(data)
-    // })
-    // console.log("data :::: ", data);
     setMultipartData(acceptedFiles[0])
-    // extractBase64Images(acceptedFiles);
+  };
+
+  const handleProfilePicChange = (acceptedProfilePic) => {
+    setFiles(
+        acceptedProfilePic.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+        )
+    );
+    setMultipartUserProfileData(acceptedProfilePic[0])
   };
 
   const submitForm = () => {
@@ -119,6 +143,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
     setUserInfo(submitData);
     setModal(false);
   };
+
 
   return (
     <React.Fragment>
@@ -379,7 +404,48 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       />
                     </FormGroup>
                   </Col>
-                  <Col size="12">
+                  <Col md="4">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="phone-no">
+                        Profile Picture
+                      </label>
+                      <Stack direction="row" sx={{
+                        overflowX: "auto",
+                        flexShrink: "0"
+                      }}>
+                        <Dropzone
+                            multiple={false}
+                            onDrop={(acceptedProfilePic) => handleProfilePicChange(acceptedProfilePic)}
+                        >
+                          {({ getRootProps, getInputProps }) => (
+                              <section>
+                                <div
+                                    {...getRootProps()}
+                                    className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                                >
+                                  <input {...getInputProps()} />
+                                  {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
+                                  {files.map((file) => (
+                                      <div
+                                          key={file.name}
+                                          className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
+                                      >
+                                        <Stack direction="row">
+                                          {/*<div className="dz-image">*/}
+                                          <img height="100px" src={file.preview} alt="preview" />
+                                          {/*</div>*/}
+                                        </Stack>
+
+                                      </div>
+                                  ))}
+                                </div>
+                              </section>
+                          )}
+                        </Dropzone>
+                      </Stack>
+                    </FormGroup>
+                  </Col>
+                  <Col size="6">
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>
                         <Button
@@ -387,7 +453,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                           size="lg"
                           onClick={(ev) => {
                             ev.preventDefault();
-                            submitForm();
+                            submitUserProfileForm();
                           }}
                         >
                           {loading ? <Spinner size="sm" color="light" /> : "Update"}
@@ -641,7 +707,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
             <Icon name="cross-sm"></Icon>
           </a>
           <div className="p-2">
-            <h5 className="title">Update Picture</h5>
+            <h5 className="title">Update User Profile</h5>
 
             <div className="tab-content">
               <div className={`tab-pane ${modalTab === "1" ? "active" : ""}`} id="personal">
