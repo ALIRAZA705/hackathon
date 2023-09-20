@@ -128,16 +128,16 @@ const AddMenuItemForm = () => {
             payload.variants.push(variant)
         });
         const res = await addNewMenuItem(payload);
-        console.log("res 111 :: ", res.request.status, res.data.success)
-        if(res.request.status !== 200 && res.data.success) {
-            setError(res.response.data.exception)
+        if(res.data.success === false) {
+            const err= res.data.records.error?  res.data.records.error : res.data.message;
+            setError(err)
             setTimeout(()=>{
                 setError("")
-            }, 20000)
-            // setError("Cannot register with these credentials");
+            }, 3000)
             setLoading(false);
         }
         else{
+            // setError("Menu successfully added")
             history.push(`${process.env.PUBLIC_URL}/menu`)
         }
     }
@@ -421,7 +421,7 @@ const AddMenuItemForm = () => {
                                     {errorVal && (
                                         <div className="mb-3">
                                             <Alert color="danger" className="alert-icon">
-                                                {" "}
+                                                {errorVal}
                                                 <Icon name="alert-circle" /> {errorVal}
                                             </Alert>
                                         </div>
