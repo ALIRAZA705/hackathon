@@ -407,6 +407,9 @@ const MenuList = (props) => {
                           {/*  </div>*/}
                           {/*</DataTableRow>*/}
                           <DataTableRow size="sm">
+                            <span>Image</span>
+                          </DataTableRow>
+                          <DataTableRow size="sm">
                             <span>Name</span>
                           </DataTableRow>
                           <DataTableRow>
@@ -494,11 +497,19 @@ const MenuList = (props) => {
                                     {/*    <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>*/}
                                     {/*  </div>*/}
                                     {/*</DataTableRow>*/}
-                                    <DataTableRow size="sm">
-                              <span className="tb-product" onClick={() => {
+                                    <DataTableRow className="nk-tb-col-check">
+                              <span className="tb-sub" onClick={() => {
                                 window.location.href = `/menu/${item.id}`
                               }}>
                                 <img src={item.img ? item.img : ProductH} alt="product" className="thumb"/>
+                                {/*<span className="title">{item.name}</span>*/}
+                              </span>
+                                    </DataTableRow>
+                                    <DataTableRow size="md">
+                              <span className="tb-product" onClick={() => {
+                                window.location.href = `/menu/${item.id}`
+                              }}>
+                                {/*<img src={item.img ? item.img : ProductH} alt="product" className="thumb"/>*/}
                                 <span className="title">{item.name}</span>
                               </span>
                                     </DataTableRow>

@@ -20,6 +20,7 @@ import {useForm} from "react-hook-form";
 import {addNewMenuItem, editMenuItem} from "../../api/menu/menu";
 import {useParams} from "react-router";
 import {UploadButton} from "../../components/UploadButton";
+import {variantTypes, menuTypes } from "./AddMenuItemDropDowns";
 
 const AddMenuItemForm = (props) => {
     const params = useParams();
@@ -42,6 +43,8 @@ const AddMenuItemForm = (props) => {
         stock: 0,
         category: "",
         category_type: "",
+        required_variant_type: "",
+        required_menue_type: "",
         fav: false,
         check: false,
     });
@@ -156,9 +159,8 @@ const AddMenuItemForm = (props) => {
         else{
             res = await addNewMenuItem(payload);
         }
-
-        if(res.data.success === false) {
-            const err= res.data.records.error?  res.data.records.error : res.data.message;
+        if(res.response.data.success === false) {
+            const err= res.response.data.records.error?  res.response.data.records.error : res.response.data.message;
             setError(err)
             setTimeout(()=>{
                 setError("")
@@ -397,6 +399,58 @@ const AddMenuItemForm = (props) => {
 
                                 <Col size="12">
                                     {
+                                        variants?
+                                        <Stack direction="row" sx={{
+                                        flexWrap: "wrap",
+                                        margin: "2rem 0 2rem 0"
+                                    }}>
+                                        <Col size="6">
+                                            <div className="form-group">
+                                                <label className="form-label" htmlFor="category">
+                                                    Variant Type
+                                                </label>
+                                                <div className="form-control-wrap">
+                                                    <RSelect
+                                                        options={variantTypes}
+                                                        defaultValue={formData.required_variant_type}
+                                                        onChange={(e) => {
+                                                            setFormData({ ...formData, required_variant_type: e.value });
+                                                        }}
+                                                        ref={register({
+                                                            required: "This field is required",
+                                                        })}
+                                                    />
+                                                    {errors.category &&
+                                                    <span className="invalid">{errors.required_variant_type.message}</span>}
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        <Col size="6">
+                                            <div className="form-group">
+                                                <label className="form-label" htmlFor="category">
+                                                    Menu Type
+                                                </label>
+                                                <div className="form-control-wrap">
+                                                    <RSelect
+                                                        options={menuTypes}
+                                                        defaultValue={formData.required_menue_type}
+                                                        onChange={(e) => {
+                                                            setFormData({ ...formData, required_menue_type: e.value });
+                                                        }}
+                                                        ref={register({
+                                                            required: "This field is required",
+                                                        })}
+                                                    />
+                                                    {errors.category &&
+                                                    <span className="invalid">{errors.required_menue_type.message}</span>}
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    </Stack>
+                                            : null
+                                    }
+
+                                    {
                                         [...Array(variants)].map((val, idx)=> (
                                              <Col size="10">
                                                  <Stack direction="row" sx={{
@@ -474,6 +528,57 @@ const AddMenuItemForm = (props) => {
                                 </Stack>
                                 <Divider color="white" width="100%"/>
                                 <Col size="12">
+                                    {
+                                        addons?
+                                            <Stack direction="row" sx={{
+                                                flexWrap: "wrap",
+                                                margin: "2rem 0 2rem 0"
+                                            }}>
+                                                <Col size="6">
+                                                    <div className="form-group">
+                                                        <label className="form-label" htmlFor="category">
+                                                            Variant Type
+                                                        </label>
+                                                        <div className="form-control-wrap">
+                                                            <RSelect
+                                                                options={variantTypes}
+                                                                defaultValue={formData.optional_variant_type}
+                                                                onChange={(e) => {
+                                                                    setFormData({ ...formData, optional_variant_type: e.value });
+                                                                }}
+                                                                ref={register({
+                                                                    required: "This field is required",
+                                                                })}
+                                                            />
+                                                            {errors.category &&
+                                                            <span className="invalid">{errors.optional_variant_type.message}</span>}
+                                                        </div>
+                                                    </div>
+                                                </Col>
+                                                <Col size="6">
+                                                    <div className="form-group">
+                                                        <label className="form-label" htmlFor="category">
+                                                            Menu Type
+                                                        </label>
+                                                        <div className="form-control-wrap">
+                                                            <RSelect
+                                                                options={menuTypes}
+                                                                defaultValue={formData.optional_menue_type}
+                                                                onChange={(e) => {
+                                                                    setFormData({ ...formData, optional_menue_type: e.value });
+                                                                }}
+                                                                ref={register({
+                                                                    required: "This field is required",
+                                                                })}
+                                                            />
+                                                            {errors.category &&
+                                                            <span className="invalid">{errors.optional_menue_type.message}</span>}
+                                                        </div>
+                                                    </div>
+                                                </Col>
+                                            </Stack>
+                                            : null
+                                    }
                                     {
                                         [...Array(addons)].map((val, idx)=> (
                                             <Col size="10">
