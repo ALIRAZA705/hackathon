@@ -107,6 +107,8 @@ import Restaurants from "../pages/others/Restaurants";
 import AddMenuPage from "../pages/others/AddMenuPage";
 import Orders from "../pages/others/Orders";
 import Bookings from "../pages/others/Bookings";
+import DeliveredOrders from "../pages/others/DeliveredOrders";
+import PreparingOrders from "../pages/others/PreparingOrders";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -353,6 +355,8 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/nioicon`} component={NioIconPage}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/svg-icons`} component={SVGIconPage}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders`} component={Orders}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/orders/preparing`} component={PreparingOrders}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/orders/delivered`} component={DeliveredOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/bookings`} component={Bookings}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Sales}></Route>
 
