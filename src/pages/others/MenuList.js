@@ -19,7 +19,7 @@ import {
   DataTableItem,
   PaginationComponent,
 } from "../../components/Component";
-import { Card, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle, Badge } from "reactstrap";
+import {Card, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle, Badge, Spinner} from "reactstrap";
 import { productData, categoryOptions } from "../pre-built/products/ProductData";
 import SimpleBar from "simplebar-react";
 import { useForm } from "react-hook-form";
@@ -32,6 +32,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setBusiness, setUser} from "../../store/state/userInfo";
 import {getMenuItemsByRestId} from "../../api/menu/menu";
 import {menuTableDataMapper} from "../../helper/menuTableHelper";
+import {Box} from "@mui/material";
 
 const MenuList = (props) => {
   const history = useHistory();
@@ -60,6 +61,7 @@ const MenuList = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(7);
   const [files, setFiles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(()=>{
@@ -72,6 +74,7 @@ const MenuList = (props) => {
   },[user])
 
   useEffect(async()=>{
+    setLoading(true);
     const res = await getMenuItemsByRestId(params);
     console.log(res)
     if(res.status === 200){
@@ -81,7 +84,10 @@ const MenuList = (props) => {
       })
       setData(tableData);
     }
-    // setData(productData);
+    else{
+      let err = res.response.data.error ? JSON.stringify(res.response.data.error) : "Error getting Restaurants";
+    }
+    setLoading(false);
   },[])
 
   // Changing state value when searching name
@@ -272,189 +278,203 @@ const MenuList = (props) => {
   return (
     <React.Fragment>
       <Head title="Product List"></Head>
-      <Content>
-        <BlockHead size="sm">
-          <BlockBetween>
-            <BlockHeadContent>
-              <BlockTitle>{`${user.busines_business_name}'s Menu`}</BlockTitle>
-            </BlockHeadContent>
-            <BlockHeadContent>
-              <div className="toggle-wrap nk-block-tools-toggle">
-                <a
-                  href="#more"
-                  className="btn btn-icon btn-trigger toggle-expand mr-n1"
-                  onClick={(ev) => {
-                    ev.preventDefault();
-                    setSmOption(!smOption);
-                  }}
-                >
-                  <Icon name="more-v"></Icon>
-                </a>
-                <div className="toggle-expand-content" style={{ display: smOption ? "block" : "none" }}>
-                  <ul className="nk-block-tools g-3">
-                    <li>
-                      <div className="form-control-wrap">
-                        <div className="form-icon form-icon-right">
-                          <Icon name="search"></Icon>
-                        </div>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="default-04"
-                          placeholder="Quick search by SKU"
-                          onChange={(e) => onFilterChange(e)}
-                        />
-                      </div>
-                    </li>
-                    {
-                      // user.role !== "super-admin" &&
-                      <li className="nk-block-tools-opt">
-                      <Button
-                          className="toggle btn-icon d-md-none"
-                          color="primary"
-                          onClick={() => {
-                            toggle("add");
+      {
+        loading ? <Box sx={{
+              width: "100vw",
+              height: "100vh",
+              margin: "auto",
+              paddingTop: "25%",
+              paddingLeft: "50%"
+              // textAlign: "center"
+            }}>
+              Please Wait...&nbsp;&nbsp;&nbsp;
+              <Spinner size="sm" color="dark"/>
+            </Box> :
+            <Content>
+              <BlockHead size="sm">
+                <BlockBetween>
+                  <BlockHeadContent>
+                    <BlockTitle>{`${user.busines_business_name}'s Menu`}</BlockTitle>
+                  </BlockHeadContent>
+                  <BlockHeadContent>
+                    <div className="toggle-wrap nk-block-tools-toggle">
+                      <a
+                          href="#more"
+                          className="btn btn-icon btn-trigger toggle-expand mr-n1"
+                          onClick={(ev) => {
+                            ev.preventDefault();
+                            setSmOption(!smOption);
                           }}
                       >
-                        <Icon name="plus"></Icon>
-                      </Button>
-                      <Button
-                          className="toggle d-none d-md-inline-flex"
-                          color="primary"
-                          onClick={handleAddProduct}
-                      >
-                        <Icon name="plus"></Icon>
-                        <span>Add Product</span>
-                      </Button>
-                    </li>
-                    }
-                  </ul>
-                </div>
-              </div>
-            </BlockHeadContent>
-          </BlockBetween>
-        </BlockHead>
-        <Block>
-          <Card className="card-bordered">
-            <div className="card-inner-group">
-              <div className="card-inner p-0">
-                <DataTableBody>
-                  <DataTableHead>
-                    <DataTableRow className="nk-tb-col-check">
-                      <div className="custom-control custom-control-sm custom-checkbox notext">
-                        <input
-                          type="checkbox"
-                          className="custom-control-input form-control"
-                          id="uid_1"
-                          onChange={(e) => selectorCheck(e)}
-                        />
-                        <label className="custom-control-label" htmlFor="uid_1"></label>
+                        <Icon name="more-v"></Icon>
+                      </a>
+                      <div className="toggle-expand-content" style={{display: smOption ? "block" : "none"}}>
+                        <ul className="nk-block-tools g-3">
+                          <li>
+                            <div className="form-control-wrap">
+                              <div className="form-icon form-icon-right">
+                                <Icon name="search"></Icon>
+                              </div>
+                              <input
+                                  type="text"
+                                  className="form-control"
+                                  id="default-04"
+                                  placeholder="Quick search by SKU"
+                                  onChange={(e) => onFilterChange(e)}
+                              />
+                            </div>
+                          </li>
+                          {
+                            // user.role !== "super-admin" &&
+                            <li className="nk-block-tools-opt">
+                              <Button
+                                  className="toggle btn-icon d-md-none"
+                                  color="primary"
+                                  onClick={() => {
+                                    toggle("add");
+                                  }}
+                              >
+                                <Icon name="plus"></Icon>
+                              </Button>
+                              <Button
+                                  className="toggle d-none d-md-inline-flex"
+                                  color="primary"
+                                  onClick={handleAddProduct}
+                              >
+                                <Icon name="plus"></Icon>
+                                <span>Add Product</span>
+                              </Button>
+                            </li>
+                          }
+                        </ul>
                       </div>
-                    </DataTableRow>
-                    <DataTableRow size="sm">
-                      <span>Name</span>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span>SKU</span>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span>Price</span>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span>Stock</span>
-                    </DataTableRow>
-                    <DataTableRow size="md">
-                      <span>Category</span>
-                    </DataTableRow>
-                    {/*<DataTableRow size="md">*/}
-                    {/*  <Icon name="star-round" className="tb-asterisk"></Icon>*/}
-                    {/*</DataTableRow>*/}
-                    <DataTableRow className="nk-tb-col-tools">
-                      <ul className="nk-tb-actions gx-1 my-n1">
-                        <li className="mr-n1">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              tag="a"
-                              href="#toggle"
-                              onClick={(ev) => ev.preventDefault()}
-                              className="dropdown-toggle btn btn-icon btn-trigger"
-                            >
-                              <Icon name="more-h"></Icon>
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                              <ul className="link-list-opt no-bdr">
-                                <li>
-                                  <DropdownItem tag="a" href="#edit" onClick={(ev) => ev.preventDefault()}>
-                                    <Icon name="edit"></Icon>
-                                    <span>Edit Selected</span>
-                                  </DropdownItem>
-                                </li>
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#remove"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                      selectorDeleteProduct();
-                                    }}
+                    </div>
+                  </BlockHeadContent>
+                </BlockBetween>
+              </BlockHead>
+              <Block>
+                <Card className="card-bordered">
+                  <div className="card-inner-group">
+                    <div className="card-inner p-0">
+                      <DataTableBody>
+                        <DataTableHead>
+                          <DataTableRow className="nk-tb-col-check">
+                            <div className="custom-control custom-control-sm custom-checkbox notext">
+                              <input
+                                  type="checkbox"
+                                  className="custom-control-input form-control"
+                                  id="uid_1"
+                                  onChange={(e) => selectorCheck(e)}
+                              />
+                              <label className="custom-control-label" htmlFor="uid_1"></label>
+                            </div>
+                          </DataTableRow>
+                          <DataTableRow size="sm">
+                            <span>Name</span>
+                          </DataTableRow>
+                          <DataTableRow>
+                            <span>SKU</span>
+                          </DataTableRow>
+                          <DataTableRow>
+                            <span>Price</span>
+                          </DataTableRow>
+                          <DataTableRow>
+                            <span>Stock</span>
+                          </DataTableRow>
+                          <DataTableRow size="md">
+                            <span>Category</span>
+                          </DataTableRow>
+                          {/*<DataTableRow size="md">*/}
+                          {/*  <Icon name="star-round" className="tb-asterisk"></Icon>*/}
+                          {/*</DataTableRow>*/}
+                          <DataTableRow className="nk-tb-col-tools">
+                            <ul className="nk-tb-actions gx-1 my-n1">
+                              <li className="mr-n1">
+                                <UncontrolledDropdown>
+                                  <DropdownToggle
+                                      tag="a"
+                                      href="#toggle"
+                                      onClick={(ev) => ev.preventDefault()}
+                                      className="dropdown-toggle btn btn-icon btn-trigger"
                                   >
-                                    <Icon name="trash"></Icon>
-                                    <span>Remove Selected</span>
-                                  </DropdownItem>
-                                </li>
-                                <li>
-                                  <DropdownItem tag="a" href="#stock" onClick={(ev) => ev.preventDefault()}>
-                                    <Icon name="bar-c"></Icon>
-                                    <span>Update Stock</span>
-                                  </DropdownItem>
-                                </li>
-                                <li>
-                                  <DropdownItem tag="a" href="#price" onClick={(ev) => ev.preventDefault()}>
-                                    <Icon name="invest"></Icon>
-                                    <span>Update Price</span>
-                                  </DropdownItem>
-                                </li>
-                              </ul>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </li>
-                      </ul>
-                    </DataTableRow>
-                  </DataTableHead>
-                  {currentItems.length > 0
-                    ? currentItems.map((item) => {
-                        return (
-                            // <div >
-                              <DataTableItem key={item.id}>
-                                <DataTableRow className="nk-tb-col-check">
-                                  <div className="custom-control custom-control-sm custom-checkbox notext">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-control-input form-control"
-                                        defaultChecked={item.check}
-                                        id={item.id + "uid1"}
-                                        key={Math.random()}
-                                        onChange={(e) => onSelectChange(e, item.id)}
-                                    />
-                                    <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
-                                  </div>
-                                </DataTableRow>
-                                <DataTableRow size="sm">
-                              <span className="tb-product" onClick={()=>{window.location.href = `/menu/${item.id}`}}>
-                                <img src={item.img ? item.img : ProductH} alt="product" className="thumb" />
+                                    <Icon name="more-h"></Icon>
+                                  </DropdownToggle>
+                                  <DropdownMenu right>
+                                    <ul className="link-list-opt no-bdr">
+                                      <li>
+                                        <DropdownItem tag="a" href="#edit" onClick={(ev) => ev.preventDefault()}>
+                                          <Icon name="edit"></Icon>
+                                          <span>Edit Selected</span>
+                                        </DropdownItem>
+                                      </li>
+                                      <li>
+                                        <DropdownItem
+                                            tag="a"
+                                            href="#remove"
+                                            onClick={(ev) => {
+                                              ev.preventDefault();
+                                              selectorDeleteProduct();
+                                            }}
+                                        >
+                                          <Icon name="trash"></Icon>
+                                          <span>Remove Selected</span>
+                                        </DropdownItem>
+                                      </li>
+                                      <li>
+                                        <DropdownItem tag="a" href="#stock" onClick={(ev) => ev.preventDefault()}>
+                                          <Icon name="bar-c"></Icon>
+                                          <span>Update Stock</span>
+                                        </DropdownItem>
+                                      </li>
+                                      <li>
+                                        <DropdownItem tag="a" href="#price" onClick={(ev) => ev.preventDefault()}>
+                                          <Icon name="invest"></Icon>
+                                          <span>Update Price</span>
+                                        </DropdownItem>
+                                      </li>
+                                    </ul>
+                                  </DropdownMenu>
+                                </UncontrolledDropdown>
+                              </li>
+                            </ul>
+                          </DataTableRow>
+                        </DataTableHead>
+                        {currentItems.length > 0
+                            ? currentItems.map((item) => {
+                              return (
+                                  // <div >
+                                  <DataTableItem key={item.id}>
+                                    <DataTableRow className="nk-tb-col-check">
+                                      <div className="custom-control custom-control-sm custom-checkbox notext">
+                                        <input
+                                            type="checkbox"
+                                            className="custom-control-input form-control"
+                                            defaultChecked={item.check}
+                                            id={item.id + "uid1"}
+                                            key={Math.random()}
+                                            onChange={(e) => onSelectChange(e, item.id)}
+                                        />
+                                        <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
+                                      </div>
+                                    </DataTableRow>
+                                    <DataTableRow size="sm">
+                              <span className="tb-product" onClick={() => {
+                                window.location.href = `/menu/${item.id}`
+                              }}>
+                                <img src={item.img ? item.img : ProductH} alt="product" className="thumb"/>
                                 <span className="title">{item.name}</span>
                               </span>
-                                </DataTableRow>
-                                <DataTableRow>
-                                  <span className="tb-sub">{item.sku}</span>
-                                </DataTableRow>
-                                <DataTableRow>
-                                  <span className="tb-sub">$ {item.price}</span>
-                                </DataTableRow>
-                                <DataTableRow>
-                                  <span className="tb-sub">{item.stock}</span>
-                                </DataTableRow>
-                                <DataTableRow size="md">
+                                    </DataTableRow>
+                                    <DataTableRow>
+                                      <span className="tb-sub">{item.sku}</span>
+                                    </DataTableRow>
+                                    <DataTableRow>
+                                      <span className="tb-sub">$ {item.price}</span>
+                                    </DataTableRow>
+                                    <DataTableRow>
+                                      <span className="tb-sub">{item.stock}</span>
+                                    </DataTableRow>
+                                    <DataTableRow size="md">
                               <span className="tb-sub">
                                 {item.category.map((cat) => {
                                   if (item.category[cat] + 1 === null || undefined) {
@@ -462,485 +482,488 @@ const MenuList = (props) => {
                                   } else return cat.label + ", ";
                                 })}
                               </span>
-                                </DataTableRow>
-                                {/*<DataTableRow size="md">*/}
-                                {/*  <div className="asterisk tb-asterisk">*/}
-                                {/*    <a*/}
-                                {/*      href="#asterisk"*/}
-                                {/*      className={item.fav ? "active" : ""}*/}
-                                {/*      onClick={(ev) => ev.preventDefault()}*/}
-                                {/*    >*/}
-                                {/*      <Icon name="star" className="asterisk-off"></Icon>*/}
-                                {/*      <Icon name="star-fill" className="asterisk-on"></Icon>*/}
-                                {/*    </a>*/}
-                                {/*  </div>*/}
-                                {/*</DataTableRow>*/}
-                                <DataTableRow className="nk-tb-col-tools">
-                                  <ul className="nk-tb-actions gx-1 my-n1">
-                                    <li className="mr-n1">
-                                      <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            tag="a"
-                                            href="#more"
-                                            onClick={(ev) => ev.preventDefault()}
-                                            className="dropdown-toggle btn btn-icon btn-trigger"
-                                        >
-                                          <Icon name="more-h"></Icon>
-                                        </DropdownToggle>
-                                        <DropdownMenu right>
-                                          <ul className="link-list-opt no-bdr">
-                                            <li>
-                                              <DropdownItem
-                                                  tag="a"
-                                                  href="#edit"
-                                                  onClick={(ev) => {
-                                                    ev.preventDefault();
-                                                    onEditClick(item.id);
-                                                    toggle("edit");
-                                                  }}
-                                              >
-                                                <Icon name="edit"></Icon>
-                                                <span>Edit Product</span>
-                                              </DropdownItem>
-                                            </li>
-                                            <li>
-                                              <DropdownItem
-                                                  tag="a"
-                                                  href="#view"
-                                                  onClick={(ev) => {
-                                                    ev.preventDefault();
-                                                    onEditClick(item.id);
-                                                    toggle("details");
-                                                  }}
-                                              >
-                                                <Icon name="eye"></Icon>
-                                                <span>View Product</span>
-                                              </DropdownItem>
-                                            </li>
-                                            <li>
-                                              <DropdownItem
-                                                  tag="a"
-                                                  href="#remove"
-                                                  onClick={(ev) => {
-                                                    ev.preventDefault();
-                                                    deleteProduct(item.id);
-                                                  }}
-                                              >
-                                                <Icon name="trash"></Icon>
-                                                <span>Remove Product</span>
-                                              </DropdownItem>
-                                            </li>
-                                          </ul>
-                                        </DropdownMenu>
-                                      </UncontrolledDropdown>
-                                    </li>
-                                  </ul>
-                                </DataTableRow>
-                              </DataTableItem>
+                                    </DataTableRow>
+                                    {/*<DataTableRow size="md">*/}
+                                    {/*  <div className="asterisk tb-asterisk">*/}
+                                    {/*    <a*/}
+                                    {/*      href="#asterisk"*/}
+                                    {/*      className={item.fav ? "active" : ""}*/}
+                                    {/*      onClick={(ev) => ev.preventDefault()}*/}
+                                    {/*    >*/}
+                                    {/*      <Icon name="star" className="asterisk-off"></Icon>*/}
+                                    {/*      <Icon name="star-fill" className="asterisk-on"></Icon>*/}
+                                    {/*    </a>*/}
+                                    {/*  </div>*/}
+                                    {/*</DataTableRow>*/}
+                                    <DataTableRow className="nk-tb-col-tools">
+                                      <ul className="nk-tb-actions gx-1 my-n1">
+                                        <li className="mr-n1">
+                                          <UncontrolledDropdown>
+                                            <DropdownToggle
+                                                tag="a"
+                                                href="#more"
+                                                onClick={(ev) => ev.preventDefault()}
+                                                className="dropdown-toggle btn btn-icon btn-trigger"
+                                            >
+                                              <Icon name="more-h"></Icon>
+                                            </DropdownToggle>
+                                            <DropdownMenu right>
+                                              <ul className="link-list-opt no-bdr">
+                                                <li>
+                                                  <DropdownItem
+                                                      tag="a"
+                                                      href="#edit"
+                                                      onClick={(ev) => {
+                                                        ev.preventDefault();
+                                                        onEditClick(item.id);
+                                                        toggle("edit");
+                                                      }}
+                                                  >
+                                                    <Icon name="edit"></Icon>
+                                                    <span>Edit Product</span>
+                                                  </DropdownItem>
+                                                </li>
+                                                <li>
+                                                  <DropdownItem
+                                                      tag="a"
+                                                      href="#view"
+                                                      onClick={(ev) => {
+                                                        ev.preventDefault();
+                                                        onEditClick(item.id);
+                                                        toggle("details");
+                                                      }}
+                                                  >
+                                                    <Icon name="eye"></Icon>
+                                                    <span>View Product</span>
+                                                  </DropdownItem>
+                                                </li>
+                                                <li>
+                                                  <DropdownItem
+                                                      tag="a"
+                                                      href="#remove"
+                                                      onClick={(ev) => {
+                                                        ev.preventDefault();
+                                                        deleteProduct(item.id);
+                                                      }}
+                                                  >
+                                                    <Icon name="trash"></Icon>
+                                                    <span>Remove Product</span>
+                                                  </DropdownItem>
+                                                </li>
+                                              </ul>
+                                            </DropdownMenu>
+                                          </UncontrolledDropdown>
+                                        </li>
+                                      </ul>
+                                    </DataTableRow>
+                                  </DataTableItem>
 
-                            // </div>
-                        );
-                      })
-                    : null}
-                </DataTableBody>
-                <div className="card-inner">
-                  {data.length > 0 ? (
-                    <PaginationComponent
-                      itemPerPage={itemPerPage}
-                      totalItems={data.length}
-                      paginate={paginate}
-                      currentPage={currentPage}
-                    />
-                  ) : (
-                    <div className="text-center">
-                      <span className="text-silent">No products found</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </Card>
-        </Block>
-
-        <Modal isOpen={view.edit} toggle={() => onFormCancel()} className="modal-dialog-centered" size="lg">
-          <ModalBody>
-            <a href="#cancel" className="close">
-              {" "}
-              <Icon
-                name="cross-sm"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                  onFormCancel();
-                }}
-              ></Icon>
-            </a>
-            <div className="p-2">
-              <h5 className="title">Update Product</h5>
-              <div className="mt-4">
-                <form noValidate onSubmit={handleSubmit(onEditSubmit)}>
-                  <Row className="g-3">
-                    <Col size="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="product-title">
-                          Product Title
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="title"
-                            onChange={(e) => onInputChange(e)}
-                            ref={register({
-                              required: "This field is required",
-                            })}
-                            defaultValue={formData.name}
-                          />
-                          {errors.title && <span className="invalid">{errors.title.message}</span>}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="regular-price">
-                          Regular Price
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="number"
-                            name="price"
-                            ref={register({ required: "This is required" })}
-                            className="form-control"
-                            defaultValue={formData.price}
-                          />
-                          {errors.price && <span className="invalid">{errors.price.message}</span>}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="sale-price">
-                          Sale Price
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="number"
-                            className="form-control"
-                            name="salePrice"
-                            ref={register({ required: "This is required" })}
-                            defaultValue={formData.price}
-                          />
-                          {errors.salePrice && <span className="invalid">{errors.salePrice.message}</span>}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="stock">
-                          Stock
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="number"
-                            className="form-control"
-                            name="stock"
-                            ref={register({ required: "This is required" })}
-                            defaultValue={formData.stock}
-                          />
-                          {errors.stock && <span className="invalid">{errors.stock.message}</span>}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          SKU
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="sku"
-                            ref={register({ required: "This is required" })}
-                            defaultValue={formData.sku}
-                          />
-                          {errors.sku && <span className="invalid">{errors.sku.message}</span>}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col size="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="category">
-                          Category
-                        </label>
-                        <div className="form-control-wrap">
-                          <RSelect
-                            isMulti
-                            options={categoryOptions}
-                            defaultValue={formData.category}
-                            onChange={onCategoryChange}
-                            //ref={register({ required: "This is required" })}
-                          />
-                          {errors.category && <span className="invalid">{errors.category.message}</span>}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col size="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="category">
-                          Product Image
-                        </label>
-                        <div className="form-control-wrap">
-                          <img src={formData.img} alt=""></img>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col size="6">
-                      <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
-                        {({ getRootProps, getInputProps }) => (
-                          <section>
-                            <div
-                              {...getRootProps()}
-                              className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
-                            >
-                              <input {...getInputProps()} />
-                              {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
-                              {files.map((file) => (
-                                <div
-                                  key={file.name}
-                                  className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
-                                >
-                                  <div className="dz-image">
-                                    <img src={file.preview} alt="preview" />
-                                  </div>
-                                </div>
-                              ))}
+                                  // </div>
+                              );
+                            })
+                            : null}
+                      </DataTableBody>
+                      <div className="card-inner">
+                        {data.length > 0 ? (
+                            <PaginationComponent
+                                itemPerPage={itemPerPage}
+                                totalItems={data.length}
+                                paginate={paginate}
+                                currentPage={currentPage}
+                            />
+                        ) : (
+                            <div className="text-center">
+                              <span className="text-silent">No products found</span>
                             </div>
-                          </section>
                         )}
-                      </Dropzone>
-                    </Col>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </Block>
 
-                    <Col size="12">
-                      <Button color="primary" type="submit">
-                        <Icon className="plus"></Icon>
-                        <span>Update Product</span>
-                      </Button>
-                    </Col>
-                  </Row>
-                </form>
-              </div>
-            </div>
-          </ModalBody>
-        </Modal>
-
-        <Modal isOpen={view.details} toggle={() => onFormCancel()} className="modal-dialog-centered" size="lg">
-          <ModalBody>
-            <a href="#cancel" className="close">
-              {" "}
-              <Icon
-                name="cross-sm"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                  onFormCancel();
-                }}
-              ></Icon>
-            </a>
-            <div className="nk-modal-head">
-              <h4 className="nk-modal-title title">
-                Product <small className="text-primary">#{formData.sku}</small>
-              </h4>
-              <img src={formData.img} alt="" />
-            </div>
-            <div className="nk-tnx-details mt-sm-3">
-              <Row className="gy-3">
-                <Col lg={6}>
-                  <span className="sub-text">Product Name</span>
-                  <span className="caption-text">{formData.name}</span>
-                </Col>
-                <Col lg={6}>
-                  <span className="sub-text">Product Price</span>
-                  <span className="caption-text">$ {formData.price}</span>
-                </Col>
-                <Col lg={6}>
-                  <span className="sub-text">Product Category</span>
-                  <span className="caption-text">
-                    {formData.category.map((item) => (
-                      <Badge className="mr-1" color="secondary">
-                        {item.value}
-                      </Badge>
-                    ))}
-                  </span>
-                </Col>
-                <Col lg={6}>
-                  <span className="sub-text">Stock</span>
-                  <span className="caption-text"> {formData.stock}</span>
-                </Col>
-              </Row>
-            </div>
-          </ModalBody>
-        </Modal>
-
-        <SimpleBar
-          className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${
-            view.add ? "content-active" : ""
-          }`}
-        >
-          <BlockHead>
-            <BlockHeadContent>
-              <BlockTitle tag="h5">Add Product</BlockTitle>
-              <BlockDes>
-                <p>Add information or update product.</p>
-              </BlockDes>
-            </BlockHeadContent>
-          </BlockHead>
-          <Block>
-            <form onSubmit={handleSubmit(onFormSubmit)}>
-              <Row className="g-3">
-                <Col size="12">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="product-title">
-                      Product Title
-                    </label>
-                    <div className="form-control-wrap">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="title"
-                        onChange={(e) => onInputChange(e)}
-                        ref={register({
-                          required: "This field is required",
-                        })}
-                        defaultValue={formData.name}
-                      />
-                      {errors.title && <span className="invalid">{errors.title.message}</span>}
-                    </div>
-                  </div>
-                </Col>
-                <Col md="6">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="regular-price">
-                      Regular Price
-                    </label>
-                    <div className="form-control-wrap">
-                      <input
-                        type="number"
-                        name="price"
-                        ref={register({ required: "This is required" })}
-                        onChange={(e) => onInputChange(e)}
-                        className="form-control"
-                        defaultValue={formData.price}
-                      />
-                      {errors.price && <span className="invalid">{errors.price.message}</span>}
-                    </div>
-                  </div>
-                </Col>
-                <Col md="6">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="sale-price">
-                      Sale Price
-                    </label>
-                    <div className="form-control-wrap">
-                      <input
-                        type="number"
-                        className="form-control"
-                        name="salePrice"
-                        onChange={(e) => onInputChange(e)}
-                        ref={register({ required: "This is required" })}
-                        defaultValue={formData.price}
-                      />
-                      {errors.salePrice && <span className="invalid">{errors.salePrice.message}</span>}
-                    </div>
-                  </div>
-                </Col>
-                <Col md="6">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="stock">
-                      Stock
-                    </label>
-                    <div className="form-control-wrap">
-                      <input
-                        type="number"
-                        className="form-control"
-                        name="stock"
-                        onChange={(e) => onInputChange(e)}
-                        ref={register({ required: "This is required" })}
-                        defaultValue={formData.stock}
-                      />
-                      {errors.stock && <span className="invalid">{errors.stock.message}</span>}
-                    </div>
-                  </div>
-                </Col>
-                <Col md="6">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="SKU">
-                      SKU
-                    </label>
-                    <div className="form-control-wrap">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="sku"
-                        onChange={(e) => onInputChange(e)}
-                        ref={register({ required: "This is required" })}
-                        defaultValue={formData.sku}
-                      />
-                      {errors.sku && <span className="invalid">{errors.sku.message}</span>}
-                    </div>
-                  </div>
-                </Col>
-                <Col size="12">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="category">
-                      Category
-                    </label>
-                    <div className="form-control-wrap">
-                      <RSelect
-                        name="category"
-                        isMulti
-                        options={categoryOptions}
-                        onChange={onCategoryChange}
-                        //ref={register({ required: "This is required" })}
-                      />
-                      {errors.category && <span className="invalid">{errors.category.message}</span>}
-                    </div>
-                  </div>
-                </Col>
-                <Col size="12">
-                  <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
-                    {({ getRootProps, getInputProps }) => (
-                      <section>
-                        <div {...getRootProps()} className="dropzone upload-zone small bg-lighter my-2 dz-clickable">
-                          <input {...getInputProps()} />
-                          {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
-                          {files.map((file) => (
-                            <div
-                              key={file.name}
-                              className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
-                            >
-                              <div className="dz-image">
-                                <img src={file.preview} alt="preview" />
+              <Modal isOpen={view.edit} toggle={() => onFormCancel()} className="modal-dialog-centered" size="lg">
+                <ModalBody>
+                  <a href="#cancel" className="close">
+                    {" "}
+                    <Icon
+                        name="cross-sm"
+                        onClick={(ev) => {
+                          ev.preventDefault();
+                          onFormCancel();
+                        }}
+                    ></Icon>
+                  </a>
+                  <div className="p-2">
+                    <h5 className="title">Update Product</h5>
+                    <div className="mt-4">
+                      <form noValidate onSubmit={handleSubmit(onEditSubmit)}>
+                        <Row className="g-3">
+                          <Col size="12">
+                            <div className="form-group">
+                              <label className="form-label" htmlFor="product-title">
+                                Product Title
+                              </label>
+                              <div className="form-control-wrap">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="title"
+                                    onChange={(e) => onInputChange(e)}
+                                    ref={register({
+                                      required: "This field is required",
+                                    })}
+                                    defaultValue={formData.name}
+                                />
+                                {errors.title && <span className="invalid">{errors.title.message}</span>}
                               </div>
                             </div>
-                          ))}
+                          </Col>
+                          <Col md="6">
+                            <div className="form-group">
+                              <label className="form-label" htmlFor="regular-price">
+                                Regular Price
+                              </label>
+                              <div className="form-control-wrap">
+                                <input
+                                    type="number"
+                                    name="price"
+                                    ref={register({required: "This is required"})}
+                                    className="form-control"
+                                    defaultValue={formData.price}
+                                />
+                                {errors.price && <span className="invalid">{errors.price.message}</span>}
+                              </div>
+                            </div>
+                          </Col>
+                          <Col md="6">
+                            <div className="form-group">
+                              <label className="form-label" htmlFor="sale-price">
+                                Sale Price
+                              </label>
+                              <div className="form-control-wrap">
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    name="salePrice"
+                                    ref={register({required: "This is required"})}
+                                    defaultValue={formData.price}
+                                />
+                                {errors.salePrice && <span className="invalid">{errors.salePrice.message}</span>}
+                              </div>
+                            </div>
+                          </Col>
+                          <Col md="6">
+                            <div className="form-group">
+                              <label className="form-label" htmlFor="stock">
+                                Stock
+                              </label>
+                              <div className="form-control-wrap">
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    name="stock"
+                                    ref={register({required: "This is required"})}
+                                    defaultValue={formData.stock}
+                                />
+                                {errors.stock && <span className="invalid">{errors.stock.message}</span>}
+                              </div>
+                            </div>
+                          </Col>
+                          <Col md="6">
+                            <div className="form-group">
+                              <label className="form-label" htmlFor="SKU">
+                                SKU
+                              </label>
+                              <div className="form-control-wrap">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="sku"
+                                    ref={register({required: "This is required"})}
+                                    defaultValue={formData.sku}
+                                />
+                                {errors.sku && <span className="invalid">{errors.sku.message}</span>}
+                              </div>
+                            </div>
+                          </Col>
+                          <Col size="12">
+                            <div className="form-group">
+                              <label className="form-label" htmlFor="category">
+                                Category
+                              </label>
+                              <div className="form-control-wrap">
+                                <RSelect
+                                    isMulti
+                                    options={categoryOptions}
+                                    defaultValue={formData.category}
+                                    onChange={onCategoryChange}
+                                    //ref={register({ required: "This is required" })}
+                                />
+                                {errors.category && <span className="invalid">{errors.category.message}</span>}
+                              </div>
+                            </div>
+                          </Col>
+                          <Col size="6">
+                            <div className="form-group">
+                              <label className="form-label" htmlFor="category">
+                                Product Image
+                              </label>
+                              <div className="form-control-wrap">
+                                <img src={formData.img} alt=""></img>
+                              </div>
+                            </div>
+                          </Col>
+                          <Col size="6">
+                            <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
+                              {({getRootProps, getInputProps}) => (
+                                  <section>
+                                    <div
+                                        {...getRootProps()}
+                                        className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                                    >
+                                      <input {...getInputProps()} />
+                                      {files.length === 0 &&
+                                      <p>Drag 'n' drop some files here, or click to select files</p>}
+                                      {files.map((file) => (
+                                          <div
+                                              key={file.name}
+                                              className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
+                                          >
+                                            <div className="dz-image">
+                                              <img src={file.preview} alt="preview"/>
+                                            </div>
+                                          </div>
+                                      ))}
+                                    </div>
+                                  </section>
+                              )}
+                            </Dropzone>
+                          </Col>
+
+                          <Col size="12">
+                            <Button color="primary" type="submit">
+                              <Icon className="plus"></Icon>
+                              <span>Update Product</span>
+                            </Button>
+                          </Col>
+                        </Row>
+                      </form>
+                    </div>
+                  </div>
+                </ModalBody>
+              </Modal>
+
+              <Modal isOpen={view.details} toggle={() => onFormCancel()} className="modal-dialog-centered" size="lg">
+                <ModalBody>
+                  <a href="#cancel" className="close">
+                    {" "}
+                    <Icon
+                        name="cross-sm"
+                        onClick={(ev) => {
+                          ev.preventDefault();
+                          onFormCancel();
+                        }}
+                    ></Icon>
+                  </a>
+                  <div className="nk-modal-head">
+                    <h4 className="nk-modal-title title">
+                      Product <small className="text-primary">#{formData.sku}</small>
+                    </h4>
+                    <img src={formData.img} alt=""/>
+                  </div>
+                  <div className="nk-tnx-details mt-sm-3">
+                    <Row className="gy-3">
+                      <Col lg={6}>
+                        <span className="sub-text">Product Name</span>
+                        <span className="caption-text">{formData.name}</span>
+                      </Col>
+                      <Col lg={6}>
+                        <span className="sub-text">Product Price</span>
+                        <span className="caption-text">$ {formData.price}</span>
+                      </Col>
+                      <Col lg={6}>
+                        <span className="sub-text">Product Category</span>
+                        <span className="caption-text">
+                    {formData.category.map((item) => (
+                        <Badge className="mr-1" color="secondary">
+                          {item.value}
+                        </Badge>
+                    ))}
+                  </span>
+                      </Col>
+                      <Col lg={6}>
+                        <span className="sub-text">Stock</span>
+                        <span className="caption-text"> {formData.stock}</span>
+                      </Col>
+                    </Row>
+                  </div>
+                </ModalBody>
+              </Modal>
+
+              <SimpleBar
+                  className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${
+                      view.add ? "content-active" : ""
+                  }`}
+              >
+                <BlockHead>
+                  <BlockHeadContent>
+                    <BlockTitle tag="h5">Add Product</BlockTitle>
+                    <BlockDes>
+                      <p>Add information or update product.</p>
+                    </BlockDes>
+                  </BlockHeadContent>
+                </BlockHead>
+                <Block>
+                  <form onSubmit={handleSubmit(onFormSubmit)}>
+                    <Row className="g-3">
+                      <Col size="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="product-title">
+                            Product Title
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="title"
+                                onChange={(e) => onInputChange(e)}
+                                ref={register({
+                                  required: "This field is required",
+                                })}
+                                defaultValue={formData.name}
+                            />
+                            {errors.title && <span className="invalid">{errors.title.message}</span>}
+                          </div>
                         </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                </Col>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="regular-price">
+                            Regular Price
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                                type="number"
+                                name="price"
+                                ref={register({required: "This is required"})}
+                                onChange={(e) => onInputChange(e)}
+                                className="form-control"
+                                defaultValue={formData.price}
+                            />
+                            {errors.price && <span className="invalid">{errors.price.message}</span>}
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="sale-price">
+                            Sale Price
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                                type="number"
+                                className="form-control"
+                                name="salePrice"
+                                onChange={(e) => onInputChange(e)}
+                                ref={register({required: "This is required"})}
+                                defaultValue={formData.price}
+                            />
+                            {errors.salePrice && <span className="invalid">{errors.salePrice.message}</span>}
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="stock">
+                            Stock
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                                type="number"
+                                className="form-control"
+                                name="stock"
+                                onChange={(e) => onInputChange(e)}
+                                ref={register({required: "This is required"})}
+                                defaultValue={formData.stock}
+                            />
+                            {errors.stock && <span className="invalid">{errors.stock.message}</span>}
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            SKU
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="sku"
+                                onChange={(e) => onInputChange(e)}
+                                ref={register({required: "This is required"})}
+                                defaultValue={formData.sku}
+                            />
+                            {errors.sku && <span className="invalid">{errors.sku.message}</span>}
+                          </div>
+                        </div>
+                      </Col>
+                      <Col size="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="category">
+                            Category
+                          </label>
+                          <div className="form-control-wrap">
+                            <RSelect
+                                name="category"
+                                isMulti
+                                options={categoryOptions}
+                                onChange={onCategoryChange}
+                                //ref={register({ required: "This is required" })}
+                            />
+                            {errors.category && <span className="invalid">{errors.category.message}</span>}
+                          </div>
+                        </div>
+                      </Col>
+                      <Col size="12">
+                        <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
+                          {({getRootProps, getInputProps}) => (
+                              <section>
+                                <div {...getRootProps()}
+                                     className="dropzone upload-zone small bg-lighter my-2 dz-clickable">
+                                  <input {...getInputProps()} />
+                                  {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
+                                  {files.map((file) => (
+                                      <div
+                                          key={file.name}
+                                          className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
+                                      >
+                                        <div className="dz-image">
+                                          <img src={file.preview} alt="preview"/>
+                                        </div>
+                                      </div>
+                                  ))}
+                                </div>
+                              </section>
+                          )}
+                        </Dropzone>
+                      </Col>
 
-                <Col size="12">
-                  <Button color="primary" type="submit">
-                    <Icon className="plus"></Icon>
-                    <span>Add Product</span>
-                  </Button>
-                </Col>
-              </Row>
-            </form>
-          </Block>
-        </SimpleBar>
+                      <Col size="12">
+                        <Button color="primary" type="submit">
+                          <Icon className="plus"></Icon>
+                          <span>Add Product</span>
+                        </Button>
+                      </Col>
+                    </Row>
+                  </form>
+                </Block>
+              </SimpleBar>
 
-        {view.add && <div className="toggle-overlay" onClick={toggle}></div>}
-      </Content>
+              {view.add && <div className="toggle-overlay" onClick={toggle}></div>}
+            </Content>
+      }
     </React.Fragment>
   );
 };

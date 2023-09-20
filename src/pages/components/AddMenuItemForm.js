@@ -136,7 +136,7 @@ const AddMenuItemForm = () => {
             }, 3000)
             setLoading(false);
         }
-        else{restaurant/1/menu
+        else{
             // setError("Menu successfully added")
             history.push(`${process.env.PUBLIC_URL}/menu`)
         }

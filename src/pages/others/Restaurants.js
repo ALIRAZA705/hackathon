@@ -84,6 +84,7 @@ const Restaurants = () => {
                     paddingLeft: "50%"
                     // textAlign: "center"
                     }}>
+                        Please Wait...&nbsp;&nbsp;&nbsp;
                         <Spinner size="sm" color="dark"/>
                     </Box> :
                 <Content>
