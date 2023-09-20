@@ -12,7 +12,8 @@ const RestaurantCardMaterial = (props) => {
 
 
     const handleCardClick = (e) => {
-         history.push(`${process.env.PUBLIC_URL}\menu`);
+        console.log(history)
+         history.push(`${process.env.PUBLIC_URL}/menu`);
     };
 
     const handleFavoriteIconClick = (e) => {
