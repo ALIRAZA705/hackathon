@@ -68,15 +68,16 @@ const Restaurants = () => {
                         {
                             restuarrants.map((r)=>(
                                 <RestaurantCardMaterial
-                                id={r.restId}
-                                name={r.name}
-                                restLogo={r.restLogo}
-                                description={r.description}
-                                delivery={r.delivery}
-                                type={r.type}
-                                location={r.location}
-                                priceCategory={r.priceCategory}
-                                rating={r.rating}
+                                    key={r.restId}
+                                    id={r.restId}
+                                    name={r.name}
+                                    restLogo={r.restLogo}
+                                    description={r.description}
+                                    delivery={r.delivery}
+                                    type={r.type}
+                                    location={r.location}
+                                    priceCategory={r.priceCategory}
+                                    rating={r.rating}
                                 />
                             ))
                         }

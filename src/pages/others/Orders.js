@@ -3,6 +3,7 @@ import Head from "../../layout/head/Head";
 import Content from "../../layout/content/Content";
 import DatePicker from "react-datepicker";
 import {Stack} from "@mui/material";
+import { orderData, filterCoin, filterPaymentmethod, filterStatus, filterType } from "./OrderData";
 import {
     Block,
     BlockHeadContent,
@@ -61,21 +62,26 @@ const Orders = (props) => {
     });
 
 
-    // // props data table
-    // useEffect(()=>{
-    //     console.log("asdadasdasdas", tableData)
-    //     setData(tableData)
-    // },[props])
-
     const tableData = useMemo(()=>{
-        setData(props.tableData);
+        if(props.tableData)
+        {
+            setData(props.tableData);
+        }
+        else{
+            // const res = await getOrdersByRestId();
+            // console.log("res ordersss : ", res)
+            // setData(res.data)
+            setData(orderData)
+        }
         return data;
     },[props])
 
 
 
     useEffect(()=>{
-        setCurrentItems(data.slice(indexOfFirstItem, indexOfLastItem))
+        // if(data.length>0){
+            setCurrentItems(data.slice(indexOfFirstItem, indexOfLastItem))
+        // }
     },[data])
 
 

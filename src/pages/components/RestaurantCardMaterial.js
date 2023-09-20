@@ -10,12 +10,12 @@ const RestaurantCardMaterial = (props) => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.userInfo)
     const [favColor, setFavColor] = useState("white");
-    const {id, name, restLogo, description, delivery, type, location, priceCategory, rating } = props;
+    const { id, name, restLogo, description, delivery, type, location, priceCategory, rating } = props;
     let bckImage = restLogo? restLogo : "https://burgerlab.com.pk/wp-content/uploads/2022/02/Untitled-1-1-1.jpg?c062ef&c062ef"
 
     useEffect(()=>{
-        let user = localStorage.getItem('user');
-        dispatch(setUser(JSON.parse(user)));
+        // let user = localStorage.getItem('user');
+        // dispatch(setUser(JSON.parse(user)));
         // setUser(user)
     },[user])
 
@@ -69,7 +69,7 @@ const RestaurantCardMaterial = (props) => {
                                  padding: "5px 10px 5px 10px !important",
                              }}>
                     {/* name of rest... */}
-                    <Typography gutterBottom variant="h6" component="div" noWrap="true" sx={{
+                    <Typography gutterBottom variant="h6" component="div" noWrap={true} sx={{
                         color: "#fa4f26",
                     }}>
                         {name? name : "Thai Famous Cuisine"}

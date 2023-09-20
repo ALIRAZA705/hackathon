@@ -24,6 +24,7 @@ const AddMenuItemForm = () => {
     const [errorVal, setError] = useState("");
     const [variants, setVariants] = useState(0);
     const [files, setFiles] = useState([]);
+    const [images, setImages] = useState([]);
     const [priceDisable, setPriceDisable] = useState(false);
     const { errors, register, handleSubmit } = useForm();
     const [formData, setFormData] = useState({
@@ -76,7 +77,20 @@ const AddMenuItemForm = () => {
                 })
             )
         );
+        extractBase64Images(acceptedFiles);
     };
+
+    const extractBase64Images = (acceptedFiles) => {
+        let imgs = []
+        acceptedFiles.forEach((f)=>{
+            let reader = new FileReader();
+            reader.readAsDataURL(f);
+            reader.onload = function () {
+                imgs.push(reader.result)
+                setImages(imgs)
+            };
+        })
+    }
 
     const onFormSubmit = async (form) => {
         setLoading(true);
@@ -93,7 +107,8 @@ const AddMenuItemForm = () => {
             category: formData.category,
             categoryType: formData.categoryType,
             variants: [],
-            files
+            files,
+            images: images
         };
 
         const variantsArr = [...Array(variants)];
@@ -104,7 +119,7 @@ const AddMenuItemForm = () => {
             payload.variants.push(variant)
         });
         const res = await addNewMenuItem(payload);
-        console.log("res 111 :: ", res.request.status, res.response.data)
+        // console.log("res 111 :: ", res.request.status, res.response.data)
         if(res.request.status !== 200) {
             setError(res.response.data.exception)
             setTimeout(()=>{

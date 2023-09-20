@@ -61,8 +61,8 @@ const MenuList = (props) => {
 
 
   useEffect(()=>{
-    let user = localStorage.getItem('user');
-    dispatch(setUser(JSON.parse(user)));
+    // let user = localStorage.getItem('user');
+    // dispatch(setUser(JSON.parse(user)));
   },[user])
 
   useEffect(()=>{
