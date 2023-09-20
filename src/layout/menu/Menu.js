@@ -224,7 +224,7 @@ const Menu = ({ sidebarToggle, mobileView }) => {
     if(user?.role !== "super-admin"){
       console.log("not super")
       const newMenu = menu.filter(f=>
-          f.text !== "Restaurants"
+          f.text !== "Restaurants" && f.text !== "Riders"
       )
       setMenuList(newMenu)
     }

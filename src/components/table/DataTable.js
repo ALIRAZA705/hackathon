@@ -20,7 +20,7 @@ export const DataTableTitle = ({ ...props }) => {
 
 export const DataTableBody = ({ compact, className, bodyclass, ...props }) => {
   return (
-    <div className={`card-inner p-0 ${className ? className : ""}`}>
+    <div className={`card-inner p-10 ${className ? className : ""}`}>
       <div className={`nk-tb-list nk-tb-ulist ${bodyclass ? bodyclass : ""} ${compact ? "is-compact" : ""}`}>
         {props.children}
       </div>

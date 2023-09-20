@@ -113,6 +113,9 @@ import ChatScreen from "../pages/others/ChatScreen";
 import Error404Modern from "../pages/error/404-modern";
 import RestaurantMenuRedirect from "../pages/others/RestaurantMenuRedirect";
 import DispatchedOrders from "../pages/others/DispatchedOrders";
+import Riders from "../pages/others/Riders";
+import ApprovedRiders from "../pages/others/ApprovedRiders";
+import PendingRiders from "../pages/others/PendingRiders";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -140,6 +143,33 @@ const Pages = () => {
               {/*<UserListRegularPage />*/}
             </UserContextProvider>
           )}
+        ></Route>
+        <Route //Context Api added
+            exact
+            path={`${process.env.PUBLIC_URL}/riders`}
+            render={() => (
+                <UserContextProvider>
+                  <Riders />
+                </UserContextProvider>
+            )}
+        ></Route>
+        <Route //Context Api added
+            exact
+            path={`${process.env.PUBLIC_URL}/riders/pending`}
+            render={() => (
+                <UserContextProvider>
+                  <PendingRiders />
+                </UserContextProvider>
+            )}
+        ></Route>
+        <Route //Context Api added
+            exact
+            path={`${process.env.PUBLIC_URL}/riders/approved`}
+            render={() => (
+                <UserContextProvider>
+                  <ApprovedRiders />
+                </UserContextProvider>
+            )}
         ></Route>
         <Route //Context Api added
           exact

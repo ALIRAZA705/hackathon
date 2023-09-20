@@ -25,5 +25,9 @@ export const addOrderByRestIdURI = 'restaurant/:id/orders';
 export const editOrderURI = 'order/:id';
 export const deleteOrderURI = 'order/:id';
 
+// rider
+export const getAllRidersURI = 'rider_list';
+export const changeRidersStatusURI = 'change_rider_status/:id';
+
 // MISC
 export const cuisineListURI = 'cuisine_list';

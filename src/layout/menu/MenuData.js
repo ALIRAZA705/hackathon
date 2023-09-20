@@ -73,6 +73,12 @@ const menu = [
         link: "/dashboard",
         dashboard: true,
     },
+    {
+        // icon: "speed",
+        icon: "dashboard",
+        text: "Riders",
+        link: "/riders",
+    },
     // {
     //     icon: "users",
     //     text: "User Manage",
