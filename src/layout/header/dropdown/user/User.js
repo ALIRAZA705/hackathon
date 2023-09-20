@@ -45,9 +45,9 @@ const User = () => {
             <LinkItem link="/user-profile-setting" icon="setting-alt" onClick={toggle}>
               Account Setting
             </LinkItem>
-            <LinkItem link="/user-profile-activity" icon="activity-alt" onClick={toggle}>
-              Login Activity
-            </LinkItem>
+            {/*<LinkItem link="/user-profile-activity" icon="activity-alt" onClick={toggle}>*/}
+            {/*  Login Activity*/}
+            {/*</LinkItem>*/}
           </LinkList>
         </div>
         <div className="dropdown-inner">
