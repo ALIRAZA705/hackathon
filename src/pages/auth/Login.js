@@ -32,6 +32,7 @@ const Login = () => {
   const handleRedirect = (user) => {
     if(user.user_login_status === "super-admin"){
       console.log("super")
+      window.location.href = '/dashboard';
     }
     else{
       window.location.href = `/restaurant/${user.busines.id}/menu`;
