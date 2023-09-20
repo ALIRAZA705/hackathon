@@ -129,6 +129,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
       setTimeout(()=>{
         setModal(false);
         setError("")
+        window.location.reload(true);
       },[5000])
     }
     else{
@@ -416,18 +417,19 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   Personal
                 </a>
               </li>
-              <li className="nav-item">
+              {user.role !== "super-admin" &&
+                <li className="nav-item">
                 <a
-                  className={`nav-link ${modalTab === "2" && "active"}`}
-                  onClick={(ev) => {
-                    ev.preventDefault();
-                    setModalTab("2");
-                  }}
-                  href="#address"
+                    className={`nav-link ${modalTab === "2" && "active"}`}
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      setModalTab("2");
+                    }}
+                    href="#address"
                 >
                   Business
                 </a>
-              </li>
+              </li>}
             </ul>
             <div className="tab-content">
               <div className={`tab-pane ${modalTab === "1" ? "active" : ""}`} id="personal">

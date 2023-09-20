@@ -42,6 +42,7 @@ const MenuList = (props) => {
   const user = useSelector(state => state.userInfo)
   const [data, setData] = useState([]);
   const [smOption, setSmOption] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null)
   const [formData, setFormData] = useState({
     name: "",
     img: null,
@@ -77,9 +78,10 @@ const MenuList = (props) => {
   useEffect(async()=>{
     setLoading(true);
     const res = await getMenuItemsByRestId(params);
-    console.log(res)
+    // console.log(res)
     if(res.status === 200){
-     const menuList = res.data.records.data[0].restaurant_menue;
+      const menuList = res.data.records.data[0].restaurant_menue;
+      setSelectedRestaurant(res.data.records.data[0]);
       const tableData = menuList.map((menuItem)=>{
         return menuTableDataMapper(menuItem)
       })
@@ -299,7 +301,7 @@ const MenuList = (props) => {
               <BlockHead size="sm">
                 <BlockBetween>
                   <BlockHeadContent>
-                    <BlockTitle>{`${user.busines_business_name}'s Menu`}</BlockTitle>
+                    <BlockTitle>{`${selectedRestaurant.business_name}'s Menu`}</BlockTitle>
                   </BlockHeadContent>
                   <BlockHeadContent>
                     <div className="toggle-wrap nk-block-tools-toggle">
