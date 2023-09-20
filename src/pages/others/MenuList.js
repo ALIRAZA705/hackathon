@@ -27,10 +27,12 @@ import ProductH from "../../images/product/h.png";
 import Dropzone from "react-dropzone";
 import { Modal, ModalBody } from "reactstrap";
 import { RSelect } from "../../components/Component";
+import {useParams} from "react-router-dom";
 
-const MenuList = () => {
+const MenuList = (props) => {
   const history = useHistory();
-  const [data, setData] = useState(productData);
+  const params = useParams();
+  const [data, setData] = useState([]);
   const [smOption, setSmOption] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -52,6 +54,11 @@ const MenuList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(7);
   const [files, setFiles] = useState([]);
+
+
+  useEffect(()=>{
+    setData(productData);
+  },[])
 
   // Changing state value when searching name
   useEffect(() => {
@@ -167,7 +174,7 @@ const MenuList = () => {
 
   // selects all the products
   const selectorCheck = (e) => {
-    let newData;
+    let newData;f
     newData = data.map((item) => {
       item.check = e.currentTarget.checked;
       return item;
@@ -231,6 +238,12 @@ const MenuList = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const { errors, register, handleSubmit } = useForm();
+
+
+  const handleViewProductDetails = (id) => {
+    console.log(id);
+    window.location.href = `/menu/${id}`;
+  }
 
   return (
     <React.Fragment>
@@ -413,36 +426,37 @@ const MenuList = () => {
                   {currentItems.length > 0
                     ? currentItems.map((item) => {
                         return (
-                          <DataTableItem key={item.id}>
-                            <DataTableRow className="nk-tb-col-check">
-                              <div className="custom-control custom-control-sm custom-checkbox notext">
-                                <input
-                                  type="checkbox"
-                                  className="custom-control-input form-control"
-                                  defaultChecked={item.check}
-                                  id={item.id + "uid1"}
-                                  key={Math.random()}
-                                  onChange={(e) => onSelectChange(e, item.id)}
-                                />
-                                <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
-                              </div>
-                            </DataTableRow>
-                            <DataTableRow size="sm">
-                              <span className="tb-product">
+                            // <div >
+                              <DataTableItem key={item.id}>
+                                <DataTableRow className="nk-tb-col-check">
+                                  <div className="custom-control custom-control-sm custom-checkbox notext">
+                                    <input
+                                        type="checkbox"
+                                        className="custom-control-input form-control"
+                                        defaultChecked={item.check}
+                                        id={item.id + "uid1"}
+                                        key={Math.random()}
+                                        onChange={(e) => onSelectChange(e, item.id)}
+                                    />
+                                    <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
+                                  </div>
+                                </DataTableRow>
+                                <DataTableRow size="sm">
+                              <span className="tb-product" onClick={()=>{window.location.href = `/menu/${item.id}`}}>
                                 <img src={item.img ? item.img : ProductH} alt="product" className="thumb" />
                                 <span className="title">{item.name}</span>
                               </span>
-                            </DataTableRow>
-                            <DataTableRow>
-                              <span className="tb-sub">{item.sku}</span>
-                            </DataTableRow>
-                            <DataTableRow>
-                              <span className="tb-sub">$ {item.price}</span>
-                            </DataTableRow>
-                            <DataTableRow>
-                              <span className="tb-sub">{item.stock}</span>
-                            </DataTableRow>
-                            <DataTableRow size="md">
+                                </DataTableRow>
+                                <DataTableRow>
+                                  <span className="tb-sub">{item.sku}</span>
+                                </DataTableRow>
+                                <DataTableRow>
+                                  <span className="tb-sub">$ {item.price}</span>
+                                </DataTableRow>
+                                <DataTableRow>
+                                  <span className="tb-sub">{item.stock}</span>
+                                </DataTableRow>
+                                <DataTableRow size="md">
                               <span className="tb-sub">
                                 {item.category.map((cat) => {
                                   if (item.category[cat] + 1 === null || undefined) {
@@ -450,81 +464,83 @@ const MenuList = () => {
                                   } else return cat.label + ", ";
                                 })}
                               </span>
-                            </DataTableRow>
-                            {/*<DataTableRow size="md">*/}
-                            {/*  <div className="asterisk tb-asterisk">*/}
-                            {/*    <a*/}
-                            {/*      href="#asterisk"*/}
-                            {/*      className={item.fav ? "active" : ""}*/}
-                            {/*      onClick={(ev) => ev.preventDefault()}*/}
-                            {/*    >*/}
-                            {/*      <Icon name="star" className="asterisk-off"></Icon>*/}
-                            {/*      <Icon name="star-fill" className="asterisk-on"></Icon>*/}
-                            {/*    </a>*/}
-                            {/*  </div>*/}
-                            {/*</DataTableRow>*/}
-                            <DataTableRow className="nk-tb-col-tools">
-                              <ul className="nk-tb-actions gx-1 my-n1">
-                                <li className="mr-n1">
-                                  <UncontrolledDropdown>
-                                    <DropdownToggle
-                                      tag="a"
-                                      href="#more"
-                                      onClick={(ev) => ev.preventDefault()}
-                                      className="dropdown-toggle btn btn-icon btn-trigger"
-                                    >
-                                      <Icon name="more-h"></Icon>
-                                    </DropdownToggle>
-                                    <DropdownMenu right>
-                                      <ul className="link-list-opt no-bdr">
-                                        <li>
-                                          <DropdownItem
+                                </DataTableRow>
+                                {/*<DataTableRow size="md">*/}
+                                {/*  <div className="asterisk tb-asterisk">*/}
+                                {/*    <a*/}
+                                {/*      href="#asterisk"*/}
+                                {/*      className={item.fav ? "active" : ""}*/}
+                                {/*      onClick={(ev) => ev.preventDefault()}*/}
+                                {/*    >*/}
+                                {/*      <Icon name="star" className="asterisk-off"></Icon>*/}
+                                {/*      <Icon name="star-fill" className="asterisk-on"></Icon>*/}
+                                {/*    </a>*/}
+                                {/*  </div>*/}
+                                {/*</DataTableRow>*/}
+                                <DataTableRow className="nk-tb-col-tools">
+                                  <ul className="nk-tb-actions gx-1 my-n1">
+                                    <li className="mr-n1">
+                                      <UncontrolledDropdown>
+                                        <DropdownToggle
                                             tag="a"
-                                            href="#edit"
-                                            onClick={(ev) => {
-                                              ev.preventDefault();
-                                              onEditClick(item.id);
-                                              toggle("edit");
-                                            }}
-                                          >
-                                            <Icon name="edit"></Icon>
-                                            <span>Edit Product</span>
-                                          </DropdownItem>
-                                        </li>
-                                        <li>
-                                          <DropdownItem
-                                            tag="a"
-                                            href="#view"
-                                            onClick={(ev) => {
-                                              ev.preventDefault();
-                                              onEditClick(item.id);
-                                              toggle("details");
-                                            }}
-                                          >
-                                            <Icon name="eye"></Icon>
-                                            <span>View Product</span>
-                                          </DropdownItem>
-                                        </li>
-                                        <li>
-                                          <DropdownItem
-                                            tag="a"
-                                            href="#remove"
-                                            onClick={(ev) => {
-                                              ev.preventDefault();
-                                              deleteProduct(item.id);
-                                            }}
-                                          >
-                                            <Icon name="trash"></Icon>
-                                            <span>Remove Product</span>
-                                          </DropdownItem>
-                                        </li>
-                                      </ul>
-                                    </DropdownMenu>
-                                  </UncontrolledDropdown>
-                                </li>
-                              </ul>
-                            </DataTableRow>
-                          </DataTableItem>
+                                            href="#more"
+                                            onClick={(ev) => ev.preventDefault()}
+                                            className="dropdown-toggle btn btn-icon btn-trigger"
+                                        >
+                                          <Icon name="more-h"></Icon>
+                                        </DropdownToggle>
+                                        <DropdownMenu right>
+                                          <ul className="link-list-opt no-bdr">
+                                            <li>
+                                              <DropdownItem
+                                                  tag="a"
+                                                  href="#edit"
+                                                  onClick={(ev) => {
+                                                    ev.preventDefault();
+                                                    onEditClick(item.id);
+                                                    toggle("edit");
+                                                  }}
+                                              >
+                                                <Icon name="edit"></Icon>
+                                                <span>Edit Product</span>
+                                              </DropdownItem>
+                                            </li>
+                                            <li>
+                                              <DropdownItem
+                                                  tag="a"
+                                                  href="#view"
+                                                  onClick={(ev) => {
+                                                    ev.preventDefault();
+                                                    onEditClick(item.id);
+                                                    toggle("details");
+                                                  }}
+                                              >
+                                                <Icon name="eye"></Icon>
+                                                <span>View Product</span>
+                                              </DropdownItem>
+                                            </li>
+                                            <li>
+                                              <DropdownItem
+                                                  tag="a"
+                                                  href="#remove"
+                                                  onClick={(ev) => {
+                                                    ev.preventDefault();
+                                                    deleteProduct(item.id);
+                                                  }}
+                                              >
+                                                <Icon name="trash"></Icon>
+                                                <span>Remove Product</span>
+                                              </DropdownItem>
+                                            </li>
+                                          </ul>
+                                        </DropdownMenu>
+                                      </UncontrolledDropdown>
+                                    </li>
+                                  </ul>
+                                </DataTableRow>
+                              </DataTableItem>
+
+                            // </div>
                         );
                       })
                     : null}
