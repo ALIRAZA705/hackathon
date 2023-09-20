@@ -18,23 +18,44 @@ import {
 import { countryOptions, userData } from "./UserData";
 import { getDateStructured } from "../../../utils/Utils";
 import {useDispatch, useSelector} from "react-redux";
+import {editRestaurant} from "../../../api/restaurant/restaurant";
+
+
+export const cuisineTypesDD = [
+  { value: "Veg", label: "Veg" },
+  { value: "Non-Veg", label: "Non-Veg" },
+  { value: "Continental", label: "Continental" },
+];
+
+export const businessTypeDD = [
+  { value: "Restaurant", label: "Restaurant" },
+  { value: "Home Kitchen", label: "Home Kitchen" },
+  { value: "Take Away", label: "Take Away" },
+];
+
+export const ordrDeliveryTimeDD = [
+  { value: "10-15 min", label: "10-15 min" },
+  { value: "15-30 min", label: "15-30 min" },
+  { value: "30-45 min", label: "30-45 min" },
+];
 
 const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
+  const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
   const [modalTab, setModalTab] = useState("1");
   const [userInfo, setUserInfo] = useState(userData[0]);
-  const user = useSelector(state => state.userInfo)
+  const user = useSelector(state => state.userInfo);
+
   const [formData, setFormData] = useState({
     name: user.name,
-    // displayName: "Ishtiak",
-    phone: user.phone,
-    dob: "1980-08-10",
-    address: user.restaurant_address,
-    address2: "",
-    // state: "Kentucky",
-    // country: "Canada",
+    business_name: user.busines_business_name,
+    phone_number: user.phone,
+    restaurant_address: user.busines_restaurant_address,
+    business_type: user.busines_business_type,
+    cuisine_types: user.busines_cuisine_types,
+    starting_price: user.busines_starting_price,
+    ordr_delivery_time: user.busines_ordr_delivery_time,
   });
-  const [modal, setModal] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setProfileName(formData.name);
@@ -43,6 +64,16 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const submitUpdateBusinessForm = async () => {
+    let submitData = formData;
+    submitData.id = user.busines_id;
+    console.log(submitData)
+    const res = await editRestaurant(submitData);
+    setUserInfo(submitData);
+    setModal(false);
+  };
+
 
   const submitForm = () => {
     let submitData = {
@@ -59,9 +90,6 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
         <BlockBetween>
           <BlockHeadContent>
             <BlockTitle tag="h4">Restaurant Information</BlockTitle>
-            {/*<BlockDes>*/}
-            {/*  <p>Basic info, like your name and address, that you use on Nio Platform.</p>*/}
-            {/*</BlockDes>*/}
           </BlockHeadContent>
           <BlockHeadContent className="align-self-start d-lg-none">
             <Button
@@ -77,12 +105,12 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
       <Block>
         <div className="nk-data data-list">
           <div className="data-head">
-            <h6 className="overline-title">Basics</h6>
+            <h6 className="overline-title">Business Info</h6>
           </div>
           <div className="data-item" onClick={() => setModal(true)}>
             <div className="data-col">
-              <span className="data-label">Restaurant Name</span>
-              <span className="data-value">{user.business_name}</span>
+              <span className="data-label">Business Name</span>
+              <span className="data-value">{user.busines_business_name}</span>
             </div>
             <div className="data-col data-col-end">
               <span className="data-more">
@@ -90,28 +118,6 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
               </span>
             </div>
           </div>
-          <div className="data-item" onClick={() => setModal(true)}>
-            <div className="data-col">
-              <span className="data-label">Owner Name</span>
-              <span className="data-value">{user.name}</span>
-            </div>
-            <div className="data-col data-col-end">
-              <span className="data-more">
-                <Icon name="forward-ios"></Icon>
-              </span>
-            </div>
-          </div>
-          {/*<div className="data-item" onClick={() => setModal(true)}>*/}
-          {/*  /!*<div className="data-col">*!/*/}
-          {/*  /!*  <span className="data-label">Display Name</span>*!/*/}
-          {/*  /!*  <span className="data-value">{userInfo.displayName}</span>*!/*/}
-          {/*  /!*</div>*!/*/}
-          {/*  <div className="data-col data-col-end">*/}
-          {/*    <span className="data-more">*/}
-          {/*      <Icon name="forward-ios"></Icon>*/}
-          {/*    </span>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
           <div className="data-item">
             <div className="data-col">
               <span className="data-label">Email</span>
@@ -134,22 +140,63 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
               </span>
             </div>
           </div>
-          {/*<div className="data-item" onClick={() => setModal(true)}>*/}
-          {/*  <div className="data-col">*/}
-          {/*    <span className="data-label">Date of Birth</span>*/}
-          {/*    <span className="data-value">{userInfo.dob}</span>*/}
-          {/*  </div>*/}
-          {/*  <div className="data-col data-col-end">*/}
-          {/*    <span className="data-more">*/}
-          {/*      <Icon name="forward-ios"></Icon>*/}
-          {/*    </span>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
           <div className="data-item" onClick={() => setModal(true)}>
             <div className="data-col">
-              <span className="data-label">Address</span>
+              <span className="data-label">Business Type</span>
               <span className="data-value">
-                {user.restaurant_address}
+                {user.busines_business_type}
+              </span>
+            </div>
+            <div className="data-col data-col-end">
+              <span className="data-more">
+                <Icon name="forward-ios"></Icon>
+              </span>
+            </div>
+          </div>
+          <div className="data-item" onClick={() => setModal(true)}>
+            <div className="data-col">
+              <span className="data-label">Cuisine Types</span>
+              <span className="data-value">
+                {user.busines_cuisine_types}
+              </span>
+            </div>
+            <div className="data-col data-col-end">
+              <span className="data-more">
+                <Icon name="forward-ios"></Icon>
+              </span>
+            </div>
+          </div>
+          <div className="data-item" onClick={() => setModal(true)}>
+            <div className="data-col">
+              <span className="data-label">Starting Price</span>
+              <span className="data-value">
+                {user.busines_starting_price}
+              </span>
+            </div>
+            <div className="data-col data-col-end">
+              <span className="data-more">
+                <Icon name="forward-ios"></Icon>
+              </span>
+            </div>
+          </div>
+          <div className="data-item" onClick={() => setModal(true)}>
+            <div className="data-col">
+              <span className="data-label">Order Delivery Time</span>
+              <span className="data-value">
+                {user.busines_ordr_delivery_time}
+              </span>
+            </div>
+            <div className="data-col data-col-end">
+              <span className="data-more">
+                <Icon name="forward-ios"></Icon>
+              </span>
+            </div>
+          </div>
+          <div className="data-item" onClick={() => setModal(true)}>
+            <div className="data-col">
+              <span className="data-label">Restaurant Address</span>
+              <span className="data-value">
+                {user.busines_restaurant_address}
               </span>
             </div>
             <div className="data-col data-col-end">
@@ -161,57 +208,28 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
         </div>
         <div className="nk-data data-list">
           <div className="data-head">
-            <h6 className="overline-title">Preferences</h6>
+            <h6 className="overline-title">Ower Details</h6>
+          </div>
+          <div className="data-item" onClick={() => setModal(true)}>
+            <div className="data-col">
+              <span className="data-label">Owner Name</span>
+              <span className="data-value">{user.name}</span>
+            </div>
+            <div className="data-col data-col-end">
+              <span className="data-more">
+                <Icon name="forward-ios"></Icon>
+              </span>
+            </div>
           </div>
           <div className="data-item">
             <div className="data-col">
-              <span className="data-label">Language</span>
-              <span className="data-value">English (United State)</span>
+              <span className="data-label">Email</span>
+              <span className="data-value">{user.email}</span>
             </div>
             <div className="data-col data-col-end">
-              <a
-                href="#language"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-                className="link link-primary"
-              >
-                Change Language
-              </a>
-            </div>
-          </div>
-          {/*<div className="data-item">*/}
-          {/*  <div className="data-col">*/}
-          {/*    <span className="data-label">Date Format</span>*/}
-          {/*    <span className="data-value">MM/DD/YYYY</span>*/}
-          {/*  </div>*/}
-          {/*  <div className="data-col data-col-end">*/}
-          {/*    <a*/}
-          {/*      href="#link"*/}
-          {/*      onClick={(ev) => {*/}
-          {/*        ev.preventDefault();*/}
-          {/*      }}*/}
-          {/*      className="link link-primary"*/}
-          {/*    >*/}
-          {/*      Change*/}
-          {/*    </a>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-          <div className="data-item">
-            <div className="data-col">
-              <span className="data-label">Timezone</span>
-              <span className="data-value">Bangladesh (GMT +6)</span>
-            </div>
-            <div className="data-col data-col-end">
-              <a
-                href="#link"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-                className="link link-primary"
-              >
-                Change
-              </a>
+              <span className="data-more disable">
+                <Icon name="lock-alt"></Icon>
+              </span>
             </div>
           </div>
         </div>
@@ -230,7 +248,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
             <Icon name="cross-sm"></Icon>
           </a>
           <div className="p-2">
-            <h5 className="title">Update Profile</h5>
+            <h5 className="title">Update Information</h5>
             <ul className="nk-nav nav nav-tabs">
               <li className="nav-item">
                 <a
@@ -253,7 +271,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                   }}
                   href="#address"
                 >
-                  Address
+                  Business
                 </a>
               </li>
             </ul>
@@ -263,7 +281,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="full-name">
-                        Full Name
+                        First Name
                       </label>
                       <input
                         type="text"
@@ -271,7 +289,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                         className="form-control"
                         name="name"
                         onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.name}
+                        defaultValue={formData.first_name}
                         placeholder="Enter Full name"
                       />
                     </FormGroup>
@@ -279,7 +297,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="display-name">
-                        Display Name
+                        Last Name
                       </label>
                       <input
                         type="text"
@@ -287,7 +305,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                         className="form-control"
                         name="displayName"
                         onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.displayName}
+                        defaultValue={formData.last_name}
                         placeholder="Enter display name"
                       />
                     </FormGroup>
@@ -303,32 +321,32 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                         className="form-control"
                         name="phone"
                         onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.phone}
+                        defaultValue={formData.phone_number}
                         placeholder="Phone Number"
                       />
                     </FormGroup>
                   </Col>
-                  <Col md="6">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="birth-day">
-                        Date of Birth
-                      </label>
-                      <DatePicker
-                        selected={new Date(formData.dob)}
-                        className="form-control"
-                        onChange={(date) => setFormData({ ...formData, dob: getDateStructured(date) })}
-                        maxDate={new Date()}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col size="12">
-                    <div className="custom-control custom-switch">
-                      <input type="checkbox" className="custom-control-input form-control" id="latest-sale" />
-                      <label className="custom-control-label" htmlFor="latest-sale">
-                        Use full name to display{" "}
-                      </label>
-                    </div>
-                  </Col>
+                  {/*<Col md="6">*/}
+                  {/*  <FormGroup>*/}
+                  {/*    <label className="form-label" htmlFor="birth-day">*/}
+                  {/*      Date of Birth*/}
+                  {/*    </label>*/}
+                  {/*    <DatePicker*/}
+                  {/*      selected={new Date(formData.dob)}*/}
+                  {/*      className="form-control"*/}
+                  {/*      onChange={(date) => setFormData({ ...formData, dob: getDateStructured(date) })}*/}
+                  {/*      maxDate={new Date()}*/}
+                  {/*    />*/}
+                  {/*  </FormGroup>*/}
+                  {/*</Col>*/}
+                  {/*<Col size="12">*/}
+                  {/*  <div className="custom-control custom-switch">*/}
+                  {/*    <input type="checkbox" className="custom-control-input form-control" id="latest-sale" />*/}
+                  {/*    <label className="custom-control-label" htmlFor="latest-sale">*/}
+                  {/*      Use full name to display{" "}*/}
+                  {/*    </label>*/}
+                  {/*  </div>*/}
+                  {/*</Col>*/}
                   <Col size="12">
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>
@@ -340,7 +358,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                             submitForm();
                           }}
                         >
-                          Update Profile
+                          Update
                         </Button>
                       </li>
                       <li>
@@ -364,14 +382,14 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-l1">
-                        Address Line 1
+                        Business Name
                       </label>
                       <input
                         type="text"
                         id="address-l1"
                         name="address"
                         onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.address}
+                        defaultValue={formData.business_name}
                         className="form-control"
                       />
                     </FormGroup>
@@ -379,14 +397,14 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-l2">
-                        Address Line 2
+                        Phone Number
                       </label>
                       <input
                         type="text"
                         id="address-l2"
                         name="address2"
                         onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.address2}
+                        defaultValue={formData.phone_number}
                         className="form-control"
                       />
                     </FormGroup>
@@ -394,41 +412,92 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-st">
-                        State
+                        Business Type
                       </label>
-                      <input
-                        type="text"
-                        id="address-st"
-                        name="state"
-                        onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.state}
-                        className="form-control"
+                      <RSelect
+                          options={businessTypeDD}
+                          placeholder="Select Business Type"
+                          defaultValue={[
+                            {
+                              value: formData.country,
+                              label: formData.country,
+                            },
+                          ]}
+                          onChange={(e) => setFormData({ ...formData, business_type: e.value })}
                       />
                     </FormGroup>
                   </Col>
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-county">
-                        Country
+                        Cuisine Types
                       </label>
                       <RSelect
-                        options={countryOptions}
-                        placeholder="Select a country"
+                        options={cuisineTypesDD}
+                        placeholder="Select Cuisine Types"
                         defaultValue={[
                           {
                             value: formData.country,
                             label: formData.country,
                           },
                         ]}
-                        onChange={(e) => setFormData({ ...formData, country: e.value })}
+                        onChange={(e) => setFormData({ ...formData, cuisine_types: e.value })}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-st">
+                        Starting Price
+                      </label>
+                      <input
+                          type="text"
+                          id="address-st"
+                          name="state"
+                          onChange={(e) => onInputChange(e)}
+                          defaultValue={formData.starting_price}
+                          className="form-control"
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-st">
+                        Order Delivery Time
+                      </label>
+                      <RSelect
+                          options={ordrDeliveryTimeDD}
+                          placeholder="Select Delivery Time"
+                          defaultValue={[
+                            {
+                              value: formData.country,
+                              label: formData.country,
+                            },
+                          ]}
+                          onChange={(e) => setFormData({ ...formData, ordr_delivery_time: e.value })}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="12">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-st">
+                        Restaurant Address
+                      </label>
+                      <input
+                          type="text"
+                          id="address-st"
+                          name="state"
+                          onChange={(e) => onInputChange(e)}
+                          defaultValue={formData.restaurant_address}
+                          className="form-control"
                       />
                     </FormGroup>
                   </Col>
                   <Col size="12">
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>
-                        <Button color="primary" size="lg" onClick={() => submitForm()}>
-                          Update Address
+                        <Button color="primary" size="lg" onClick={() => submitUpdateBusinessForm()}>
+                          Update
                         </Button>
                       </li>
                       <li>

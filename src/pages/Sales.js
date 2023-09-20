@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Head from "../layout/head/Head";
 import {useDispatch} from "react-redux";
 import Content from "../layout/content/Content";
-import { setUser } from "../store/state/userInfo";
+import { setUser, setBusiness } from "../store/state/userInfo";
 import { useSelector } from "react-redux";
 import SaleRevenue from "../components/partials/sales/sale-revenue/SaleRevenue";
 import SalesOverview from "../components/partials/sales/sales-overview/SalesOverview";
@@ -41,8 +41,11 @@ const Sales = () => {
 
   useEffect(()=>{
     let user = localStorage.getItem('user');
-    dispatch(setUser(JSON.parse(user)));
-    // setUser(user)
+    user = JSON.parse(user);
+    dispatch(setUser(user));
+    if(user.busines){
+      dispatch(setBusiness(user.busines));
+    }
   },[user])
 
   // useEffect(()=>{

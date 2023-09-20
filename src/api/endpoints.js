@@ -9,9 +9,9 @@ export const deleteMenuItemURI = 'product/delete';
 export const getMenuItemByRestIdURI = `restaurant/:id/product`;
 
 // Restaurant
-export const getAllRestaurantsURI = 'restaurants';
+export const getAllRestaurantsURI = 'restaurant';
 export const addRestaurantURI = 'restaurants/add';
-export const editRestaurantURI = 'restaurant/edit';
+export const editRestaurantURI = 'restaurant/:id';
 export const deleteRestaurantURI = 'product/delete';
 export const getRestaurantByIdURI = `restaurant/:id`;
 

@@ -208,19 +208,21 @@ const MenuSub = ({ icon, link, text, sub, sidebarToggle, mobileView, ...props })
 
 const Menu = ({ sidebarToggle, mobileView }) => {
   const [menuList, setMenuList] = useState(menu);
+  // const [userRole, setUserRole] = useState(menu);
   const dispatch = useDispatch();
   const user = useSelector(state => state.userInfo)
 
   useEffect(()=>{
-    let user = localStorage.getItem('user');
-    if(JSON.parse(user).role !== "super-admin"){
-      console.log("super admin found in menu gen")
+    if(!user){
+      let user = localStorage.getItem('user');
+      dispatch(setUser(JSON.parse(user)));
+    }
+    if(user.role !== "super-admin"){
       const menu = menuList.filter(f=>
-        f.text !== "Restaurants"
+          f.text !== "Restaurants"
       )
       setMenuList(menu)
     }
-    dispatch(setUser(JSON.parse(user)));
   },[user])
 
 

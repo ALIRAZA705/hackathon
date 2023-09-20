@@ -18,7 +18,7 @@ export const getAllRestaurants = (params) => {
 
 export const getRestaurantById = (params) => {
     const id = params.id;
-    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
+    const reqURI = getRestaurantByIdURI.replace(':id', id);
     return getRequest(`${reqURI}/`);
 }
 
@@ -28,12 +28,12 @@ export const addRestaurant = (payload) => {
 
 export const editRestaurant = (payload) => {
     const id = payload.id;
-    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
-    return patchRequest(reqURI, payload);
+    const reqURI = editRestaurantURI.replace(':id', id);
+    return postRequest(reqURI, payload);
 }
 
 export const deleteRestaurant = (payload) => {
     const id = payload.id;
-    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
+    const reqURI = deleteRestaurantURI.replace(':id', id);
     return deleteRequest(reqURI, payload);
 }
