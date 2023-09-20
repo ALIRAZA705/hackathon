@@ -3,15 +3,21 @@ import {
     getRequest, patchRequest, postFormDataRequest,
     postRequest
 } from "../methodCalls";
-import {getAllMenuItemsURI, editMenuItemURI, deleteMenuItemURI, getMenuItemByRestIdURI, addMenuItemURI} from "../endpoints";
+import {
+    getAllMenuItemsURI,
+    editMenuItemURI,
+    deleteMenuItemURI,
+    addMenuItemURI,
+    getMenuItemsByRestIdURI
+} from "../endpoints";
 
 export const getAllMenuItems = (params) => {
     return getRequest(`${getAllMenuItemsURI}/`);
 }
 
-export const getMenuItemByRestId = (params) => {
+export const getMenuItemsByRestId = (params) => {
     const id = params.id;
-    const reqURI = getMenuItemByRestIdURI.replace(':id', id);
+    const reqURI = getMenuItemsByRestIdURI.replace(':id', id);
     return getRequest(`${reqURI}`);
 }
 

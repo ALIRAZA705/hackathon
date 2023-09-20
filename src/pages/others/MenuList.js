@@ -30,6 +30,8 @@ import { RSelect } from "../../components/Component";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setBusiness, setUser} from "../../store/state/userInfo";
+import {getMenuItemsByRestId} from "../../api/menu/menu";
+import {menuTableDataMapper} from "../../helper/menuTableHelper";
 
 const MenuList = (props) => {
   const history = useHistory();
@@ -69,8 +71,17 @@ const MenuList = (props) => {
     }
   },[user])
 
-  useEffect(()=>{
-    setData(productData);
+  useEffect(async()=>{
+    const res = await getMenuItemsByRestId(params);
+    console.log(res)
+    if(res.status === 200){
+     const menuList = res.data.records.data[0].restaurant_menue;
+      const tableData = menuList.map((menuItem)=>{
+        return menuTableDataMapper(menuItem)
+      })
+      setData(tableData);
+    }
+    // setData(productData);
   },[])
 
   // Changing state value when searching name
@@ -81,7 +92,7 @@ const MenuList = (props) => {
       });
       setData([...filteredObject]);
     } else {
-      setData([...productData]);
+      setData([...data]);
     }
   }, [onSearchText]);
 
@@ -265,7 +276,7 @@ const MenuList = (props) => {
         <BlockHead size="sm">
           <BlockBetween>
             <BlockHeadContent>
-              <BlockTitle>Products</BlockTitle>
+              <BlockTitle>{`${user.busines_business_name}'s Menu`}</BlockTitle>
             </BlockHeadContent>
             <BlockHeadContent>
               <div className="toggle-wrap nk-block-tools-toggle">
