@@ -203,6 +203,7 @@ const MenuList = (props) => {
           item_name: item.name,
           img: item.img,
           sku: item.sku,
+          restaurant_menue_variant: item.restaurant_menue_variant,
           regular_price: item.price,
           stock: item.stock,
           category: item.category,
@@ -412,6 +413,9 @@ const MenuList = (props) => {
                           <DataTableRow size="sm">
                             <span>Name</span>
                           </DataTableRow>
+                          <DataTableRow size="sm">
+                            <span>Variants</span>
+                          </DataTableRow>
                           <DataTableRow>
                             <span>SKU</span>
                           </DataTableRow>
@@ -499,19 +503,30 @@ const MenuList = (props) => {
                                     {/*</DataTableRow>*/}
                                     <DataTableRow className="nk-tb-col-check">
                               <span className="tb-sub" onClick={() => {
-                                window.location.href = `/menu/${item.id}`
+                                // window.location.href = `/menu/${item.id}`
                               }}>
-                                <img src={item.img ? item.img : ProductH} alt="product" className="thumb"/>
+                                <img width="50px" height="45px" src={item.img ? item.img : ProductH} alt="product" />
                                 {/*<span className="title">{item.name}</span>*/}
                               </span>
                                     </DataTableRow>
                                     <DataTableRow size="md">
                               <span className="tb-product" onClick={() => {
-                                window.location.href = `/menu/${item.id}`
+                                // menu page open
+                                // window.location.href = `/menu/${item.id}`
                               }}>
                                 {/*<img src={item.img ? item.img : ProductH} alt="product" className="thumb"/>*/}
                                 <span className="title">{item.name}</span>
                               </span>
+                                    </DataTableRow>
+                                    <DataTableRow>
+                                      <span className="tb-sub">{
+                                        item?.restaurant_menue_variant?.map((v)=>(
+                                            <div>
+                                              {v.variant_name}
+                                            </div>
+                                        ))
+                                        // JSON.stringify(item?.restaurant_menue_variant)
+                                      }</span>
                                     </DataTableRow>
                                     <DataTableRow>
                                       <span className="tb-sub">{item.sku}</span>

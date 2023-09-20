@@ -6,6 +6,7 @@ export const menuTableDataMapper = (raw) =>{
         name: raw.item_name,
         description: raw.description,
         sale_price: raw.sale_price,
+        restaurant_menue_variant: raw.restaurant_menue_variant,
         img: IMG_STORAGE_BASE_URL + raw.restaurant_file[0].restaurant_file,
         sku: raw.sku,
         price: raw.regular_price,
