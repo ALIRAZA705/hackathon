@@ -43,8 +43,8 @@ const AddMenuItemForm = (props) => {
         stock: 0,
         category: "",
         category_type: "",
-        required_variant_type: "",
-        required_menue_type: "",
+        required_variant_type: "Required",
+        required_menue_type: "Optional",
         fav: false,
         check: false,
     });
@@ -80,6 +80,11 @@ const AddMenuItemForm = (props) => {
     const updateVariants = () => {
         setVariants(variants + 1);
         setPriceDisable(true)
+    }
+
+    const deleteAllVariants = () => {
+        setVariants(0);
+        setPriceDisable(false)
     }
 
     const updateAddons = () => {
@@ -388,12 +393,25 @@ const AddMenuItemForm = (props) => {
 
                             {/*     add variations & addons */}
                             <Row className="g-3 variation-block">
-                                    <Stack className="vertical-center" direction="row" gap={2}>
-                                        <h6>Add Item Variations</h6>
-                                        <Button className="btn-round btn-icon" color="primary" size="sm"
-                                                onClick={updateVariants}>
-                                            <Icon name="plus" />
-                                        </Button>
+                                    <Stack direction="row" sx={{
+                                        justifyContent: "space-between",
+                                        width: "100%"
+                                    }}>
+                                        <Stack className="vertical-center" direction="row" gap={2}>
+                                            <h6>Add Item Variations</h6>
+                                            <Button className="btn-round btn-icon" color="primary" size="sm"
+                                                    onClick={updateVariants}>
+                                                <Icon name="plus" />
+                                            </Button>
+                                        </Stack>
+                                        {   variants > 0?
+                                            <Button className="btn-round btn-icon" color="danger" size="sm"
+                                                    onClick={deleteAllVariants}>
+                                                <Icon name="cross" />
+                                            </Button>
+                                            :
+                                            null
+                                        }
                                     </Stack>
                                     <Divider color="white" width="100%"/>
 
@@ -452,7 +470,7 @@ const AddMenuItemForm = (props) => {
 
                                     {
                                         [...Array(variants)].map((val, idx)=> (
-                                             <Col size="10">
+                                             <Col size="11">
                                                  <Stack direction="row" sx={{
                                                      flexWrap: "wrap",
                                                      margin: "1rem 0 1rem 0"
@@ -491,26 +509,51 @@ const AddMenuItemForm = (props) => {
                                                          </div>
                                                      </Col>
                                                      <Col md="2">
-                                                         <UploadButton
-                                                             setUploadFile={(f)=>{
-                                                                 // const a= {`variant-price-${idx}`: f}
-                                                                 setFormData({ ...formData, [`variant-picture-${idx}`]: f });
-                                                             }}
-                                                         />
+                                                         <Stack direction="row" gap={2}>
+                                                             <UploadButton
+                                                                 setUploadFile={(f)=>{
+                                                                     // const a= {`variant-price-${idx}`: f}
+                                                                     setFormData({ ...formData, [`variant-picture-${idx}`]: f });
+                                                                 }}
+                                                             />
+                                                             <Box>
+                                                                 <img
+                                                                     style={{
+                                                                         padding: "1px",
+                                                                         border: "1px dotted grey"
+                                                                     }}
+                                                                     width="30px"
+                                                                     height="30px"
+                                                                     src={formData[`variant-picture-${idx}`]? URL.createObjectURL(formData[`variant-picture-${idx}`]) : null}
+                                                                 />
+                                                             </Box>
+                                                         </Stack>
                                                      </Col>
                                                      <Col md="1">
-                                                         <Box>
-                                                             <img
-                                                                 style={{
-                                                                     padding: "1px",
-                                                                     border: "1px dotted grey"
-                                                             }}
-                                                                 width="30px"
-                                                                 height="30px"
-                                                                 src={formData[`variant-picture-${idx}`]? URL.createObjectURL(formData[`variant-picture-${idx}`]) : null}
-                                                             />
-                                                         </Box>
+                                                             <Stack direction="row" gap={2}>
+                                                                 {
+                                                                     !(formData[`variant-name-${idx}`])?
+                                                                     <Button className="btn-icon" color="danger" size="sm"
+                                                                          onClick={() => {
+                                                                              setVariants(variants - 1);
+                                                                          }}>
+                                                                     <Icon name="cross"/>
+                                                                 </Button>
+                                                                         :
+                                                                         null
+                                                                 }
+                                                                 {
+                                                                     variants-1 == idx?
+                                                                     <Button className="btn-round btn-icon" color="primary" size="sm"
+                                                                             onClick={updateVariants}>
+                                                                         <Icon name="plus" />
+                                                                     </Button>
+                                                                     :
+                                                                     null
+                                                                 }
+                                                             </Stack>
                                                      </Col>
+
                                                  </Stack>
                                              </Col>
 
