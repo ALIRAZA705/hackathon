@@ -17,10 +17,10 @@ import {Stack, Grid, Box, Typography, Divider } from "@mui/material";
 import "./AddMenuItemForm.css";
 import ProductH from "../../images/product/h.png";
 import {useForm} from "react-hook-form";
-import {addNewMenuItem} from "../../api/menu/menu";
+import {addNewMenuItem, editMenuItem} from "../../api/menu/menu";
 import {useParams} from "react-router";
 
-const AddMenuItemForm = () => {
+const AddMenuItemForm = (props) => {
     const params = useParams();
     const [loading, setLoading] = useState(false);
     const [errorVal, setError] = useState("");
@@ -29,12 +29,14 @@ const AddMenuItemForm = () => {
     const [images, setImages] = useState([]);
     const [priceDisable, setPriceDisable] = useState(false);
     const { errors, register, handleSubmit } = useForm();
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState(props.editFormData? props.editFormData : {
         // restId: 111,
         item_name: "",
         img: null,
         sku: "",
         regular_price: 0,
+        description: "",
+        sale_price: null,
         stock: 0,
         category: "",
         category_type: "",
@@ -89,17 +91,6 @@ const AddMenuItemForm = () => {
     };
 
 
-    // const extractBase64Images = (acceptedFiles) => {
-    //     let imgs = []
-    //     acceptedFiles.forEach((f)=>{
-    //         let reader = new FileReader();
-    //         reader.readAsDataURL(f);
-    //         reader.onload = function () {
-    //             imgs.push(reader.result)
-    //             setImages(imgs)
-    //         };
-    //     })
-    // }
 
     const onFormSubmit = async (form) => {
         setLoading(true);
@@ -112,6 +103,7 @@ const AddMenuItemForm = () => {
 
         const payload = {
             ...newFormData,
+            menu_id: formData.id,
             restaurant_id: params.id,
             category: formData.category,
             category_type: formData.categoryType,
@@ -127,7 +119,14 @@ const AddMenuItemForm = () => {
             variant['variant-price'] = formData['variant-price-'+i];
             payload.variants.push(variant)
         });
-        const res = await addNewMenuItem(payload);
+        let res;
+        if(props.edit){
+           res = await editMenuItem(payload);
+        }
+        else{
+            res = await addNewMenuItem(payload);
+        }
+
         if(res.data.success === false) {
             const err= res.data.records.error?  res.data.records.error : res.data.message;
             setError(err)
@@ -138,7 +137,8 @@ const AddMenuItemForm = () => {
         }
         else{
             // setError("Menu successfully added")
-            history.push(`${process.env.PUBLIC_URL}/menu`)
+            // history.push(`${process.env.PUBLIC_URL}/menu`)
+            window.location.href = '/restaurant/menu';
         }
     }
 
@@ -180,6 +180,7 @@ const AddMenuItemForm = () => {
                                             <textarea
                                               className="form-control form-control-sm"
                                               name='description'
+                                              defaultValue={formData.description}
                                               onChange={(e) => onInputChange(e)}
                                               id="textarea"
                                               placeholder="Write item description"
@@ -260,6 +261,7 @@ const AddMenuItemForm = () => {
                                             <input
                                                 type="number"
                                                 className="form-control"
+                                                defaultValue={formData.sale_price}
                                                 name="sale_price"
                                                 onChange={(e) => onInputChange(e)}
                                                 ref={ !priceDisable? register({
@@ -281,6 +283,7 @@ const AddMenuItemForm = () => {
                                             <input
                                                 type="number"
                                                 className="form-control"
+                                                defaultValue={formData.stock}
                                                 name="stock"
                                                 onChange={(e) => onInputChange(e)}
                                                 ref={register({
@@ -300,6 +303,7 @@ const AddMenuItemForm = () => {
                                             <input
                                                 type="text"
                                                 className="form-control"
+                                                defaultValue={formData.sku}
                                                 name="sku"
                                                 onChange={(e) => onInputChange(e)}
                                                 ref={register({
@@ -410,14 +414,6 @@ const AddMenuItemForm = () => {
                                 </Col>
 
                                 <Col size="12">
-                                    <Button color="primary" type="submit">
-                                        {/*<Icon className="plus"></Icon>*/}
-                                        {loading ? <Spinner size="sm" color="light" /> : "Save"}
-                                    </Button>
-
-                                </Col>
-
-                                <Col size="12">
                                     {errorVal && (
                                         <div className="mb-3">
                                             <Alert color="danger" className="alert-icon">
@@ -427,6 +423,15 @@ const AddMenuItemForm = () => {
                                         </div>
                                     )}
                                 </Col>
+
+                                <Col size="12">
+                                    <Button color="primary" type="submit">
+                                        {/*<Icon className="plus"></Icon>*/}
+                                        {loading ? <Spinner size="sm" color="light" /> : "Save"}
+                                    </Button>
+
+                                </Col>
+
                             </Row>
 
 

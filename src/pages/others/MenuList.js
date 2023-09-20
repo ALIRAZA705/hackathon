@@ -33,6 +33,7 @@ import {setBusiness, setUser} from "../../store/state/userInfo";
 import {getMenuItemsByRestId} from "../../api/menu/menu";
 import {menuTableDataMapper} from "../../helper/menuTableHelper";
 import {Box} from "@mui/material";
+import AddMenuItemForm from "../components/AddMenuItemForm";
 
 const MenuList = (props) => {
   const history = useHistory();
@@ -186,12 +187,16 @@ const MenuList = (props) => {
     data.forEach((item) => {
       if (item.id === id) {
         setFormData({
-          name: item.name,
+          id: item.id,
+          item_name: item.name,
           img: item.img,
           sku: item.sku,
-          price: item.price,
+          regular_price: item.price,
           stock: item.stock,
           category: item.category,
+          category_type: item.category_type,
+          description: item.description,
+          sale_price: item.sale_price,
           fav: false,
           check: false,
         });
@@ -595,161 +600,165 @@ const MenuList = (props) => {
                     ></Icon>
                   </a>
                   <div className="p-2">
-                    <h5 className="title">Update Product</h5>
-                    <div className="mt-4">
-                      <form noValidate onSubmit={handleSubmit(onEditSubmit)}>
-                        <Row className="g-3">
-                          <Col size="12">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="product-title">
-                                Product Title
-                              </label>
-                              <div className="form-control-wrap">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="title"
-                                    onChange={(e) => onInputChange(e)}
-                                    ref={register({
-                                      required: "This field is required",
-                                    })}
-                                    defaultValue={formData.name}
-                                />
-                                {errors.title && <span className="invalid">{errors.title.message}</span>}
-                              </div>
-                            </div>
-                          </Col>
-                          <Col md="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="regular-price">
-                                Regular Price
-                              </label>
-                              <div className="form-control-wrap">
-                                <input
-                                    type="number"
-                                    name="price"
-                                    ref={register({required: "This is required"})}
-                                    className="form-control"
-                                    defaultValue={formData.price}
-                                />
-                                {errors.price && <span className="invalid">{errors.price.message}</span>}
-                              </div>
-                            </div>
-                          </Col>
-                          <Col md="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="sale-price">
-                                Sale Price
-                              </label>
-                              <div className="form-control-wrap">
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    name="salePrice"
-                                    ref={register({required: "This is required"})}
-                                    defaultValue={formData.price}
-                                />
-                                {errors.salePrice && <span className="invalid">{errors.salePrice.message}</span>}
-                              </div>
-                            </div>
-                          </Col>
-                          <Col md="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="stock">
-                                Stock
-                              </label>
-                              <div className="form-control-wrap">
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    name="stock"
-                                    ref={register({required: "This is required"})}
-                                    defaultValue={formData.stock}
-                                />
-                                {errors.stock && <span className="invalid">{errors.stock.message}</span>}
-                              </div>
-                            </div>
-                          </Col>
-                          <Col md="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="SKU">
-                                SKU
-                              </label>
-                              <div className="form-control-wrap">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="sku"
-                                    ref={register({required: "This is required"})}
-                                    defaultValue={formData.sku}
-                                />
-                                {errors.sku && <span className="invalid">{errors.sku.message}</span>}
-                              </div>
-                            </div>
-                          </Col>
-                          <Col size="12">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="category">
-                                Category
-                              </label>
-                              <div className="form-control-wrap">
-                                <RSelect
-                                    isMulti
-                                    options={categoryOptions}
-                                    defaultValue={formData.category}
-                                    onChange={onCategoryChange}
-                                    //ref={register({ required: "This is required" })}
-                                />
-                                {errors.category && <span className="invalid">{errors.category.message}</span>}
-                              </div>
-                            </div>
-                          </Col>
-                          <Col size="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="category">
-                                Product Image
-                              </label>
-                              <div className="form-control-wrap">
-                                <img src={formData.img} alt=""></img>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col size="6">
-                            <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
-                              {({getRootProps, getInputProps}) => (
-                                  <section>
-                                    <div
-                                        {...getRootProps()}
-                                        className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
-                                    >
-                                      <input {...getInputProps()} />
-                                      {files.length === 0 &&
-                                      <p>Drag 'n' drop some files here, or click to select files</p>}
-                                      {files.map((file) => (
-                                          <div
-                                              key={file.name}
-                                              className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
-                                          >
-                                            <div className="dz-image">
-                                              <img src={file.preview} alt="preview"/>
-                                            </div>
-                                          </div>
-                                      ))}
-                                    </div>
-                                  </section>
-                              )}
-                            </Dropzone>
-                          </Col>
+                    <h5 className="title">Update Menu Item</h5>
+                    {/*<div className="mt-4">*/}
+                    {/*  <form noValidate onSubmit={handleSubmit(onEditSubmit)}>*/}
+                    {/*    <Row className="g-3">*/}
+                    {/*      <Col size="12">*/}
+                    {/*        <div className="form-group">*/}
+                    {/*          <label className="form-label" htmlFor="product-title">*/}
+                    {/*            Product Title*/}
+                    {/*          </label>*/}
+                    {/*          <div className="form-control-wrap">*/}
+                    {/*            <input*/}
+                    {/*                type="text"*/}
+                    {/*                className="form-control"*/}
+                    {/*                name="title"*/}
+                    {/*                onChange={(e) => onInputChange(e)}*/}
+                    {/*                ref={register({*/}
+                    {/*                  required: "This field is required",*/}
+                    {/*                })}*/}
+                    {/*                defaultValue={formData.name}*/}
+                    {/*            />*/}
+                    {/*            {errors.title && <span className="invalid">{errors.title.message}</span>}*/}
+                    {/*          </div>*/}
+                    {/*        </div>*/}
+                    {/*      </Col>*/}
+                    {/*      <Col md="6">*/}
+                    {/*        <div className="form-group">*/}
+                    {/*          <label className="form-label" htmlFor="regular-price">*/}
+                    {/*            Regular Price*/}
+                    {/*          </label>*/}
+                    {/*          <div className="form-control-wrap">*/}
+                    {/*            <input*/}
+                    {/*                type="number"*/}
+                    {/*                name="price"*/}
+                    {/*                ref={register({required: "This is required"})}*/}
+                    {/*                className="form-control"*/}
+                    {/*                defaultValue={formData.price}*/}
+                    {/*            />*/}
+                    {/*            {errors.price && <span className="invalid">{errors.price.message}</span>}*/}
+                    {/*          </div>*/}
+                    {/*        </div>*/}
+                    {/*      </Col>*/}
+                    {/*      <Col md="6">*/}
+                    {/*        <div className="form-group">*/}
+                    {/*          <label className="form-label" htmlFor="sale-price">*/}
+                    {/*            Sale Price*/}
+                    {/*          </label>*/}
+                    {/*          <div className="form-control-wrap">*/}
+                    {/*            <input*/}
+                    {/*                type="number"*/}
+                    {/*                className="form-control"*/}
+                    {/*                name="salePrice"*/}
+                    {/*                ref={register({required: "This is required"})}*/}
+                    {/*                defaultValue={formData.price}*/}
+                    {/*            />*/}
+                    {/*            {errors.salePrice && <span className="invalid">{errors.salePrice.message}</span>}*/}
+                    {/*          </div>*/}
+                    {/*        </div>*/}
+                    {/*      </Col>*/}
+                    {/*      <Col md="6">*/}
+                    {/*        <div className="form-group">*/}
+                    {/*          <label className="form-label" htmlFor="stock">*/}
+                    {/*            Stock*/}
+                    {/*          </label>*/}
+                    {/*          <div className="form-control-wrap">*/}
+                    {/*            <input*/}
+                    {/*                type="number"*/}
+                    {/*                className="form-control"*/}
+                    {/*                name="stock"*/}
+                    {/*                ref={register({required: "This is required"})}*/}
+                    {/*                defaultValue={formData.stock}*/}
+                    {/*            />*/}
+                    {/*            {errors.stock && <span className="invalid">{errors.stock.message}</span>}*/}
+                    {/*          </div>*/}
+                    {/*        </div>*/}
+                    {/*      </Col>*/}
+                    {/*      <Col md="6">*/}
+                    {/*        <div className="form-group">*/}
+                    {/*          <label className="form-label" htmlFor="SKU">*/}
+                    {/*            SKU*/}
+                    {/*          </label>*/}
+                    {/*          <div className="form-control-wrap">*/}
+                    {/*            <input*/}
+                    {/*                type="text"*/}
+                    {/*                className="form-control"*/}
+                    {/*                name="sku"*/}
+                    {/*                ref={register({required: "This is required"})}*/}
+                    {/*                defaultValue={formData.sku}*/}
+                    {/*            />*/}
+                    {/*            {errors.sku && <span className="invalid">{errors.sku.message}</span>}*/}
+                    {/*          </div>*/}
+                    {/*        </div>*/}
+                    {/*      </Col>*/}
+                    {/*      <Col size="12">*/}
+                    {/*        <div className="form-group">*/}
+                    {/*          <label className="form-label" htmlFor="category">*/}
+                    {/*            Category*/}
+                    {/*          </label>*/}
+                    {/*          <div className="form-control-wrap">*/}
+                    {/*            <RSelect*/}
+                    {/*                isMulti*/}
+                    {/*                options={categoryOptions}*/}
+                    {/*                defaultValue={formData.category}*/}
+                    {/*                onChange={onCategoryChange}*/}
+                    {/*                //ref={register({ required: "This is required" })}*/}
+                    {/*            />*/}
+                    {/*            {errors.category && <span className="invalid">{errors.category.message}</span>}*/}
+                    {/*          </div>*/}
+                    {/*        </div>*/}
+                    {/*      </Col>*/}
+                    {/*      <Col size="6">*/}
+                    {/*        <div className="form-group">*/}
+                    {/*          <label className="form-label" htmlFor="category">*/}
+                    {/*            Product Image*/}
+                    {/*          </label>*/}
+                    {/*          <div className="form-control-wrap">*/}
+                    {/*            <img src={formData.img} alt=""></img>*/}
+                    {/*          </div>*/}
+                    {/*        </div>*/}
+                    {/*      </Col>*/}
+                    {/*      <Col size="6">*/}
+                    {/*        <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>*/}
+                    {/*          {({getRootProps, getInputProps}) => (*/}
+                    {/*              <section>*/}
+                    {/*                <div*/}
+                    {/*                    {...getRootProps()}*/}
+                    {/*                    className="dropzone upload-zone small bg-lighter my-2 dz-clickable"*/}
+                    {/*                >*/}
+                    {/*                  <input {...getInputProps()} />*/}
+                    {/*                  {files.length === 0 &&*/}
+                    {/*                  <p>Drag 'n' drop some files here, or click to select files</p>}*/}
+                    {/*                  {files.map((file) => (*/}
+                    {/*                      <div*/}
+                    {/*                          key={file.name}*/}
+                    {/*                          className="dz-preview dz-processing dz-image-preview dz-error dz-complete"*/}
+                    {/*                      >*/}
+                    {/*                        <div className="dz-image">*/}
+                    {/*                          <img src={file.preview} alt="preview"/>*/}
+                    {/*                        </div>*/}
+                    {/*                      </div>*/}
+                    {/*                  ))}*/}
+                    {/*                </div>*/}
+                    {/*              </section>*/}
+                    {/*          )}*/}
+                    {/*        </Dropzone>*/}
+                    {/*      </Col>*/}
 
-                          <Col size="12">
-                            <Button color="primary" type="submit">
-                              <Icon className="plus"></Icon>
-                              <span>Update Product</span>
-                            </Button>
-                          </Col>
-                        </Row>
-                      </form>
-                    </div>
+                    {/*      <Col size="12">*/}
+                    {/*        <Button color="primary" type="submit">*/}
+                    {/*          <Icon className="plus"></Icon>*/}
+                    {/*          <span>Update Product</span>*/}
+                    {/*        </Button>*/}
+                    {/*      </Col>*/}
+                    {/*    </Row>*/}
+                    {/*  </form>*/}
+                    {/*</div>*/}
+                    <AddMenuItemForm
+                    editFormData={formData}
+                    edit={true}
+                    />
                   </div>
                 </ModalBody>
               </Modal>

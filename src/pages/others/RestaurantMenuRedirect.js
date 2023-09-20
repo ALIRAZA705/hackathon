@@ -19,7 +19,7 @@ import {
   DataTableItem,
   PaginationComponent,
 } from "../../components/Component";
-import { Card, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle, Badge } from "reactstrap";
+import {Card, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle, Badge, Spinner} from "reactstrap";
 import { productData, categoryOptions } from "../pre-built/products/ProductData";
 import SimpleBar from "simplebar-react";
 import { useForm } from "react-hook-form";
@@ -30,6 +30,7 @@ import { RSelect } from "../../components/Component";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setBusiness, setUser} from "../../store/state/userInfo";
+import {Box} from "@mui/material";
 
 const RestaurantMenuRedirect = (props) => {
   const history = useHistory();
@@ -61,7 +62,17 @@ const RestaurantMenuRedirect = (props) => {
 
 
   return (
-      <div>Loading...</div>
+      <Box sx={{
+        width: "100vw",
+        height: "100vh",
+        margin: "auto",
+        paddingTop: "25%",
+        paddingLeft: "50%"
+        // textAlign: "center"
+      }}>
+        Please Wait...&nbsp;&nbsp;&nbsp;
+        <Spinner size="sm" color="dark"/>
+      </Box>
   );
 };
 
