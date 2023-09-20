@@ -1,0 +1,13 @@
+@import "./fonts/font.css";
+
+h1, h2, h3, p {
+    font-family: 'Gilroy';
+    font-width: 900;
+}
+
+.pointer-on-hover{
+    :hover {
+        cursor: pointer;
+    }
+}
+
