@@ -17,6 +17,7 @@ import {
 } from "../../../components/Component";
 import { countryOptions, userData } from "./UserData";
 import { getDateStructured } from "../../../utils/Utils";
+import {useDispatch, useSelector} from "react-redux";
 
 const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
   const [modalTab, setModalTab] = useState("1");
@@ -32,6 +33,8 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
     country: "Canada",
   });
   const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.userInfo)
 
   useEffect(() => {
     setProfileName(formData.name);
@@ -101,7 +104,7 @@ const UserProfileRegularPage = ({ sm, updateSm, setProfileName }) => {
           <div className="data-item">
             <div className="data-col">
               <span className="data-label">Email</span>
-              <span className="data-value">info@softnio.com</span>
+              <span className="data-value">{user.email}</span>
             </div>
             <div className="data-col data-col-end">
               <span className="data-more disable">

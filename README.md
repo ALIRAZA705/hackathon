@@ -114,3 +114,28 @@ the .htaccess file is included in the server.
     is the same as in step one.
 
 4.  Restart the application and visit the created route.
+
+
+// APIs required
+1. Restaurant Logo API
+2. Menu List By Restaurant ID (get, add, delete, edit [existing API is not usefull])
+	(also filter results based on categories [i.e, fast food, main course, drinks])
+3. Menu Item By id [GET]
+4. Orders API (list of approved bookings containng statuses: preparing, pending delivery, delivered etc)
+5. Bookings API (orders before restaurant approves / seller approve)
+6. Total Sales API (for single Restaurant)
+7. Total Sales API (for super-admin [summ of All Rest.])
+8. Summary API for restaurant owner (stats including total numbner of sales, total orders, pending deliveries / approvals etc)
+9. Summary API for Super-Admin (stats including no. of rest registered, total numbner of sales, total orders etc)
+10. Notifications (for super-admin & restaurant)
+11. Categories List
+12. Cuisine Types List
+
+
+{
+dropdown in sidebar:
+pending
+delivered
+canceled
+-> add reason to cancel the order (* mandatory)
+}

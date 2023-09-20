@@ -8,11 +8,21 @@ import { Route, Switch, Link } from "react-router-dom";
 import { Icon, UserAvatar } from "../../../components/Component";
 import { findUpper } from "../../../utils/Utils";
 import { Card, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle } from "reactstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {setUser} from "../../../store/state/userInfo";
 
 const UserProfileLayout = () => {
   const [sm, updateSm] = useState(false);
   const [mobileView, setMobileView] = useState(false);
   const [profileName, setProfileName] = useState("Abu Bin Ishtiak");
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.userInfo)
+
+  useEffect(()=>{
+    let user = localStorage.getItem('user');
+    dispatch(setUser(JSON.parse(user)));
+  },[user])
+
 
   // function to change the design view under 990 px
   const viewChange = () => {
@@ -53,7 +63,7 @@ const UserProfileLayout = () => {
                     <UserAvatar text={findUpper(profileName)} theme="primary" />
                     <div className="user-info">
                       <span className="lead-text">{profileName}</span>
-                      <span className="sub-text">info@softnio.com</span>
+                      <span className="sub-text">{user.email}</span>
                     </div>
                     <div className="user-action">
                       <UncontrolledDropdown>

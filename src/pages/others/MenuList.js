@@ -28,10 +28,14 @@ import Dropzone from "react-dropzone";
 import { Modal, ModalBody } from "reactstrap";
 import { RSelect } from "../../components/Component";
 import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setUser} from "../../store/state/userInfo";
 
 const MenuList = (props) => {
   const history = useHistory();
   const params = useParams();
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.userInfo)
   const [data, setData] = useState([]);
   const [smOption, setSmOption] = useState(false);
   const [formData, setFormData] = useState({
@@ -55,6 +59,11 @@ const MenuList = (props) => {
   const [itemPerPage] = useState(7);
   const [files, setFiles] = useState([]);
 
+
+  useEffect(()=>{
+    let user = localStorage.getItem('user');
+    dispatch(setUser(JSON.parse(user)));
+  },[user])
 
   useEffect(()=>{
     setData(productData);
@@ -282,54 +291,28 @@ const MenuList = (props) => {
                         />
                       </div>
                     </li>
-                    {/*<li>*/}
-                    {/*  <UncontrolledDropdown>*/}
-                    {/*    <DropdownToggle*/}
-                    {/*      color="transparent"*/}
-                    {/*      className="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"*/}
-                    {/*    >*/}
-                    {/*      Status*/}
-                    {/*    </DropdownToggle>*/}
-                    {/*    <DropdownMenu right>*/}
-                    {/*      <ul className="link-list-opt no-bdr">*/}
-                    {/*        <li>*/}
-                    {/*          <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => ev.preventDefault()}>*/}
-                    {/*            <span>New Items</span>*/}
-                    {/*          </DropdownItem>*/}
-                    {/*        </li>*/}
-                    {/*        <li>*/}
-                    {/*          <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => ev.preventDefault()}>*/}
-                    {/*            <span>Featured</span>*/}
-                    {/*          </DropdownItem>*/}
-                    {/*        </li>*/}
-                    {/*        <li>*/}
-                    {/*          <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => ev.preventDefault()}>*/}
-                    {/*            <span>Out of Stock</span>*/}
-                    {/*          </DropdownItem>*/}
-                    {/*        </li>*/}
-                    {/*      </ul>*/}
-                    {/*    </DropdownMenu>*/}
-                    {/*  </UncontrolledDropdown>*/}
-                    {/*</li>*/}
-                    <li className="nk-block-tools-opt">
+                    {
+                      user.role !== "super-admin" &&
+                      <li className="nk-block-tools-opt">
                       <Button
-                        className="toggle btn-icon d-md-none"
-                        color="primary"
-                        onClick={() => {
-                          toggle("add");
-                        }}
+                          className="toggle btn-icon d-md-none"
+                          color="primary"
+                          onClick={() => {
+                            toggle("add");
+                          }}
                       >
                         <Icon name="plus"></Icon>
                       </Button>
                       <Button
-                        className="toggle d-none d-md-inline-flex"
-                        color="primary"
-                        onClick={handleAddProduct}
+                          className="toggle d-none d-md-inline-flex"
+                          color="primary"
+                          onClick={handleAddProduct}
                       >
                         <Icon name="plus"></Icon>
                         <span>Add Product</span>
                       </Button>
                     </li>
+                    }
                   </ul>
                 </div>
               </div>

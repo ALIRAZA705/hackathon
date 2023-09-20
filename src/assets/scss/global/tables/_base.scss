@@ -58,6 +58,7 @@
         .tb-product{
             display: flex;
             align-items: center;
+            cursor: pointer;
             .thumb{
                 width: 48px;
                 border-radius: $border-radius;
