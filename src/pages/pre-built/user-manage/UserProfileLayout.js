@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setBusiness, setUser} from "../../../store/state/userInfo";
 import {Box, Stack} from "@mui/material";
 import Dropzone from "react-dropzone";
+import {IMG_STORAGE_BASE_URL} from "../../../config";
 
 const UserProfileLayout = () => {
   const [sm, updateSm] = useState(false);
@@ -149,30 +150,6 @@ const UserProfileLayout = () => {
                         <span>Personal Information</span>
                       </Link>
                     </li>
-                    {/*<li onClick={() => updateSm(false)}>*/}
-                    {/*  <Link*/}
-                    {/*    to={`${process.env.PUBLIC_URL}/user-profile-notification`}*/}
-                    {/*    className={*/}
-                    {/*      window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-notification`*/}
-                    {/*        ? "active"*/}
-                    {/*        : ""*/}
-                    {/*    }*/}
-                    {/*  >*/}
-                    {/*    <Icon name="bell-fill"></Icon>*/}
-                    {/*    <span>Notification</span>*/}
-                    {/*  </Link>*/}
-                    {/*</li>*/}
-                    {/*<li onClick={() => updateSm(false)}>*/}
-                    {/*  <Link*/}
-                    {/*    to={`${process.env.PUBLIC_URL}/user-profile-activity`}*/}
-                    {/*    className={*/}
-                    {/*      window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-activity` ? "active" : ""*/}
-                    {/*    }*/}
-                    {/*  >*/}
-                    {/*    <Icon name="activity-round-fill"></Icon>*/}
-                    {/*    <span>Account Activity</span>*/}
-                    {/*  </Link>*/}
-                    {/*</li>*/}
                     <li onClick={() => updateSm(false)}>
                       <Link
                         to={`${process.env.PUBLIC_URL}/user-profile-setting`}
@@ -184,47 +161,36 @@ const UserProfileLayout = () => {
                         <span>Security Setting</span>
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                          to={"#"}
+                          className={
+                            window.location.pathname === `${process.env.PUBLIC_URL}/user-profile-setting` ? "active" : ""
+                          }
+                      >
+                        <Icon name="card-view"></Icon>
+                        <span>Business Image</span>
+                      </Link>
+                    </li>
+                    <Stack sx={{
+                      width: "100%",
+                      margin: "auto",
+                      textAlign: "center",
+                      justifyContent: "center"
+                    }}>
+                      <Box component="img" src={IMG_STORAGE_BASE_URL + user.busines_business_image}
+                           sx={{
+                             border: "1px solid none",
+                             borderRadius: "10px",
+                             width: "70%",
+                             height: "200px",
+                             margin: "auto",
+                           }}>
+                      </Box>
+
+                    </Stack>
 
 
-
-
-                    {/*/!*upload image her starts *!/*/}
-                    {/*<li>*/}
-                    {/*  <Stack direction="row" sx={{*/}
-                    {/*    overflowX: "auto",*/}
-                    {/*    flexShrink: "0"*/}
-                    {/*  }}>*/}
-                    {/*    <Dropzone*/}
-                    {/*        onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}*/}
-                    {/*    >*/}
-                    {/*      {({ getRootProps, getInputProps }) => (*/}
-                    {/*          <section>*/}
-                    {/*            <div*/}
-                    {/*                {...getRootProps()}*/}
-                    {/*                className="dropzone upload-zone small bg-lighter my-2 dz-clickable"*/}
-                    {/*            >*/}
-                    {/*              <input {...getInputProps()} />*/}
-                    {/*              {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}*/}
-                    {/*              {files.map((file) => (*/}
-                    {/*                  <div*/}
-                    {/*                      key={file.name}*/}
-                    {/*                      className="dz-preview dz-processing dz-image-preview dz-error dz-complete"*/}
-                    {/*                  >*/}
-                    {/*                    <Stack direction="row">*/}
-                    {/*                      /!*<div className="dz-image">*!/*/}
-                    {/*                      <img height="100px" src={file.preview} alt="preview" />*/}
-                    {/*                      /!*</div>*!/*/}
-                    {/*                    </Stack>*/}
-
-                    {/*                  </div>*/}
-                    {/*              ))}*/}
-                    {/*            </div>*/}
-                    {/*          </section>*/}
-                    {/*      )}*/}
-                    {/*    </Dropzone>*/}
-                    {/*  </Stack>*/}
-                    {/*</li>*/}
-                    {/*/!*upload image her ends  *!/*/}
 
 
 

@@ -45,6 +45,7 @@ const Restaurants = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.userInfo)
     const [restaurants, setRestaurants] = useState([]);
+    const [totalrestaurants, setTotalRestaurants] = useState(0);
     const [loading, setLoading] = useState(true);
 
 
@@ -58,13 +59,13 @@ const Restaurants = () => {
         else{
             const res = await getAllRestaurants();
             if(res.request.status !== 200) {
-                let err = res.response.data.error ? JSON.stringify(res.response.data.error) : "Cannot login with credentials";
+                let err = res.response.data.error ? JSON.stringify(res.response.data.error) : "Error getting Restaurants";
                 setLoading(true);
             }
         else {
             const newList = res.data.records.data;
-                console.log("resList :: ", newList)
                 setRestaurants(newList);
+                setTotalRestaurants(res.data.records.total)
                 setLoading(false);
             }
         }
@@ -93,7 +94,7 @@ const Restaurants = () => {
                                     Restaurants
                                 </BlockTitle>
                                 <BlockDes className="text-soft">
-                                    <p>You have total {2595} restaurants.</p>
+                                    <p>You have total {totalrestaurants} restaurants.</p>
                                 </BlockDes>
                             </BlockHeadContent>
                         </BlockBetween>

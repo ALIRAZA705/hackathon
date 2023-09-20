@@ -4,6 +4,7 @@ import React, {useState, useRef, useEffect} from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useDispatch, useSelector} from "react-redux";
 import {setBusiness, setUser} from "../../store/state/userInfo";
+import {IMG_STORAGE_BASE_URL} from "../../config";
 
 const RestaurantCardMaterial = (props) => {
     const history = useHistory();
@@ -11,7 +12,7 @@ const RestaurantCardMaterial = (props) => {
     const user = useSelector(state => state.userInfo)
     const [favColor, setFavColor] = useState("white");
     const { id, name, restLogo, description, delivery, type, location, priceCategory, rating } = props;
-    let bckImage = restLogo? restLogo : "https://burgerlab.com.pk/wp-content/uploads/2022/02/Untitled-1-1-1.jpg?c062ef&c062ef"
+    let bckImage = restLogo? (IMG_STORAGE_BASE_URL + restLogo) : "https://burgerlab.com.pk/wp-content/uploads/2022/02/Untitled-1-1-1.jpg?c062ef&c062ef"
 
     useEffect(()=>{
         let user = localStorage.getItem('user');
