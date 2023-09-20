@@ -37,17 +37,17 @@ const Register = ({ history }) => {
       email: data['email'],
       business_name: data['business-name'],
       business_type: data['business-type'],
-      cuisine_types: data['cuisine-type'],
-      location: data['restaurant-address'],
+      cuisine_type: data['cuisine-type'],
+      restaurant_address: data['restaurant-address'],
       password: data['passcode'],
       confirm_password: data['passcode'],
-      phone: data['contact-number'],
+      phone_number: data['contact-number'],
       own_riders: 'no'
     }
     const res = await postRegisterUser(payload);
     setLoading(true);
     console.log("res :: ", res.request.status, res.response)
-    if(res.request.status !== 201) {
+    if(res.request.status !== 200) {
       let err= res.response.data.error? JSON.stringify(res.response.data.error) : "Error Register with these credentials";
       setError(err);
       setLoading(false);
