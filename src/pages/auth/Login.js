@@ -30,10 +30,12 @@ const Login = () => {
   const [errorVal, setError] = useState("");
 
   const handleRedirect = (user) => {
-    if(user.role === "super-admin"){
-      window.location.href = '/dashboard';
+    if(user.user_login_status === "super-admin"){
+      console.log("super")
     }
+    else{
       window.location.href = `/restaurant/${user.busines.id}/menu`;
+    }
     // history.push(`/dashboard`);
   }
 
