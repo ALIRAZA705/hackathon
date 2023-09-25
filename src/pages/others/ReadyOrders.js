@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from "react";
 import Head from "../../layout/head/Head";
-// import { orderData, filterCoin, filterPaymentmethod, filterStatus, filterType } from "./OrderData";
+import { useForm } from "react-hook-form";
+import { getDateStructured } from "../../utils/Utils";
 import Orders from "./Orders";
 import {getOrdersByRestId} from "../../api/order/order";
 
+const ReadyOrders = () => {
 
-
-const PreparingOrders = () => {
     const [data, setData] = useState([]);
+
 
     // fetch data from API
     useEffect(async()=>{
         const res = await getOrdersByRestId();
         console.log("res ordersss : ", res?.data?.records)
         if(res?.status === 200){
-            let preparing = res?.data?.records.filter(r=>r.order_status === "Preparing")
-            setData(preparing)
+            let delivered = res?.data?.records.filter(r=>r.order_status === "Ready To Deliver")
+            setData(delivered)
         }
         else
-            setData([])
+        setData([])
     },[])
 
     return (
         <React.Fragment>
-            <Head title="Preparing Order"></Head>
+            <Head title="Ready Orders"></Head>
             <Orders
-                name="Preparing"
+                name="Ready"
                 tableData={data}/>
         </React.Fragment>
     );
 };
 
-export default PreparingOrders;
+export default ReadyOrders;

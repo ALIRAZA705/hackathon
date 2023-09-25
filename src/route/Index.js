@@ -116,6 +116,7 @@ import DispatchedOrders from "../pages/others/DispatchedOrders";
 import Riders from "../pages/others/Riders";
 import ApprovedRiders from "../pages/others/ApprovedRiders";
 import PendingRiders from "../pages/others/PendingRiders";
+import ReadyOrders from "../pages/others/ReadyOrders";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -392,6 +393,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/svg-icons`} component={SVGIconPage}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders`} component={Orders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders/preparing`} component={PreparingOrders}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/orders/ready`} component={ReadyOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders/dispatched`} component={DispatchedOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders/delivered`} component={DeliveredOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/bookings`} component={Bookings}></Route>

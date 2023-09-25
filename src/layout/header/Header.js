@@ -9,6 +9,7 @@ import { Icon } from "../../components/Component";
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setBusiness, setUser} from "../../store/state/userInfo";
+import Logo from "../../images/favicon.png";
 
 const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
   const headerClass = classNames({
@@ -45,11 +46,12 @@ const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
           </div>
           <div className="nk-header-app-name">
             <div className="nk-header-app-logo">
-              <Icon name="dashlite" className="bg-purple-dim"></Icon>
+              <img className="bg-purple-dim" src={Logo} alt="logo" />
+              {/*<Icon name="dashlite" className="bg-purple-dim"></Icon>*/}
             </div>
             <div className="nk-header-app-info">
               <span className="sub-text">WooEats</span>
-              <span className="lead-text">{user.busines_business_name? user.busines_business_name.toUpperCase() : "Dashboard"}</span>
+              <span className="lead-text">{user.busines_business_name? user.busines_business_name.toUpperCase() : "Admin Dashboard"}</span>
             </div>
           </div>
           {/*<div className="nk-header-menu is-light">*/}
@@ -85,7 +87,7 @@ const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
               {/*<li className="list-apps-dropdown d-lg-none" onClick={() => setVisibility(false)}>*/}
               {/*  <AppDropdown />*/}
               {/*</li>*/}
-              <li className="user-dropdown" onClick={() => setVisibility(false)}> 
+              <li className="user-dropdown" onClick={() => setVisibility(false)}>
                 <User />
               </li>
             </ul>

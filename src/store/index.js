@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+    import { configureStore } from "@reduxjs/toolkit";
 import userInfoReducer from "./state/userInfo";
 
 export const store = configureStore({

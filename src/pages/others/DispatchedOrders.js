@@ -17,7 +17,7 @@ const DispatchedOrders = () => {
         const res = await getOrdersByRestId();
         console.log("res ordersss : ", res?.data?.records)
         if(res?.status === 200){
-            let dispatched = res?.data?.records.filter(r=>r.order_status === "Ready To Deliver")
+            let dispatched = res?.data?.records.filter(r=>r.order_status === "InProgress")
             setData(dispatched)
         }
         else
@@ -26,7 +26,7 @@ const DispatchedOrders = () => {
 
     return (
         <React.Fragment>
-            <Head title="Order Default"></Head>
+            <Head title="Dispatched Order"></Head>
             <Orders
                 name="Dispatched"
                 tableData={data}/>

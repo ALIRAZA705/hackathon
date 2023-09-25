@@ -690,6 +690,22 @@ const Orders = (props) => {
                                                                                 href="#dropdown"
                                                                                 onClick={(ev) => {
                                                                                     ev.preventDefault();
+                                                                                    changeOrderStatus({id: item.id, order_status:"Ready To Deliver" })
+                                                                                    deleteOrder(item.id);
+                                                                                }}
+                                                                            >
+                                                                                <Icon name="truck"></Icon>
+                                                                                <span>Mark as Ready</span>
+                                                                            </DropdownItem>
+                                                                        </li>
+                                                                    )}
+                                                                    {item.order_status === "Ready To Deliver" && (
+                                                                        <li>
+                                                                            <DropdownItem
+                                                                                tag="a"
+                                                                                href="#dropdown"
+                                                                                onClick={(ev) => {
+                                                                                    ev.preventDefault();
                                                                                     loadDetail(item.id);
                                                                                     getRidersList();
                                                                                     setView({ add: false, details: false, rider: true });
@@ -702,7 +718,7 @@ const Orders = (props) => {
                                                                             </DropdownItem>
                                                                         </li>
                                                                     )}
-                                                                    {item.order_status === "Ready To Deliver" && (
+                                                                    {item.order_status === "InProgress" && (
                                                                         <li>
                                                                             <DropdownItem
                                                                                 tag="a"
@@ -968,7 +984,7 @@ const Orders = (props) => {
                                 <Col lg={8}>
                                     <Button color="primary" size="lg" onClick={async () => {
                                         // setRiderErr("Err rider")
-                                        await changeOrderStatus({id: formData.id, order_status:"Ready To Deliver" })
+                                        await changeOrderStatus({id: formData.id, order_status:"InProgress" })
                                         deleteOrder(formData.id);
                                     }}>
                                         {false ? <Spinner size="sm" color="light" /> : "Assign & Dispatch"}

@@ -147,7 +147,7 @@ const DeliveredOrders = () => {
 
     return (
         <React.Fragment>
-            <Head title="Order Default"></Head>
+            <Head title="Delivered Order"></Head>
             <Orders
                 name="Delivered"
                 tableData={data}/>

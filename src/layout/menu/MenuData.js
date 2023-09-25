@@ -41,6 +41,10 @@ const menu = [
                 link: "/orders/preparing",
             },
             {
+                text: "Ready",
+                link: "/orders/ready",
+            },
+            {
                 text: "Dispatched",
                 link: "/orders/dispatched",
             },
