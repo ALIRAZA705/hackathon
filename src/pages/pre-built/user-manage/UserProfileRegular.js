@@ -124,7 +124,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
       const res = await getCuisineList()
       if(res.status === 200){
         localStorage.setItem("cuisineList", JSON.stringify(res.data.records))
-        setCuisineDropdown(res.data.records.data)
+        setCuisineDropdown(res.data.records.data);
       }
       else  setCuisineDropdown([])
     }

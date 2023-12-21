@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 // import "../../fonts/font.css"
 import Content from "../../layout/content/Content";
 import Head from "../../layout/head/Head";
@@ -39,6 +39,7 @@ const Restaurants = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.userInfo)
     const [restaurants, setRestaurants] = useState([]);
+    // const [cuisineDropdown, setCuisineDropdown] = useState([]);
     const [totalrestaurants, setTotalRestaurants] = useState(0);
     const [loading, setLoading] = useState(true);
 
@@ -65,6 +66,27 @@ const Restaurants = () => {
         }
     },[user])
 
+const cuisineList = useMemo(()=>{
+        if(localStorage.getItem("cuisineList")){
+          return JSON.parse(localStorage.getItem("cuisineList")).data;
+        }
+        else{
+          return null;
+        }
+      },[])
+
+  useEffect(async()=>{
+    console.log(cuisineList, !cuisineList)
+    if(!cuisineList){
+      const res = await getCuisineList()
+      if(res.status === 200){
+        localStorage.setItem("cuisineList", JSON.stringify(res.data.records))
+      }
+    }
+    else{
+      console.log("cuisineList:::::::::::: ", cuisineList)
+    }
+  },[cuisineList])
 
     return (
         <React.Fragment>
@@ -119,7 +141,7 @@ const Restaurants = () => {
                                 restLogo={r.business_image}
                                 description={r.business_description}
                                 delivery={r.ordr_delivery_time}
-                                type={[r.cuisine_type]}
+                                type={[r.cuisine_id]}
                                 location={r.restaurant_address}
                                 priceCategory={r.starting_price}
                                 startingPrice={r.starting_price}

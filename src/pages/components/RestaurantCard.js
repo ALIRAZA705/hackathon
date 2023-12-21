@@ -1,6 +1,6 @@
 import {Card, CardMedia, CardContent,Stack, Box, Typography, Button, useTheme } from "@mui/material";
 import {useHistory} from "react-router-dom";
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState, useRef, useEffect, useMemo} from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useDispatch, useSelector} from "react-redux";
 import {setBusiness, setUser} from "../../store/state/userInfo";
@@ -25,6 +25,7 @@ const RestaurantCard = (props) => {
     }
     // setUser(user)
   },[user])
+
 
   const handleCardClick = (e) => {
     console.log(history)
@@ -97,9 +98,14 @@ const RestaurantCard = (props) => {
                   color: "#8A8A8A"
                 }}>
                   {
-                    type.map((t)=>(
-                        `${t} . `
-                    ))
+                    // type.map((t)=>(
+                    //     `${t} . `
+                    // ))
+                    type.map((t)=>{
+                      const cList = JSON.parse(localStorage.getItem("cuisineList"))
+                      return cList.data.filter(c=>(c.id == t))[0]?.cuisine_name
+                      // `${t} . `
+                    })
                   }
                 </Typography>
               </Stack>
@@ -150,7 +156,7 @@ const RestaurantCard = (props) => {
               color: "white",
               fontSize: "12px",
           }}>
-              {startingPrice? `$ ${startingPrice}` : "$ 9.9"}
+              {startingPrice? `$ ${startingPrice}` : "$ 0.00"}
           </Button>
         </CardContent>
         {/*Card Content / Text Area Ends */}
