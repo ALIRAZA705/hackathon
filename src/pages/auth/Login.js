@@ -96,7 +96,7 @@ const Login = () => {
               <BlockContent>
                 <BlockTitle tag="h4">Sign-In</BlockTitle>
                 <BlockDes>
-                  <p>Access WooEats Admin Panel using your email and passcode.</p>
+                  <p>Access EatToday Admin Panel using your email and passcode.</p>
                 </BlockDes>
               </BlockContent>
             </BlockHead>

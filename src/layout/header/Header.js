@@ -50,7 +50,7 @@ const Header = ({ fixed, theme, className, sidebarToggle, setVisibility }) => {
               {/*<Icon name="dashlite" className="bg-purple-dim"></Icon>*/}
             </div>
             <div className="nk-header-app-info">
-              <span className="sub-text">WooEats</span>
+              <span className="sub-text">EatToday</span>
               <span className="lead-text">{user.busines_business_name? user.busines_business_name.toUpperCase() : "Admin Dashboard"}</span>
             </div>
           </div>
