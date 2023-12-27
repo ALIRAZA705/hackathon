@@ -1,6 +1,7 @@
 {
-    "name": "DashliteReact-Demo3",
+    "name": "EatToday-Admin",
     "version": "1.3.0",
+    "homepage": "http://eat-today.com/admin",
     "private": true,
     "dependencies": {
         "@emotion/react": "^11.11.1",

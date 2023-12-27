@@ -32,10 +32,10 @@ const Login = () => {
   const handleRedirect = (user) => {
     if(user.user_login_status === "super-admin"){
       console.log("super")
-      window.location.href = '/dashboard';
+      window.location.href = '/admin/dashboard';
     }
     else if(user.user_login_status === "admin"){
-      window.location.href = `/restaurant/${user.busines.id}/menu`;
+      window.location.href = `/admin/restaurant/${user.busines.id}/menu`;
     }
     else{
       setError("Wrong Email / Not an Admin");

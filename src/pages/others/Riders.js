@@ -61,6 +61,7 @@ const Riders = () => {
             }
         else {
             const newList = res.data.records.data;
+            console.log("riders list:: ", newList)
                 setRiders(newList);
                 setTotalRiders(res.data.records.total)
                 setLoading(false);

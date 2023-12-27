@@ -33,6 +33,7 @@ import {setBusiness, setUser} from "../../store/state/userInfo";
 import {getAllRestaurants} from "../../api/restaurant/restaurant";
 import {getLoginUser} from "../../api/auth/auth";
 import RestaurantCard from "../components/RestaurantCard";
+import { getCuisineList } from "../../api/misc/misc";
 
 
 const Restaurants = () => {
@@ -80,7 +81,7 @@ const cuisineList = useMemo(()=>{
     if(!cuisineList){
       const res = await getCuisineList()
       if(res.status === 200){
-        localStorage.setItem("cuisineList", JSON.stringify(res.data.records))
+        localStorage.setItem("cuisineList", JSON.stringify(res?.data?.records))
       }
     }
     else{

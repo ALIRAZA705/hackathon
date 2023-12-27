@@ -156,7 +156,7 @@ const Pages = () => {
         ></Route>
         <Route //Context Api added
             exact
-            path={`${process.env.PUBLIC_URL}/riders/pending`}
+            path={`${process.env.PUBLIC_URL}/riders-pending`}
             render={() => (
                 <UserContextProvider>
                   <PendingRiders />
@@ -165,7 +165,7 @@ const Pages = () => {
         ></Route>
         <Route //Context Api added
             exact
-            path={`${process.env.PUBLIC_URL}/riders/approved`}
+            path={`${process.env.PUBLIC_URL}/riders-approved`}
             render={() => (
                 <UserContextProvider>
                   <ApprovedRiders />
