@@ -59,6 +59,7 @@ const PreparingOrders = () => {
       }
 
       const [formData, setFormData] = useState({
+        userName:user?.userName,
         firstName: user.firstName,
         lastName: user.lastName,
         domainName: user.domainName,
@@ -213,6 +214,23 @@ const PreparingOrders = () => {
             <div className="tab-content">
               <div className={`tab-pane ${modalTab === "1" ? "active" : ""}`} id="address">
                 <Row className="gy-4">
+                <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="full-name">
+                        User Name
+                      </label>
+                      <input
+                        type="text"
+                        id="first_name_profile"
+                        className="form-control"
+                        name="userName"
+                        onChange={(e) => onInputChange(e)}
+                        defaultValue={formData.userName}
+                        placeholder="Enter Full name"
+                      />
+                    </FormGroup>
+                  </Col>
+
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="full-name">
