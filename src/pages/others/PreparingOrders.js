@@ -33,6 +33,12 @@ export const businessTypeDD1 = [
 ];
 
 
+export const businessTypeDD22 = [
+  { value: "Read", label: "Read" },
+  { value: "ReadWrite", label: "ReadWrite" }
+];
+
+
 
 const PreparingOrders = () => {
     const [data, setData] = useState([]);
@@ -299,45 +305,25 @@ const PreparingOrders = () => {
                       />
                     </FormGroup>
                   </Col>
-                  <Col md="4">
+                  <Col md="6">
                     <FormGroup>
-                      <label className="form-label" htmlFor="address-st">Banner Image</label>
-                    <Stack direction="row" sx={{
-                      overflowX: "auto",
-                      flexShrink: "0"
-                    }}>
-                      <Dropzone
-                          multiple={false}
-                          onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}
-                      >
-                        {({ getRootProps, getInputProps }) => (
-                            <section>
-                              <div
-                                  {...getRootProps()}
-                                  className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
-                              >
-                                <input {...getInputProps()} />
-                                {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
-                                {files.map((file) => (
-                                    <div
-                                        key={file.name}
-                                        className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
-                                    >
-                                      <Stack direction="row">
-                                        {/*<div className="dz-image">*/}
-                                        <img height="100px" src={file.preview} alt="preview" />
-                                        {/*</div>*/}
-                                      </Stack>
-
-                                    </div>
-                                ))}
-                              </div>
-                            </section>
-                        )}
-                      </Dropzone>
-                    </Stack>
+                      <label className="form-label" htmlFor="address-st">
+                      Role
+                      </label>
+                      <RSelect
+                          options={businessTypeDD22}
+                          placeholder="Select Business Type"
+                          defaultValue={[
+                            {
+                              value: formData.role,
+                              label: formData.role,
+                            },
+                          ]}
+                          onChange={(e) => setFormData({ ...formData, role: e.value })}
+                      />
                     </FormGroup>
                   </Col>
+
                   <Col size="12">
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>

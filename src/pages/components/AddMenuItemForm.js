@@ -17,7 +17,7 @@ import {Stack, Grid, Box, Typography, Divider } from "@mui/material";
 import "./AddMenuItemForm.css";
 import ProductH from "../../images/product/h.png";
 import {useForm} from "react-hook-form";
-import {addNewMenuItem, editMenuItem} from "../../api/menu/menu";
+import {addNewDomain, addNewMenuItem, editMenuItem} from "../../api/menu/menu";
 import {useParams} from "react-router";
 import {UploadButton} from "../../components/UploadButton";
 import {variantTypes, menuTypes, addonTypes} from "./AddMenuItemDropDowns";
@@ -166,6 +166,7 @@ const AddMenuItemForm = (props) => {
         // }
 
         res = await addNewDomain(payload);
+        console.log("asdasdas")
         if(res?.response?.data?.success === false) {
             const err= res.response?.data?.records?.error?  res.response.data.records.error : res.response?.data?.message? res.response.data.message : res;
             setError(err)
@@ -175,7 +176,7 @@ const AddMenuItemForm = (props) => {
             setLoading(false);
         }
         else{
-                window.location.href = '/admin/admin/domains';
+                // window.location.href = '/admin/admin/domains';
         }
     }
 
