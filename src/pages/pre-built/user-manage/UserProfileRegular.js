@@ -74,6 +74,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
 
 // console.log("useuseruseruserr", user)
   const [formData, setFormData] = useState({
+    userName: user.userName,
     firstName: user.firstName,
     lastName: user.lastName,
     domainName: user.domainName,
@@ -148,6 +149,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
     setLoading(true);
     let submitData = {
       firstName : formData.firstName,
+      userName : formData.userName,
       lastName : formData.lastName,
       email : user.email,
       phone_number: formData.phone_number,
@@ -539,9 +541,9 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                         type="text"
                         id="first_name_profile"
                         className="form-control"
-                        name="firstName"
+                        name="userName"
                         onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.firstName}
+                        defaultValue={formData.userName}
                         placeholder="Enter Full name"
                       />
                     </FormGroup>
