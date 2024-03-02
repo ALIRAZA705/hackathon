@@ -420,58 +420,7 @@ const MenuList = (props) => {
 </span>
                           </DataTableRow>
                          
-                         
-                          <DataTableRow className="nk-tb-col-tools">
-                            <ul className="nk-tb-actions gx-1 my-n1">
-                              <li className="mr-n1">
-                                <UncontrolledDropdown>
-                                  <DropdownToggle
-                                      tag="a"
-                                      href="#toggle"
-                                      onClick={(ev) => ev.preventDefault()}
-                                      className="dropdown-toggle btn btn-icon btn-trigger"
-                                  >
-                                    <Icon name="more-h"></Icon>
-                                  </DropdownToggle>
-                                  <DropdownMenu right>
-                                    <ul className="link-list-opt no-bdr">
-                                      <li>
-                                        <DropdownItem tag="a" href="#edit" onClick={(ev) => ev.preventDefault()}>
-                                          <Icon name="edit"></Icon>
-                                          <span>Edit Selected</span>
-                                        </DropdownItem>
-                                      </li>
-                                      <li>
-                                        <DropdownItem
-                                            tag="a"
-                                            href="#remove"
-                                            onClick={(ev) => {
-                                              ev.preventDefault();
-                                              selectorDeleteProduct();
-                                            }}
-                                        >
-                                          <Icon name="trash"></Icon>
-                                          <span>Remove Selected</span>
-                                        </DropdownItem>
-                                      </li>
-                                      <li>
-                                        <DropdownItem tag="a" href="#stock" onClick={(ev) => ev.preventDefault()}>
-                                          <Icon name="bar-c"></Icon>
-                                          <span>Update Stock</span>
-                                        </DropdownItem>
-                                      </li>
-                                      <li>
-                                        <DropdownItem tag="a" href="#price" onClick={(ev) => ev.preventDefault()}>
-                                          <Icon name="invest"></Icon>
-                                          <span>Update Price</span>
-                                        </DropdownItem>
-                                      </li>
-                                    </ul>
-                                  </DropdownMenu>
-                                </UncontrolledDropdown>
-                              </li>
-                            </ul>
-                          </DataTableRow>
+                        
                         </DataTableHead>
                         {currentItems.length > 0
                             ? currentItems.map((item) => {
