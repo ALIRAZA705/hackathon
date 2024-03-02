@@ -203,31 +203,31 @@ const UserDetailsPage = ({ match }) => {
                         <div className="profile-ud-item">
                           <div className="profile-ud wider">
                             <span className="profile-ud-label">Full Name</span>
-                            <span className="profile-ud-value">{user.name}</span>
+                            <span className="profile-ud-value">{user?.firstName + " " + user?.lasstName}</span>
                           </div>
                         </div>
                         <div className="profile-ud-item">
                           <div className="profile-ud wider">
                             <span className="profile-ud-label">Date of Birth</span>
-                            <span className="profile-ud-value">{user.dob}</span>
+                            <span className="profile-ud-value">{user?.dob}</span>
                           </div>
                         </div>
                         <div className="profile-ud-item">
                           <div className="profile-ud wider">
                             <span className="profile-ud-label">Surname</span>
-                            <span className="profile-ud-value">{user.name.split(" ")[1]}</span>
+                            <span className="profile-ud-value">{user?.lasstName}</span>
                           </div>
                         </div>
                         <div className="profile-ud-item">
                           <div className="profile-ud wider">
                             <span className="profile-ud-label">Mobile Number</span>
-                            <span className="profile-ud-value">{user.phone}</span>
+                            <span className="profile-ud-value">{user?.phone}</span>
                           </div>
                         </div>
                         <div className="profile-ud-item">
                           <div className="profile-ud wider">
                             <span className="profile-ud-label">Email Address</span>
-                            <span className="profile-ud-value">{user.email}</span>
+                            <span className="profile-ud-value">{user?.email}</span>
                           </div>
                         </div>
                       </div>

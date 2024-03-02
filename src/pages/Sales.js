@@ -63,7 +63,7 @@ const Sales = () => {
                 Sales Overview
               </BlockTitle>
               <BlockDes className="text-soft">
-                <p>Welcome to Edge Dashboard</p>
+                <p>Hi {user?.firstName}, Welcome to Edge Dashboard</p>
               </BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
