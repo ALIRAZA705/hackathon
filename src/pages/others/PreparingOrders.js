@@ -55,11 +55,16 @@ const PreparingOrders = () => {
         business_description: user.busines_business_description,
         phone_number: user.phone,
         address: user.address,
-        business_type: user.busines_business_type,
+        type: user.type,
+        domainType: user.domainType,
         cuisine_type: user.busines_cuisine_types,
         starting_price: user.busines_starting_price,
         ordr_delivery_time: user.busines_ordr_delivery_time,
       });
+
+      const onInputChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+      };
 
     // fetch data from API
     useEffect(async()=>{
@@ -72,6 +77,11 @@ const PreparingOrders = () => {
         else
             setData([])
     },[])
+
+
+    const submitAddUser = () => {
+      console.log(formData)
+    }
 
     return (
         <React.Fragment>
@@ -240,7 +250,7 @@ const PreparingOrders = () => {
                               label: formData.domainName,
                             },
                           ]}
-                          onChange={(e) => setFormData({ ...formData, business_type: e.value })}
+                          onChange={(e) => setFormData({ ...formData, domainType: e.value })}
                       />
                     </FormGroup>
                   </Col>
@@ -252,7 +262,7 @@ const PreparingOrders = () => {
                       <input
                           type="text"
                           id="address-st"
-                          name="restaurant_address"
+                          name="address"
                           onChange={(e) => onInputChange(e)}
                           defaultValue={formData?.address}
                           className="form-control"
@@ -273,7 +283,7 @@ const PreparingOrders = () => {
                               label: formData.domainName,
                             },
                           ]}
-                          onChange={(e) => setFormData({ ...formData, business_type: e.value })}
+                          onChange={(e) => setFormData({ ...formData, type: e.value })}
                       />
                     </FormGroup>
                   </Col>
@@ -319,7 +329,7 @@ const PreparingOrders = () => {
                   <Col size="12">
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>
-                        <Button color="primary" size="lg" onClick={() => submitUpdateBusinessForm()}>
+                        <Button color="primary" size="lg" onClick={() => submitAddUser()}>
                           {loading ? <Spinner size="sm" color="light" /> : "Save"}
                         </Button>
                       </li>
