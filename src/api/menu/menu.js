@@ -27,6 +27,7 @@ export const addNewMenuItem = (payload) => {
 }
 
 export const addNewDomain = (payload) => {
+    console.log("asdasfasd", payload)
     return postFormDataRequest(addNewDomainURI, payload);
 }
 

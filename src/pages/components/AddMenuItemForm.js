@@ -166,6 +166,7 @@ const AddMenuItemForm = (props) => {
         // }
 
         res = await addNewDomain(payload);
+        console.log("asdasdas")
         if(res?.response?.data?.success === false) {
             const err= res.response?.data?.records?.error?  res.response.data.records.error : res.response?.data?.message? res.response.data.message : res;
             setError(err)
@@ -175,7 +176,7 @@ const AddMenuItemForm = (props) => {
             setLoading(false);
         }
         else{
-                window.location.href = '/admin/admin/domains';
+                // window.location.href = '/admin/admin/domains';
         }
     }
 
