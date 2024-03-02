@@ -67,7 +67,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   const [errorVal, setError] = useState("");
   const user = useSelector(state => state.userInfo);
 
-
+// console.log("useuseruseruserr", user)
   const [formData, setFormData] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
@@ -525,15 +525,43 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                 <Row className="gy-4">
                   <Col md="6">
                     <FormGroup>
-                      <label className="form-label" htmlFor="address-l1">
-                      User Name
+                      <label className="form-label" htmlFor="full-name">
+                        First Name
+                      </label>
+                      <input
+                        type="text"
+                        id="first_name_profile"
+                        className="form-control"
+                        name="first_name"
+                        onChange={(e) => onInputChange(e)}
+                        defaultValue={formData.firstName}
+                        placeholder="Enter Full name"
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="display-name">
+                        Last Name
                       </label>
                       <input
                         type="text"
                         id="address-l1"
                         name="business_name"
                         onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.business_name}
+                        defaultValue={formData.lastName}
+                        placeholder="Enter display name"
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="phone-no">
+                        Phone Number
+                      </label>
+                      <input
+                        type="number"
+                        id="phone-no"
                         className="form-control"
                       />
                     </FormGroup>
