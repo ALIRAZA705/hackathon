@@ -31,6 +31,7 @@ const AddMenuItemForm = (props) => {
     const [addons, setAddons] = useState(0);
     const [files, setFiles] = useState([]);
     const [categoryOptions2, setCategoryOptions2] = useState([]);
+
     const [images, setImages] = useState([]);
     const [priceDisable, setPriceDisable] = useState(false);
     const { errors, register, handleSubmit } = useForm();
@@ -66,7 +67,8 @@ const AddMenuItemForm = (props) => {
         // })
         // setFormData({ ...formData, parentId: catArr });
         //  for  non-array
-        setFormData({ ...formData, parentId: value[0].value });
+        console.log("valuevalue",value)
+        setFormData({ ...formData, parentId: value });
     };
 
     const onCategoryTypeChange = (value) => {
@@ -115,7 +117,7 @@ const AddMenuItemForm = (props) => {
 
 
     const onFormSubmit = async (form) => {
-        console.log("form", form)
+        console.log("form data", form)
         setLoading(true);
         let newFormData = form;
         for(let each of Object.keys(newFormData)){
@@ -127,23 +129,10 @@ const AddMenuItemForm = (props) => {
 
         const payload = {
             ...newFormData,
-            menu_id: formData.id,
-            restaurant_id: params.id,
+            id: formData.id,
             parentId: formData.parentId,
-            category_type: formData.categoryType,
             description: formData.description,
-            // variants: [],
-            required_menue_type: formData.required_menue_type,
-            required_variant_type: formData.required_variant_type,
-            optional_menue_type: formData.optional_menue_type,
-            optional_variant_type: formData.optional_variant_type,
-            required_variant_name: [],
-            required_variant_price: [],
-            required_variant_image: [],
-            optional_variant_name: [],
-            optional_variant_image: [],
-            optional_variant_price: [],
-            restaurant_file: images
+            name: formData.name,
         };
 
         const variantsArr = [...Array(variants)];
@@ -168,31 +157,31 @@ const AddMenuItemForm = (props) => {
         console.log("payload ::::::: ", payload)
 
         let res;
-        if(props.edit){
-           res = await editMenuItem(payload);
-        }
-        else{
-            res = await addNewMenuItem(payload);
-        }
+        // if(props.edit){
+        //    res = await editMenuItem(payload);
+        // }
+        // else{
+        //     res = await addNewMenuItem(payload);
+        // }
 
-        if(res?.response?.data?.success === false) {
-            const err= res.response?.data?.records?.error?  res.response.data.records.error : res.response?.data?.message? res.response.data.message : res;
-            setError(err)
-            setTimeout(()=>{
-                setError("")
-            }, 3000)
-            setLoading(false);
-        }
-        else{
-            // setError("Menu successfully added")
-            // history.push(`${process.env.PUBLIC_URL}/menu`)
+        // if(res?.response?.data?.success === false) {
+        //     const err= res.response?.data?.records?.error?  res.response.data.records.error : res.response?.data?.message? res.response.data.message : res;
+        //     setError(err)
+        //     setTimeout(()=>{
+        //         setError("")
+        //     }, 3000)
+        //     setLoading(false);
+        // }
+        // else{
+        //     // setError("Menu successfully added")
+        //     // history.push(`${process.env.PUBLIC_URL}/menu`)
 
-            if(JSON.parse(localStorage.getItem("user")).user_login_status === "super-admin"){
-                 window.location.href =  "/admin/restaurant/" + payload.restaurant_id + "/menu";
-            }
-            else
-                window.location.href = '/admin/restaurant/menu';
-        }
+        //     if(JSON.parse(localStorage.getItem("user")).user_login_status === "super-admin"){
+        //          window.location.href =  "/admin/restaurant/" + payload.restaurant_id + "/menu";
+        //     }
+        //     else
+        //         window.location.href = '/admin/restaurant/menu';
+        // }
     }
 
     const transformDomaindata = (domainsdata) =>{
@@ -202,8 +191,9 @@ const AddMenuItemForm = (props) => {
     const getDomains = async () => {
         let data = await getDomainName();
 
-    const  domainsarray=    transformDomaindata(data?.data?.edge)
-        setCategoryOptions2(domainsarray)
+    // const  domainsarray=    transformDomaindata(data?.data?.edge)
+    console.log("ggggggggggggggg",data?.data)
+        setCategoryOptions2(data?.data)
     };
 
     useEffect(()=>{
@@ -284,7 +274,6 @@ const AddMenuItemForm = (props) => {
                                         </label>
                                         <div className="form-control-wrap">
                                             <RSelect
-                                                isMulti
                                                 options={categoryOptions2}
                                                 defaultValue={formData.parentId}
                                                 onChange={(e) => onCategoryChange(e)}
@@ -426,7 +415,7 @@ const AddMenuItemForm = (props) => {
                             {/*     add optional Addons  END */}
 
                             <Row>
-                                <Col size="11">
+                                <Col size="10">
                                 </Col>
                                 <Col size="1">
                                 <Button color="primary" type="submit">
