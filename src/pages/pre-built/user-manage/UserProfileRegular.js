@@ -655,7 +655,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-l1">
-                        Business Name
+                      user Name
                       </label>
                       <input
                         type="text"

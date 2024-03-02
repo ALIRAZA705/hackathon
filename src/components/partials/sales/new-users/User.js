@@ -23,7 +23,7 @@ const NewsUsers = () => {
                 }}
               >
                 <Icon name="setting"></Icon>
-                <span>Action Settings</span>
+                <span>Action Settings1</span>
               </DropdownItem>
             </li>
             <li>
