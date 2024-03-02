@@ -24,6 +24,7 @@ export const userInfoSlice = createSlice({
             state.email = data.email;
             state.phone = data.phone_number;
             state.restaurant_address = data.restaurant_address;
+            state.roleName = data.roleName;
             state.role = data.user_login_status ? data.user_login_status : "customer";
             // state.role = "super-admin";
             state.profile_picture = data.profile_image? data.profile_image : "https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png";

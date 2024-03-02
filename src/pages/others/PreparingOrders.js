@@ -184,14 +184,18 @@ try {
                               >
                                 <Icon name="plus"></Icon>
                               </Button>
-                              <Button
-                                  className="toggle d-none d-md-inline-flex"
-                                  color="primary"
-                                  onClick={handleAddUser}
-                              >
-                                <Icon name="plus"></Icon>
-                                <span>Add Users</span>
-                              </Button>
+                              {
+                                user?.roleName == "ReadWrite" &&
+                              
+                                <Button
+                                className="toggle d-none d-md-inline-flex"
+                                color="primary"
+                                onClick={handleAddUser}
+                            >
+                              <Icon name="plus"></Icon>
+                              <span>Add Users</span>
+                            </Button>
+                              }
                             </li>
                           }
                         </ul>
