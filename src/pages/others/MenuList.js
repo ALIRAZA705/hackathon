@@ -371,7 +371,7 @@ const MenuList = (props) => {
                                   onClick={handleAddProduct}
                               >
                                 <Icon name="plus"></Icon>
-                                <span>Add Product</span>
+                                <span>Add Domains</span>
                               </Button>
                             </li>
                           }

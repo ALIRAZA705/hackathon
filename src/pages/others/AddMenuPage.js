@@ -230,12 +230,12 @@ const AddMenuPage = () => {
 
   return (
     <React.Fragment>
-      <Head title="Add New Item"></Head>
+      <Head title="Add New Domain"></Head>
       <Content>
         <BlockHead size="sm">
           <BlockBetween>
             <BlockHeadContent>
-              <BlockTitle>Add New Item</BlockTitle>
+              <BlockTitle>Add New Domain</BlockTitle>
             </BlockHeadContent>
             <BlockHeadContent>
               <div className="toggle-wrap nk-block-tools-toggle">
