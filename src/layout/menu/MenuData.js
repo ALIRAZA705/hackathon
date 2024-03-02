@@ -41,21 +41,21 @@ const menu = [
         active: false,
         subMenu: [
             {
-                text: "Preparing",
-                link: "/orders/preparing",
+                text: "Premium",
+                link: "/users/premium",
             },
             {
-                text: "Ready",
-                link: "/orders/ready",
+                text: "Trial",
+                link: "/users/trial",
             },
-            {
-                text: "Dispatched",
-                link: "/orders/dispatched",
-            },
-            {
-                text: "Delivered",
-                link: "/orders/delivered",
-            },
+            // {
+            //     text: "Dispatched",
+            //     link: "/orders/dispatched",
+            // },
+            // {
+            //     text: "Delivered",
+            //     link: "/orders/delivered",
+            // },
         ],
     },
     // {

@@ -267,7 +267,7 @@ const Orders = (props) => {
                 <BlockHead size="sm">
                     <BlockBetween>
                         <BlockHeadContent>
-                            <BlockTitle page>{`${props.name} Orders`}</BlockTitle>
+                            <BlockTitle page>{`${props.name} Users`}</BlockTitle>
                         </BlockHeadContent>
                         { !props.name &&
                             <BlockHeadContent>
@@ -289,7 +289,7 @@ const Orders = (props) => {
                                         }}
                                     >
                                         <Icon name="plus"></Icon>
-                                        <span>Add Order</span>
+                                        <span>Add User</span>
                                     </Button>
                                 </div>
                             </BlockHeadContent>
@@ -311,7 +311,7 @@ const Orders = (props) => {
                                         borderRadius: "30px"
                                     }}>
                                         <div className="card-title">
-                                    <h5 className="title">{`${props.name} Orders List`}</h5>
+                                    <h5 className="title">{`${props.name} User List`}</h5>
                                         </div>
                                     </Box>
 

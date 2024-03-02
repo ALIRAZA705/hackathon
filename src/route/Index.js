@@ -42,10 +42,10 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu/add`} component={AddMenuPage}></Route>
 
         <Route exact path={`${process.env.PUBLIC_URL}/orders`} component={Orders}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/orders/preparing`} component={PreparingOrders}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/orders/ready`} component={ReadyOrders}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/orders/dispatched`} component={DispatchedOrders}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/orders/delivered`} component={DeliveredOrders}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/users/premium`} component={PreparingOrders}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/users/trial`} component={ReadyOrders}></Route>
+        {/* <Route exact path={`${process.env.PUBLIC_URL}/orders/dispatched`} component={DispatchedOrders}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/orders/delivered`} component={DeliveredOrders}></Route> */}
         <Route exact path={`${process.env.PUBLIC_URL}/domains`} component={MenuList}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Sales}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/user-profile-regular/`} component={UserProfileLayout}></Route>

@@ -69,7 +69,7 @@ const PreparingOrders = () => {
 
     return (
         <React.Fragment>
-            <Head title="Preparing Order"></Head>
+            <Head title="Premium Users"></Head>
             <BlockHead size="sm">
                 <BlockBetween>
                   <BlockHeadContent>
@@ -134,7 +134,7 @@ const PreparingOrders = () => {
 
               
             <Orders
-                name="Preparing"
+                name="Premium"
                 tableData={data}/>
 
 

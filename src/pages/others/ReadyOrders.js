@@ -24,9 +24,9 @@ const ReadyOrders = () => {
 
     return (
         <React.Fragment>
-            <Head title="Ready Orders"></Head>
+            <Head title="Trial Users"></Head>
             <Orders
-                name="Ready"
+                name="Trial"
                 tableData={data}/>
         </React.Fragment>
     );
