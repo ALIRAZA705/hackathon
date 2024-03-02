@@ -83,7 +83,7 @@ const UserProfileLayout = () => {
                          }}
                     ></Box>
                     <div className="user-info">
-                      <span className="lead-text">{user.busines_business_name? user.busines_business_name : profileName}</span>
+                      <span className="lead-text">{user?.firstName}</span>
                       <span className="sub-text">{user.email}</span>
                     </div>
                     <div className="user-action">

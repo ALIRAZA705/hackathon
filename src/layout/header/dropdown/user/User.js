@@ -19,9 +19,9 @@ const User = () => {
     let user = localStorage.getItem('user');
     user = JSON.parse(user);
     dispatch(setUser(user));
-    if(user.busines){
-      dispatch(setBusiness(user.busines));
-    }
+    // if(user.busines){
+    //   dispatch(setBusiness(user.busines));
+    // }
   },[user])
 
   const handleSignout = () => {
