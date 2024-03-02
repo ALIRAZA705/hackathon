@@ -51,27 +51,28 @@ const Orders = (props) => {
     const [onSearch, setonSearch] = useState(false);
     const [riders, setRiders] = useState([]);
     const [riderErr, setRiderErr] = useState(null);
-    const [currentItems, setCurrentItems] = useState([{
-        "id": 1,
-        "username": "edge",
-        "email": "edge@email.com",
-        "phone": "+990000000",
-        "first_name": "edge",
-        "last_name": "user",
-        "address": "street a",
-        "country": "Pakistan",
-        "city": "Islamabad",
-        "zip": null,
-        "locale": "enGB",
-        "is_active": 1,
-        "email_verified": 1,
-        "last_login": null,
-        "status": 1,
-        "type": "Edge",
-        "domain": "root",
-        "role": "ReadWrite"
-    }]);
-    // const [currentItems, setCurrentItems] = useState(data.slice(indexOfFirstItem, indexOfLastItem));
+    TODO()
+    const [currentItems, setCurrentItems] = useState(data.slice(indexOfFirstItem, indexOfLastItem));
+    // const [currentItems, setCurrentItems] = useState([{
+    //     "id": 1,
+    //     "username": "edge",
+    //     "email": "edge@email.com",
+    //     "phone": "+990000000",
+    //     "first_name": "edge",
+    //     "last_name": "user",
+    //     "address": "street a",
+    //     "country": "Pakistan",
+    //     "city": "Islamabad",
+    //     "zip": null,
+    //     "locale": "enGB",
+    //     "is_active": 1,
+    //     "email_verified": 1,
+    //     "last_login": null,
+    //     "status": 1,
+    //     "type": "Edge",
+    //     "domain": "root",
+    //     "role": "ReadWrite"
+    // }]);
     const [formData, setFormData] = useState({
         id: null,
         orderId: "",
@@ -107,26 +108,28 @@ const Orders = (props) => {
 
     useEffect(()=>{
         // if(data.length>0){
-            setCurrentItems([{
-                "id": 1,
-                "username": "edge",
-                "email": "edge@email.com",
-                "phone": "+990000000",
-                "first_name": "edge",
-                "last_name": "user",
-                "address": "street a",
-                "country": "Pakistan",
-                "city": "Islamabad",
-                "zip": null,
-                "locale": "enGB",
-                "is_active": 1,
-                "email_verified": 1,
-                "last_login": null,
-                "status": 1,
-                "type": "Edge",
-                "domain": "root",
-                "role": "ReadWrite"
-            }])
+            TODO()
+            setCurrentItems(data.slice(indexOfFirstItem, indexOfLastItem))
+            // setCurrentItems([{
+            //     "id": 1,
+            //     "username": "edge",
+            //     "email": "edge@email.com",
+            //     "phone": "+990000000",
+            //     "first_name": "edge",
+            //     "last_name": "user",
+            //     "address": "street a",
+            //     "country": "Pakistan",
+            //     "city": "Islamabad",
+            //     "zip": null,
+            //     "locale": "enGB",
+            //     "is_active": 1,
+            //     "email_verified": 1,
+            //     "last_login": null,
+            //     "status": 1,
+            //     "type": "Edge",
+            //     "domain": "root",
+            //     "role": "ReadWrite"
+            // }])
         // }
     },[data])
 
