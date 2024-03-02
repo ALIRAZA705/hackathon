@@ -5,7 +5,7 @@ import {
 } from "../methodCalls";
 import {
     addNewDomainURI,
-    cuisineListURI, getDomains,
+    cuisineListURI, getDomainDataByIdURI, getDomains,
 } from "../endpoints";
 
 export const getCuisineList = (params) => {
@@ -16,8 +16,8 @@ export const getDomainName = (params) => {
     return getRequest(`${addNewDomainURI}`);
 }
 
-export const getDomainDataById = (params) => {
-    return getRequest(`${getDomainDataByIdURI}`);
+export const getDomainDataById = (id) => {
+    return getRequest(`${getDomainDataByIdURI/id}`);
 }
 
 

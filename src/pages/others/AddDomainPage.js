@@ -28,6 +28,7 @@ import { Modal, ModalBody } from "reactstrap";
 import { RSelect } from "../../components/Component";
 import AddMenuItemForm from "../components/AddMenuItemForm";
 import {useParams} from "react-router";
+import { getDomainDataById } from "../../api/misc/misc";
 
 const AddDomainPage = () => {
   const [data, setData] = useState(productData);
@@ -54,7 +55,8 @@ const AddDomainPage = () => {
   const [files, setFiles] = useState([]);
 
   const getDomainData = async() => {
-    let data = await getDomainDataById();
+        const params = useParams();
+    let data = await getDomainDataById(params.id);
     setData(data);
   }
 

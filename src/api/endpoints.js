@@ -33,4 +33,4 @@ export const changeRidersStatusURI = 'change_rider_status/:id';
 export const getDomains = 'domains/list';
 export const addNewDomainURI = 'domains';
 export const getCuisineList = 'asdasd';
-export const getDomainDataByIdURI = '';
+export const getDomainDataByIdURI = 'domains';

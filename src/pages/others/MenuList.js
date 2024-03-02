@@ -409,13 +409,14 @@ console.log("hhhhhhhhhhhh",data,currentItems)
                                   <DataTableItem key={item.id}>
                                     <DataTableRow className="nk-tb-col-check">
                               <span className="tb-sub" onClick={() => {
-                                // window.location.href = `/menu/${item.id}`
+                                window.location.href = `/admin/domains/${item.id}`
                               }}>
                                 <img width="50px" height="45px" src={item.img ? IMG_STORAGE_BASE_URL + item.img : ProductH} alt="product" />
                               </span>
                                     </DataTableRow>
                                     <DataTableRow size="md">
                               <span className="tb-product" onClick={() => {
+                                                                window.location.href = `/admin/domains/${item.id}`
                               }}>
                                 {/*<img src={item.img ? item.img : ProductH} alt="product" className="thumb"/>*/}
                                 <span className="title">{item.id}</span>
