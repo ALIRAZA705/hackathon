@@ -52,7 +52,8 @@ const AddMenuItemForm = (props) => {
         check: false,
         id: null,
         name: "",
-        parentId: ""
+        parentId: "",
+        parentDomain: ""
     });
 
     const onInputChange = (e) => {
@@ -120,12 +121,12 @@ const AddMenuItemForm = (props) => {
         console.log("form data", form)
         setLoading(true);
         let newFormData = form;
-        for(let each of Object.keys(newFormData)){
-            if(each.startsWith("variant-price-") || each.startsWith("variant-name-") || each.startsWith("variant-picture-")
-                || each.startsWith("addon-price-") || each.startsWith("addon-name-") || each.startsWith("addon-picture-")){
-                delete form[each];
-            }
-        }
+        // for(let each of Object.keys(newFormData)){
+        //     if(each.startsWith("variant-price-") || each.startsWith("variant-name-") || each.startsWith("variant-picture-")
+        //         || each.startsWith("addon-price-") || each.startsWith("addon-name-") || each.startsWith("addon-picture-")){
+        //         delete form[each];
+        //     }
+        // }
 
         const payload = {
             ...newFormData,
@@ -135,25 +136,25 @@ const AddMenuItemForm = (props) => {
             name: formData.name,
         };
 
-        const variantsArr = [...Array(variants)];
-        variantsArr.map((v,i)=>{
-            // let variant={};
-            // variant['variant-name'] = formData['variant-name-'+i];
-            // variant['variant-price'] = formData['variant-price-'+i];
-            // variant['variant-picture'] = formData['variant-picture-'+i];
-            // variant['variant-picture'] = URL.createObjectURL(formData['variant-picture-'+i]);
-            // payload.variants.push(variant)
-            payload.required_variant_name.push(formData['variant-name-'+i])
-            payload.required_variant_price.push(formData['variant-price-'+i])
-            payload.required_variant_image.push(formData['variant-picture-'+i])
-        });
+        // const variantsArr = [...Array(variants)];
+        // variantsArr.map((v,i)=>{
+        //     // let variant={};
+        //     // variant['variant-name'] = formData['variant-name-'+i];
+        //     // variant['variant-price'] = formData['variant-price-'+i];
+        //     // variant['variant-picture'] = formData['variant-picture-'+i];
+        //     // variant['variant-picture'] = URL.createObjectURL(formData['variant-picture-'+i]);
+        //     // payload.variants.push(variant)
+        //     payload.required_variant_name.push(formData['variant-name-'+i])
+        //     payload.required_variant_price.push(formData['variant-price-'+i])
+        //     payload.required_variant_image.push(formData['variant-picture-'+i])
+        // });
 
-        const addonsArr = [...Array(addons)];
-        addonsArr.map((v,i)=>{
-            payload.optional_variant_name.push(formData['addon-name-'+i])
-            payload.optional_variant_price.push(formData['addon-price-'+i])
-            payload.optional_variant_image.push(formData['addon-picture-'+i])
-        });
+        // const addonsArr = [...Array(addons)];
+        // addonsArr.map((v,i)=>{
+        //     payload.optional_variant_name.push(formData['addon-name-'+i])
+        //     payload.optional_variant_price.push(formData['addon-price-'+i])
+        //     payload.optional_variant_image.push(formData['addon-picture-'+i])
+        // });
         console.log("payload ::::::: ", payload)
 
         let res;

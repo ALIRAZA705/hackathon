@@ -235,7 +235,7 @@ const AddMenuPage = () => {
         <BlockHead size="sm">
           <BlockBetween>
             <BlockHeadContent>
-              <BlockTitle>Add New Domain1</BlockTitle>
+              <BlockTitle>Add New Domain</BlockTitle>
             </BlockHeadContent>
             <BlockHeadContent>
               <div className="toggle-wrap nk-block-tools-toggle">
