@@ -394,17 +394,9 @@ const MenuList = (props) => {
                     <div className="card-inner p-0">
                       <DataTableBody>
                         <DataTableHead>
-                          {/*<DataTableRow className="nk-tb-col-check">*/}
-                          {/*  <div className="custom-control custom-control-sm custom-checkbox notext">*/}
-                          {/*    <input*/}
-                          {/*        type="checkbox"*/}
-                          {/*        className="custom-control-input form-control"*/}
-                          {/*        id="uid_1"*/}
-                          {/*        onChange={(e) => selectorCheck(e)}*/}
-                          {/*    />*/}
-                          {/*    <label className="custom-control-label" htmlFor="uid_1"></label>*/}
-                          {/*  </div>*/}
-                          {/*</DataTableRow>*/}
+                        <DataTableRow size="sm">
+                            <span>Image</span>
+                          </DataTableRow>
                           <DataTableRow size="sm">
                             <span>Company Id</span>
                           </DataTableRow>
@@ -413,11 +405,11 @@ const MenuList = (props) => {
                           </DataTableRow>
                           <DataTableRow size="sm">
                             <span>Description
-</span>
+                          </span>
                           </DataTableRow>
                           <DataTableRow size="sm">
                             <span>Parents Domain
-</span>
+                            </span>
                           </DataTableRow>
                          
                         
@@ -425,78 +417,36 @@ const MenuList = (props) => {
                         {currentItems.length > 0
                             ? currentItems.map((item) => {
                               return (
-                                  // <div >
                                   <DataTableItem key={item.id}>
-                                    {/*<DataTableRow className="nk-tb-col-check">*/}
-                                    {/*  <div className="custom-control custom-control-sm custom-checkbox notext">*/}
-                                    {/*    <input*/}
-                                    {/*        type="checkbox"*/}
-                                    {/*        className="custom-control-input form-control"*/}
-                                    {/*        defaultChecked={item.check}*/}
-                                    {/*        id={item.id + "uid1"}*/}
-                                    {/*        key={Math.random()}*/}
-                                    {/*        onChange={(e) => onSelectChange(e, item.id)}*/}
-                                    {/*    />*/}
-                                    {/*    <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>*/}
-                                    {/*  </div>*/}
-                                    {/*</DataTableRow>*/}
                                     <DataTableRow className="nk-tb-col-check">
                               <span className="tb-sub" onClick={() => {
                                 // window.location.href = `/menu/${item.id}`
                               }}>
                                 <img width="50px" height="45px" src={item.img ? IMG_STORAGE_BASE_URL + item.img : ProductH} alt="product" />
-                                {/*<span className="title">{item.name}</span>*/}
                               </span>
                                     </DataTableRow>
                                     <DataTableRow size="md">
                               <span className="tb-product" onClick={() => {
-                                // menu page open
-                                // window.location.href = `/menu/${item.id}`
+                              }}>
+                                {/*<img src={item.img ? item.img : ProductH} alt="product" className="thumb"/>*/}
+                                <span className="title">{item.id}</span>
+                              </span>
+                                    </DataTableRow>
+                                    <DataTableRow size="md">
+                              <span className="tb-product" onClick={() => {
                               }}>
                                 {/*<img src={item.img ? item.img : ProductH} alt="product" className="thumb"/>*/}
                                 <span className="title">{item.name}</span>
                               </span>
                                     </DataTableRow>
                                     <DataTableRow>
-                                      <span className="tb-sub">{
-                                        item?.restaurant_menue_variant?.map((v)=>(
-                                            <div>
-                                              {v.variant_name}
-                                            </div>
-                                        ))
-                                        // JSON.stringify(item?.restaurant_menue_variant)
-                                      }</span>
+                                      <span className="tb-sub">{item.description}</span>
                                     </DataTableRow>
                                     <DataTableRow>
-                                      <span className="tb-sub">{item.sku}</span>
-                                    </DataTableRow>
-                                    <DataTableRow>
-                                      <span className="tb-sub">$ {item.price}</span>
-                                    </DataTableRow>
-                                    <DataTableRow>
-                                      <span className="tb-sub">{item.stock}</span>
+                                      <span className="tb-sub">$ {item.parents}</span>
                                     </DataTableRow>
                                     <DataTableRow size="md">
-                              <span className="tb-sub">
-                                {item.category.map((cat) => {
-                                  if (item.category[cat] + 1 === null || undefined) {
-                                    return cat.label;
-                                  } else return cat.label + ", ";
-                                })}
-                              </span>
                                     </DataTableRow>
-                                    {/*<DataTableRow size="md">*/}
-                                    {/*  <div className="asterisk tb-asterisk">*/}
-                                    {/*    <a*/}
-                                    {/*      href="#asterisk"*/}
-                                    {/*      className={item.fav ? "active" : ""}*/}
-                                    {/*      onClick={(ev) => ev.preventDefault()}*/}
-                                    {/*    >*/}
-                                    {/*      <Icon name="star" className="asterisk-off"></Icon>*/}
-                                    {/*      <Icon name="star-fill" className="asterisk-on"></Icon>*/}
-                                    {/*    </a>*/}
-                                    {/*  </div>*/}
-                                    {/*</DataTableRow>*/}
                                     <DataTableRow className="nk-tb-col-tools">
                                       <ul className="nk-tb-actions gx-1 my-n1">
                                         <li className="mr-n1">
