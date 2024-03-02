@@ -96,7 +96,7 @@ const PreparingOrders = () => {
     const submitAddUser = async() => {
 
       let data = await addNewUSer(formData);
-      console.log( "here is form data", data)
+      console.log( "here is form data", data?.response?.data?.message?.message)
       if(data?.response?.status !== 200)
       {
 
