@@ -62,6 +62,7 @@ const PreparingOrders = () => {
         userName:user?.userName,
         firstName: user.firstName,
         lastName: user.lastName,
+        email: user.email,
         domainName: user.domainName,
         name: user.name,
         business_name: user.busines_business_name,
@@ -69,7 +70,7 @@ const PreparingOrders = () => {
         phone_number: user.phone,
         address: user.address,
         type: user.type,
-        domainType: user.domainType,
+        domainName: user.domainName,
         cuisine_type: user.busines_cuisine_types,
         starting_price: user.busines_starting_price,
         ordr_delivery_time: user.busines_ordr_delivery_time,
@@ -93,10 +94,10 @@ const PreparingOrders = () => {
 
 
     const submitAddUser = async() => {
-      console.log( "here is form data", formData)
+
       let data = await addNewUSer(formData);
     }
-
+    console.log( "here is form data", data,formData)
     const getDomains = async () => {
       let data = await getDomainName();
 
@@ -144,7 +145,7 @@ const PreparingOrders = () => {
                             </div>
                           </li>
                           {
-                            // user.role !== "super-admin" &&
+                            // user.roleName !== "super-admin" &&
                             <li className="nk-block-tools-opt">
                               <Button
                                   className="toggle btn-icon d-md-none"
@@ -266,6 +267,23 @@ const PreparingOrders = () => {
 
                   <Col md="6">
                     <FormGroup>
+                      <label className="form-label" htmlFor="full-name">
+                        Email
+                      </label>
+                      <input
+                        type="text"
+                        id="first_name_profile"
+                        className="form-control"
+                        name="email"
+                        onChange={(e) => onInputChange(e)}
+                        defaultValue={formData.email}
+                        placeholder="Enter Full name"
+                      />
+                    </FormGroup>
+                  </Col>
+
+                  <Col md="6">
+                    <FormGroup>
                       <label className="form-label" htmlFor="phone-no">
                         Phone Number
                       </label>
@@ -292,7 +310,7 @@ const PreparingOrders = () => {
                           //     label: formData.domainName,
                           //   },
                           // ]}
-                          onChange={(e) => setFormData({ ...formData, domainType: e.value })}
+                          onChange={(e) => setFormData({ ...formData, domainName: e.value })}
                       />
                     </FormGroup>
                   </Col> 
@@ -340,11 +358,11 @@ const PreparingOrders = () => {
                           placeholder="Select Business Type"
                           defaultValue={[
                             {
-                              value: formData.role,
-                              label: formData.role,
+                              value: formData.roleName,
+                              label: formData.roleName,
                             },
                           ]}
-                          onChange={(e) => setFormData({ ...formData, role: e.value })}
+                          onChange={(e) => setFormData({ ...formData, roleName: e.value })}
                       />
                     </FormGroup>
                   </Col>
