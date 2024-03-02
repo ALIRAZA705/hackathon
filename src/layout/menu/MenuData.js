@@ -13,6 +13,13 @@ const menu = [
         heading: "Management",
     },
     {
+        // icon: "speed",
+        icon: "dashboard",
+        text: "Stats",
+        link: "/dashboard",
+        dashboard: true,
+    },
+    {
         icon: "users",
         text: "Restaurants",
         link: "/restaurants",
@@ -54,29 +61,31 @@ const menu = [
             },
         ],
     },
-    {
-        icon: "chat",
-        text: "Reviews",
-        link: "/reviews",
-    },
+    // {
+    //     icon: "chat",
+    //     text: "Reviews",
+    //     link: "/reviews",
+    // },
     {
         icon: "file-docs",
         text: "Invoice List",
         link: "/invoice-list",
     },
-    {
-        text: "Messages",
-        link: "/chat",
-        icon: "chat",
-        theme: "bg-purple-dim",
-    },
-    {
-        // icon: "speed",
-        icon: "dashboard",
-        text: "Stats",
-        link: "/dashboard",
-        dashboard: true,
-    },
+    // {
+    //     text: "Messages",
+    //     link: "/chat",
+    //     icon: "chat",
+    //     theme: "bg-purple-dim",
+    // },
+
+    // write this at the top again:::
+    // {
+    //     // icon: "speed",
+    //     icon: "dashboard",
+    //     text: "Stats",
+    //     link: "/dashboard",
+    //     dashboard: true,
+    // },
     {
         // icon: "speed",
         icon: "dashboard",

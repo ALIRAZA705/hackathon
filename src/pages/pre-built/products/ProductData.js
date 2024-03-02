@@ -585,43 +585,67 @@ export const productCardData = [
 
 export const categoryOptions = [
   {
-    value: "Gadget",
-    label: "Gadget",
+    value: "Fast Food",
+    label: "Fast Food"
   },
   {
-    value: "Electronics",
-    label: "Electronics",
+    value: "Desi Food",
+    label: "Desi Food"
   },
   {
-    label: "Watch",
-    value: "Watch",
+    value: "Hi-Tea",
+    label: "Hi-Tea"
   },
   {
-    label: "Tracker",
-    value: "Tracker",
-  },
+    value: "Main Course",
+    label: "Main Course"
+  }
+
+  // {
+  //   value: "Gadget",
+  //   label: "Gadget",
+  // },
+  // {
+  //   value: "Electronics",
+  //   label: "Electronics",
+  // },
+  // {
+  //   label: "Watch",
+  //   value: "Watch",
+  // },
+  // {
+  //   label: "Tracker",
+  //   value: "Tracker",
+  // },
+  // {
+  //   label: "Fitbit",
+  //   value: "Fitbit",
+  // },
+  // {
+  //   label: "Men",
+  //   value: "Men",
+  // },
+  // {
+  //   label: "Holder",
+  //   value: "Holder",
+  // },
+  // {
+  //   label: "Speaker",
+  //   value: "Speaker",
+  // },
+  // {
+  //   label: "Headphones",
+  //   value: "Headphones",
+  // },
+  // {
+  //   label: "Bundle",
+  //   value: "Bundle",
+  // },
+];
+
+export const categoryTypeOptions = [
   {
-    label: "Fitbit",
-    value: "Fitbit",
-  },
-  {
-    label: "Men",
-    value: "Men",
-  },
-  {
-    label: "Holder",
-    value: "Holder",
-  },
-  {
-    label: "Speaker",
-    value: "Speaker",
-  },
-  {
-    label: "Headphones",
-    value: "Headphones",
-  },
-  {
-    label: "Bundle",
-    value: "Bundle",
-  },
+    value: "Any",
+    label: "Any"
+  }
 ];

@@ -34,7 +34,7 @@ const RiderCategoryCard = (props) => {
           const data = tableData.filter((t)=> t.user_status == "Approved")
           history.push({
               pathname: '/admin/riders-approved',
-              state: { tableData: data },
+              state: { tableData: data }, 
           });
           // history.push(`${process.env.PUBLIC_URL}/riders/approved`);
       }

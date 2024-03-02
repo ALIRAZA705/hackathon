@@ -5,7 +5,8 @@ import axios from "axios";
 const axiosClient = axios.create();
 
 // axiosClient.defaults.baseURL = 'https://affinitycoders.com/foodapp/public/api/';
-axiosClient.defaults.baseURL = 'https://affinitycoders.com/wooeats/public/api';
+// axiosClient.defaults.baseURL = 'https://affinitycoders.com/wooeats/public/api';
+axiosClient.defaults.baseURL = 'https://eat-today.com/wooeats/api';
 // axiosClient.defaults.baseURL = process.env.API_BASE_URL;
 // const baseURL = process.env.API_BASE_URL;
 

@@ -10,7 +10,7 @@ import {
     Row,
     RSelect
 } from "../../components/Component";
-import {categoryOptions, productData} from "../pre-built/products/ProductData";
+import {categoryOptions, categoryTypeOptions, productData} from "../pre-built/products/ProductData";
 import Dropzone from "react-dropzone";
 import React, {useEffect, useState} from "react";
 import {Stack, Grid, Box, Typography, Divider } from "@mui/material";
@@ -183,10 +183,10 @@ const AddMenuItemForm = (props) => {
             // history.push(`${process.env.PUBLIC_URL}/menu`)
 
             if(JSON.parse(localStorage.getItem("user")).user_login_status === "super-admin"){
-                 window.location.href =  "/restaurant/" + payload.restaurant_id + "/menu";
+                 window.location.href =  "/admin/restaurant/" + payload.restaurant_id + "/menu";
             }
             else
-                window.location.href = '/restaurant/menu';
+                window.location.href = '/admin/restaurant/menu';
         }
     }
 
@@ -381,25 +381,25 @@ const AddMenuItemForm = (props) => {
                                         </div>
                                     </div>
                                 </Col>
-                                {/*<Col size="6">*/}
-                                {/*    <div className="form-group">*/}
-                                {/*        <label className="form-label" htmlFor="category">*/}
-                                {/*            Category Type*/}
-                                {/*        </label>*/}
-                                {/*        <div className="form-control-wrap">*/}
-                                {/*            <RSelect*/}
-                                {/*                isMulti*/}
-                                {/*                options={categoryOptions}*/}
-                                {/*                defaultValue={formData.category_type}*/}
-                                {/*                onChange={(e) => onCategoryTypeChange(e)}*/}
-                                {/*                ref={register({*/}
-                                {/*                    required: "This field is required",*/}
-                                {/*                })}*/}
-                                {/*            />*/}
-                                {/*            {errors.category_type && <span className="invalid">{errors.category_type.message}</span>}*/}
-                                {/*        </div>*/}
-                                {/*    </div>*/}
-                                {/*</Col>*/}
+                                <Col size="6">
+                                   <div className="form-group">
+                                       <label className="form-label" htmlFor="category">
+                                           Category Type
+                                       </label>
+                                       <div className="form-control-wrap">
+                                           <RSelect
+                                                isMulti
+                                                options={categoryTypeOptions}
+                                                defaultValue={formData.category_type}
+                                                onChange={(e) => onCategoryTypeChange(e)}
+                                                ref={register({
+                                                    required: "This field is required",
+                                                })}
+                                            />
+                                            {errors.category_type && <span className="invalid">{errors.category_type.message}</span>}
+                                        </div>
+                                    </div>
+                                </Col>
                             </Row>
 
                             {/*     add variations & addons */}

@@ -43,6 +43,7 @@ import {deleteMenuItem, getMenuItemsByRestId} from "../../api/menu/menu";
 import {menuTableDataMapper} from "../../helper/menuTableHelper";
 import {Box} from "@mui/material";
 import AddMenuItemForm from "../components/AddMenuItemForm";
+import { IMG_STORAGE_BASE_URL } from "../../config";
 
 const MenuList = (props) => {
   const history = useHistory();
@@ -505,7 +506,7 @@ const MenuList = (props) => {
                               <span className="tb-sub" onClick={() => {
                                 // window.location.href = `/menu/${item.id}`
                               }}>
-                                <img width="50px" height="45px" src={item.img ? item.img : ProductH} alt="product" />
+                                <img width="50px" height="45px" src={item.img ? IMG_STORAGE_BASE_URL + item.img : ProductH} alt="product" />
                                 {/*<span className="title">{item.name}</span>*/}
                               </span>
                                     </DataTableRow>
@@ -837,7 +838,7 @@ const MenuList = (props) => {
                     <h4 className="nk-modal-title title">
                       Product <small className="text-primary">#{formData.sku}</small>
                     </h4>
-                    <img src={formData.img} alt=""/>
+                    <img src={IMG_STORAGE_BASE_URL + formData.img} alt=""/>
                   </div>
                   <div className="nk-tnx-details mt-sm-3">
                     <Row className="gy-3">

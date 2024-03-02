@@ -26,6 +26,7 @@ import ProductH from "../../../images/product/h.png";
 import Dropzone from "react-dropzone";
 import { Modal, ModalBody } from "reactstrap";
 import { RSelect } from "../../../components/Component";
+import { IMG_STORAGE_BASE_URL } from "../../../config";
 
 const ProductList = () => {
   const [data, setData] = useState(productData);
@@ -425,7 +426,7 @@ const ProductList = () => {
                             </DataTableRow>
                             <DataTableRow size="sm">
                               <span className="tb-product">
-                                <img src={item.img ? item.img : ProductH} alt="product" className="thumb" />
+                                <img src={item.img ? IMG_STORAGE_BASE_URL + item.img : ProductH} alt="product" className="thumb" />
                                 <span className="title">{item.name}</span>
                               </span>
                             </DataTableRow>
@@ -672,7 +673,7 @@ const ProductList = () => {
                           Product Image
                         </label>
                         <div className="form-control-wrap">
-                          <img src={formData.img} alt=""></img>
+                          <img src={IMG_STORAGE_BASE_URL + formData.img} alt=""></img>
                         </div>
                       </div>
                     </Col>
