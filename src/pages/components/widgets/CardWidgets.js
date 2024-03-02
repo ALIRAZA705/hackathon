@@ -1178,7 +1178,7 @@ const NewsUsers = () => {
       <div className="card-inner">
         <div className="card-title-group">
           <CardTitle>
-            <h6 className="title">New Users</h6>
+            <h6 className="title">Edge Users</h6>
           </CardTitle>
           <div className="card-tools">
             <Link to={process.env.PUBLIC_URL}/user-list-regular} className="link">

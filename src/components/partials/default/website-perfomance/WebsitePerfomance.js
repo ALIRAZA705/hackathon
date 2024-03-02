@@ -60,7 +60,7 @@ const WebsitePerformance = () => {
           <div className="analytic-data analytic-wp-data">
             <div className="analytic-wp-graph">
               <div className="title">
-                New Users <span>(avg)</span>
+                Edge Users <span>(avg)</span>
               </div>
               <div className="analytic-wp-ck">
                 <WPCharts className="analytics-line-small" data={NewUsersData}></WPCharts>
