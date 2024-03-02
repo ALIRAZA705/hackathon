@@ -30,4 +30,4 @@ export const getAllRidersURI = 'rider_list';
 export const changeRidersStatusURI = 'change_rider_status/:id';
 
 // MISC
-export const cuisineListURI = 'cuisine_list';
+export const getDomains = 'domains';

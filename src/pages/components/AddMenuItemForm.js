@@ -21,6 +21,7 @@ import {addNewMenuItem, editMenuItem} from "../../api/menu/menu";
 import {useParams} from "react-router";
 import {UploadButton} from "../../components/UploadButton";
 import {variantTypes, menuTypes, addonTypes} from "./AddMenuItemDropDowns";
+import { getDomainName } from "../../api/misc/misc";
 
 const AddMenuItemForm = (props) => {
     const params = useParams();
@@ -29,6 +30,7 @@ const AddMenuItemForm = (props) => {
     const [variants, setVariants] = useState(0);
     const [addons, setAddons] = useState(0);
     const [files, setFiles] = useState([]);
+    const [categoryOptions2, setCategoryOptions2] = useState([]);
     const [images, setImages] = useState([]);
     const [priceDisable, setPriceDisable] = useState(false);
     const { errors, register, handleSubmit } = useForm();
@@ -193,8 +195,13 @@ const AddMenuItemForm = (props) => {
         }
     }
 
+    const getDomains = async () => {
+        let data = await getDomainName();
+        setCategoryOptions2(data?.lsit)
+    };
+
     useEffect(()=>{
-        getDomainName();
+        getDomains();
     },[])
 
 
@@ -272,7 +279,7 @@ const AddMenuItemForm = (props) => {
                                         <div className="form-control-wrap">
                                             <RSelect
                                                 isMulti
-                                                options={categoryOptions}
+                                                options={categoryOptions2}
                                                 defaultValue={formData.parentId}
                                                 onChange={(e) => onCategoryChange(e)}
                                                 ref={register({

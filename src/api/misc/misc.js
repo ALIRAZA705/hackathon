@@ -4,10 +4,14 @@ import {
     postRequest
 } from "../methodCalls";
 import {
-    cuisineListURI,
+    cuisineListURI, getDomains,
 } from "../endpoints";
 
 export const getCuisineList = (params) => {
     return getRequest(`${cuisineListURI}`);
+}
+
+export const getDomainName = (params) => {
+    return getRequest(`${getDomains}`);
 }
 
