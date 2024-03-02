@@ -156,14 +156,18 @@ const PreparingOrders = () => {
                               >
                                 <Icon name="plus"></Icon>
                               </Button>
-                              <Button
-                                  className="toggle d-none d-md-inline-flex"
-                                  color="primary"
-                                  onClick={handleAddUser}
-                              >
-                                <Icon name="plus"></Icon>
-                                <span>Add Users</span>
-                              </Button>
+                              {
+                                user?.roleName == "ReadWrite" &&
+                              
+                                <Button
+                                className="toggle d-none d-md-inline-flex"
+                                color="primary"
+                                onClick={handleAddUser}
+                            >
+                              <Icon name="plus"></Icon>
+                              <span>Add Users</span>
+                            </Button>
+                              }
                             </li>
                           }
                         </ul>
@@ -390,7 +394,7 @@ const PreparingOrders = () => {
                     {errorVal && (
                         <div className="mb-3">
                           <Alert color={apiStatus} className="alert-icon">
-                            {" "}
+                            {errorVal}
                             <Icon name="alert-circle" /> {errorVal}{" "}
                           </Alert>
                         </div>
