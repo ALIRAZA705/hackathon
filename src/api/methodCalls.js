@@ -20,7 +20,7 @@ export function postFormDataRequest(URL, payload) {
     const accessToken = localStorage.getItem("accessToken");
     return axiosClient.post(`/${URL}`, payload, {headers: {
             "Content-Type": "multipart/form-data",
-            'Authorization': `Bearer ${accessToken}`,
+            'Authorization': `${accessToken}`,
             Accept: 'application/json'
         }}
     ).then(response => response).catch(err => err);
