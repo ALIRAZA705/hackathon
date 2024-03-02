@@ -69,8 +69,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
 
 
   const [formData, setFormData] = useState({
-    first_name: user.first_name,
-    last_name: user.last_name,
+    firstName: user.firstName,
+    lastName: user.lastName,
     name: user.name,
     business_name: user.busines_business_name,
     business_description: user.busines_business_description,
@@ -141,8 +141,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   const submitUserProfileForm = async () => {
     setLoading(true);
     let submitData = {
-      first_name : formData.first_name,
-      last_name : formData.last_name,
+      firstName : formData.firstName,
+      lastName : formData.lastName,
       email : user.email,
       phone_number: formData.phone_number,
       profile_image : multipartUserProfileData,
@@ -506,7 +506,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   Personal
                 </a>
               </li>
-              {user.role !== "super-admin" &&
+              {/* {user.role !== "super-admin" &&
                 <li className="nav-item">
                 <a
                     className={`nav-link ${modalTab === "2" && "active"}`}
@@ -518,144 +518,15 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                 >
                   Business
                 </a>
-              </li>}
+              </li>} */}
             </ul>
             <div className="tab-content">
-              <div className={`tab-pane ${modalTab === "1" ? "active" : ""}`} id="personal">
-                <Row className="gy-4">
-                  <Col md="6">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="full-name">
-                        First Name
-                      </label>
-                      <input
-                        type="text"
-                        id="first_name_profile"
-                        className="form-control"
-                        name="first_name"
-                        onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.first_name}
-                        placeholder="Enter Full name"
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md="6">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="display-name">
-                        Last Name
-                      </label>
-                      <input
-                        type="text"
-                        id="last_name_profile"
-                        className="form-control"
-                        name="last_name"
-                        onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.last_name}
-                        placeholder="Enter display name"
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md="6">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="phone-no">
-                        Phone Number
-                      </label>
-                      <input
-                        type="number"
-                        id="phone-no"
-                        className="form-control"
-                        name="phone_number"
-                        onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.phone_number}
-                        placeholder="Phone Number"
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md="4">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="phone-no">
-                        Image
-                      </label>
-                      <Stack direction="row" sx={{
-                        overflowX: "auto",
-                        flexShrink: "0"
-                      }}>
-                        <Dropzone
-                            multiple={false}
-                            onDrop={(acceptedProfilePic) => handleProfilePicChange(acceptedProfilePic)}
-                        >
-                          {({ getRootProps, getInputProps }) => (
-                              <section>
-                                <div
-                                    {...getRootProps()}
-                                    className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
-                                >
-                                  <input {...getInputProps()} />
-                                  {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
-                                  {files.map((file) => (
-                                      <div
-                                          key={file.name}
-                                          className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
-                                      >
-                                        <Stack direction="row">
-                                          {/*<div className="dz-image">*/}
-                                          <img height="100px" src={file.preview} alt="preview" />
-                                          {/*</div>*/}
-                                        </Stack>
-
-                                      </div>
-                                  ))}
-                                </div>
-                              </section>
-                          )}
-                        </Dropzone>
-                      </Stack>
-                    </FormGroup>
-                  </Col>
-                  <Col size="6">
-                    <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                      <li>
-                        <Button
-                          color="primary"
-                          size="lg"
-                          onClick={(ev) => {
-                            ev.preventDefault();
-                            submitUserProfileForm();
-                          }}
-                        >
-                          {loading ? <Spinner size="sm" color="light" /> : "Update"}
-                        </Button>
-                      </li>
-                      <li>
-                        <a
-                          href="#dropdownitem"
-                          onClick={(ev) => {
-                            ev.preventDefault();
-                            setModal(false);
-                          }}
-                          className="link link-light"
-                        >
-                          Cancel
-                        </a>
-                      </li>
-                    </ul>
-                    {errorVal && (
-                        <div className="mb-3">
-                          <Alert color={apiStatus} className="alert-icon">
-                            {" "}
-                            <Icon name="alert-circle" /> {errorVal}{" "}
-                          </Alert>
-                        </div>
-                    )}
-                  </Col>
-                </Row>
-              </div>
-              <div className={`tab-pane ${modalTab === "2" ? "active" : ""}`} id="address">
+              <div className={`tab-pane ${modalTab === "1" ? "active" : ""}`} id="address">
                 <Row className="gy-4">
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-l1">
-                      user Name
+                      User Name
                       </label>
                       <input
                         type="text"
@@ -667,7 +538,23 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       />
                     </FormGroup>
                   </Col>
+
                   <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-l1">
+                      First Name
+                      </label>
+                      <input
+                        type="text"
+                        id="address-l1"
+                        name="business_name"
+                        onChange={(e) => onInputChange(e)}
+                        defaultValue={formData.business_name}
+                        className="form-control"
+                      />
+                    </FormGroup>
+                  </Col>
+                  {/* <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-l2">
                         Phone Number
@@ -681,8 +568,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                         className="form-control"
                       />
                     </FormGroup>
-                  </Col>
-                  <Col md="12">
+                  </Col> */}
+                  {/* <Col md="12">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-l2">
                         Description
@@ -696,7 +583,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                           className="form-control"
                       />
                     </FormGroup>
-                  </Col>
+                  </Col> */}
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-st">
@@ -890,7 +777,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                 {/*          className="form-control"*/}
                 {/*          name="name"*/}
                 {/*          onChange={(e) => onInputChange(e)}*/}
-                {/*          defaultValue={formData.first_name}*/}
+                {/*          defaultValue={formData.firstName}*/}
                 {/*          placeholder="Enter Full name"*/}
                 {/*      />*/}
                 {/*    </FormGroup>*/}
