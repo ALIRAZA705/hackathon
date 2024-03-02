@@ -47,13 +47,14 @@ const Register = ({ history }) => {
     console.log(payload)
     const res = await postRegisterUser(payload);
     setLoading(true);
-    console.log("res :: ", res.request.status, res.response)
+    console.log("res :: ", res.request.status, res.response?.data?.credentials?.token
+    )
     if(res.request.status !== 200) {
       setError("Cannot register with these credentials");
       setLoading(false);
     }
     else{
-      localStorage.setItem("accessToken", "token");
+      localStorage.setItem("accessToken", res.response?.data?.credentials?.token);
       history.push(`${process.env.PUBLIC_URL}/dashboard`)
     }
     // setTimeout(() => history.push(`${process.env.PUBLIC_URL}/auth-success`), 2000);

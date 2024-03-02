@@ -31,20 +31,20 @@ const Login = () => {
   const [errorVal, setError] = useState("");
 
   const handleRedirect = (user) => {
-    if(user.user_login_status === "super-admin"){
-      console.log("super")
+    // if(user.user_login_status === "super-admin"){
+    //   console.log("super")
       window.location.href = '/admin/dashboard';
-    }
-    else if(user.user_login_status === "admin"){
-      window.location.href = `/admin/restaurant/${user.busines.id}/menu`;
-    }
-    else{
-      setError("Wrong Email / Not an Admin");
-      setLoading(false);
-      setTimeout(()=>{
-        setError("")
-      },[5000])
-    }
+    // }
+    // else if(user.user_login_status === "admin"){
+      // window.location.href = `/admin/restaurant/${user.busines.id}/menu`;
+    // }
+    // else{
+    //   setError("Wrong Email / Not an Admin");
+    //   setLoading(false);
+    //   setTimeout(()=>{
+    //     setError("")
+    //   },[5000])
+    // }
     // history.push(`/dashboard`);
   }
 
@@ -65,12 +65,13 @@ const Login = () => {
       },[5000])
     }
     else{
-      user = res.data.records;
-      if(user.userName === "admin@affinity.com" || user.userName === "test2@mail.com"){
-        user.user_login_status = "super-admin"
-      }
-        localStorage.setItem("accessToken", res.data.records.token);
-        localStorage.setItem("user", JSON.stringify(user));
+      // user = res.data.records;
+      // if(user.userName === "admin@affinity.com" || user.userName === "test2@mail.com"){
+      //   user.user_login_status = "super-admin"
+      // }
+      console.log("ddddddddddddddddddd",res)
+        localStorage.setItem("accessToken", res?.data?.credentials?.token);
+        localStorage.setItem("user", JSON.stringify( res?.data?.user));
         // setTimeout(()=>{
             handleRedirect(user);
         // },[200000])
