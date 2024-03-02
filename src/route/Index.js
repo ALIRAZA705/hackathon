@@ -16,6 +16,7 @@ import RestaurantMenuRedirect from "../pages/others/RestaurantMenuRedirect";
 import DispatchedOrders from "../pages/others/DispatchedOrders";
 import ReadyOrders from "../pages/others/ReadyOrders";
 import UserProfileLayout from "../pages/pre-built/user-manage/UserProfileLayout";
+import AddDomainPage from "../pages/others/AddDomainPage";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -40,6 +41,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/restaurant/menu`} component={RestaurantMenuRedirect}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu`} component={MenuList}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/domains/add`} component={AddMenuPage}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/domains/:id`} component={AddDomainPage}></Route>
 
         <Route exact path={`${process.env.PUBLIC_URL}/orders`} component={Orders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/users/premium`} component={PreparingOrders}></Route>

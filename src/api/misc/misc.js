@@ -16,3 +16,8 @@ export const getDomainName = (params) => {
     return getRequest(`${addNewDomainURI}`);
 }
 
+export const getDomainDataById = (params) => {
+    return getRequest(`${getDomainDataByIdURI}`);
+}
+
+
