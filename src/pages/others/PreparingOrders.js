@@ -26,6 +26,7 @@ import { businessTypeDD } from "../pre-built/user-manage/UserProfileRegular";
 import { Stack } from "@mui/material";
 import Dropzone from "react-dropzone";
 import { getDomainName } from "../../api/misc/misc";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 export const businessTypeDD1 = [
   { value: "Customer", label: "customer" },
@@ -43,6 +44,7 @@ export const businessTypeDD22 = [
 
 const PreparingOrders = () => {
     const [data, setData] = useState([]);
+    console.log("99999999999",data)
     const [modalTab, setModalTab] = useState("1");
     const [modal, setModal] = useState(false);
     const user = useSelector(state => state.userInfo);
@@ -78,9 +80,9 @@ const PreparingOrders = () => {
     // fetch data from API
     useEffect(async()=>{
         const res = await getOrdersByRestId();
-        console.log("res ordersss : ", res?.data?.records)
+        console.log("res ordersss : ", res)
         if(res?.status === 200){
-            let preparing = res?.data?.records.filter(r=>r.order_status === "Preparing")
+            let preparing = res?.data?.users
             setData(preparing)
         }
         else
@@ -104,7 +106,7 @@ const PreparingOrders = () => {
 
     return (
         <React.Fragment>
-            <Head title="Premium Users"></Head>
+            <Head title="Users List"></Head>
             <BlockHead size="sm">
                 <BlockBetween>
                   <BlockHeadContent>
