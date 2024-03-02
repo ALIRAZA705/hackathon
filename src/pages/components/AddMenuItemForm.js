@@ -34,14 +34,14 @@ const AddMenuItemForm = (props) => {
     const { errors, register, handleSubmit } = useForm();
     const [formData, setFormData] = useState(props.editFormData? props.editFormData : {
         // restId: 111,
-        item_name: "",
+        name: "",
         img: null,
         sku: "",
         regular_price: 0,
         description: "",
         sale_price: null,
         stock: 0,
-        category: "",
+        parentId: "",
         category_type: "",
         required_variant_type: null,
         required_menue_type: null,
@@ -62,9 +62,9 @@ const AddMenuItemForm = (props) => {
         //     console.log(v)
         //     catArr.push(v.value)
         // })
-        // setFormData({ ...formData, category: catArr });
+        // setFormData({ ...formData, parentId: catArr });
         //  for  non-array
-        setFormData({ ...formData, category: value[0].value });
+        setFormData({ ...formData, parentId: value[0].value });
     };
 
     const onCategoryTypeChange = (value) => {
@@ -127,7 +127,7 @@ const AddMenuItemForm = (props) => {
             ...newFormData,
             menu_id: formData.id,
             restaurant_id: params.id,
-            category: formData.category,
+            parentId: formData.parentId,
             category_type: formData.categoryType,
             description: formData.description,
             // variants: [],
@@ -193,6 +193,10 @@ const AddMenuItemForm = (props) => {
         }
     }
 
+    useEffect(()=>{
+        getDomainName();
+    },[])
+
 
     return(
         <div>
@@ -218,7 +222,7 @@ const AddMenuItemForm = (props) => {
                                                 })}
                                                 defaultValue={formData.id}
                                             />
-                                            {/* {errors.item_name && <span className="invalid">{errors.name.message}</span>} */}
+                                            {/* {errors.name && <span className="invalid">{errors.name.message}</span>} */}
                                         </div>
                                     </div>
                                 </Col>
@@ -231,14 +235,14 @@ const AddMenuItemForm = (props) => {
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                name="item_name"
+                                                name="name"
                                                 onChange={(e) => onInputChange(e)}
                                                 ref={register({
                                                     required: "This field is required",
                                                 })}
                                                 defaultValue={formData.name}
                                             />
-                                            {/* {errors.item_name && <span className="invalid">{errors.name.message}</span>} */}
+                                            {/* {errors.name && <span className="invalid">{errors.name.message}</span>} */}
                                         </div>
                                     </div>
                                 </Col>
@@ -262,26 +266,26 @@ const AddMenuItemForm = (props) => {
                                 
                                 <Col size="6">
                                     <div className="form-group">
-                                        <label className="form-label" htmlFor="category">
-                                            Category
+                                        <label className="form-label" htmlFor="parentId">
+                                        Parent Domain
                                         </label>
                                         <div className="form-control-wrap">
                                             <RSelect
                                                 isMulti
                                                 options={categoryOptions}
-                                                defaultValue={formData.category}
+                                                defaultValue={formData.parentId}
                                                 onChange={(e) => onCategoryChange(e)}
                                                 ref={register({
                                                     required: "This field is required",
                                                 })}
                                             />
-                                            {errors.category && <span className="invalid">{errors.category.message}</span>}
+                                            {errors.parentId && <span className="invalid">{errors.parentId.message}</span>}
                                         </div>
                                     </div>
                                 </Col>
                                 {/* <Col size="6">
                                    <div className="form-group">
-                                       <label className="form-label" htmlFor="category">
+                                       <label className="form-label" htmlFor="parentId">
                                            Category Type
                                        </label>
                                        <div className="form-control-wrap">
@@ -300,16 +304,116 @@ const AddMenuItemForm = (props) => {
                                 </Col> */}
                             </Row>
 
-                            <Row>
-                                <Col size="11">
-                                </Col>
-                                <Col size="1">
-                                <Button color="primary" type="submit">
-                            <Icon className="plus"></Icon>
-                            {loading ? <Spinner size="sm" color="light" /> : "Save"}
-                             </Button>
-                                </Col>
-                            </Row>
+                            {/*     add variations & addons */}
+                            {/*  */}
+
+
+                            {/*     add variations  END */}
+
+
+                            {/*     add optional Addons  */}
+                            {/*<Row className="g-3 variation-block">*/}
+                            {/*    <Stack className="vertical-center" direction="row" gap={2}>*/}
+                            {/*        <h6>Addons (Optional)</h6>*/}
+                            {/*        <Button className="btn-round btn-icon" color="primary" size="sm"*/}
+                            {/*                onClick={updateAddons}>*/}
+                            {/*            <Icon name="plus" />*/}
+                            {/*        </Button>*/}
+                            {/*    </Stack>*/}
+                            {/*    <Divider color="white" width="100%"/>*/}
+
+                            {/*    <Col size="12">*/}
+                            {/*        {*/}
+                            {/*            [...Array(addons)].map((val, idx)=> (*/}
+                            {/*                <Col size="10">*/}
+                            {/*                    <Stack direction="row" sx={{*/}
+                            {/*                        flexWrap: "wrap",*/}
+                            {/*                        margin: "1rem 0 1rem 0"*/}
+                            {/*                    }}>*/}
+                            {/*                        <Col md="5">*/}
+                            {/*                            <div className="form-group">*/}
+                            {/*                                <div className="form-control-wrap">*/}
+                            {/*                                    <input*/}
+                            {/*                                        id={'addon-name-'+idx}*/}
+                            {/*                                        type="text"*/}
+                            {/*                                        placeholder="Addon Name"*/}
+                            {/*                                        className="form-control"*/}
+                            {/*                                        name={'addon-name-'+idx}*/}
+                            {/*                                        onChange={(e) => onInputChange(e)}*/}
+                            {/*                                        ref={register({ required: "This is required" })}*/}
+                            {/*                                    />*/}
+                            {/*                                    {errors['addon-name-'+idx] && <span className="invalid">{errors['addon-name-'+idx].message}</span>}*/}
+                            {/*                                </div>*/}
+                            {/*                            </div>*/}
+                            {/*                        </Col>*/}
+                            {/*                        <Col md="4">*/}
+                            {/*                            <div className="form-group">*/}
+                            {/*                                <div className="form-control-wrap">*/}
+                            {/*                                    <input*/}
+                            {/*                                        id={'addon-price-'+idx}*/}
+                            {/*                                        type="number"*/}
+                            {/*                                        placeholder="Addon Price"*/}
+                            {/*                                        className="form-control"*/}
+                            {/*                                        defaultValue={formData.price}*/}
+                            {/*                                        name={'addon-price-'+idx}*/}
+                            {/*                                        onChange={(e) => onInputChange(e)}*/}
+                            {/*                                        ref={register({ required: "This is required" })}*/}
+                            {/*                                    />*/}
+                            {/*                                    {errors['addon-price-'+idx] && <span className="invalid">{errors['addon-price-'+idx].message}</span>}*/}
+                            {/*                                </div>*/}
+                            {/*                            </div>*/}
+                            {/*                        </Col>*/}
+                            {/*                        <Col md="2">*/}
+                            {/*                            <UploadButton*/}
+                            {/*                                setUploadFile={(f)=>{*/}
+                            {/*                                    // const a= {`variant-price-${idx}`: f}*/}
+                            {/*                                    setFormData({ ...formData, [`addon-picture-${idx}`]: f });*/}
+                            {/*                                }}*/}
+                            {/*                            />*/}
+                            {/*                        </Col>*/}
+                            {/*                        <Col md="1">*/}
+                            {/*                            <Box>*/}
+                            {/*                                <img*/}
+                            {/*                                    style={{*/}
+                            {/*                                        padding: "1px",*/}
+                            {/*                                        border: "1px dotted grey"*/}
+                            {/*                                    }}*/}
+                            {/*                                    width="30px"*/}
+                            {/*                                    height="30px"*/}
+                            {/*                                    src={formData[`addon-picture-${idx}`]? URL.createObjectURL(formData[`addon-picture-${idx}`]) : null}*/}
+                            {/*                                />*/}
+                            {/*                            </Box>*/}
+                            {/*                        </Col>*/}
+                            {/*                    </Stack>*/}
+                            {/*                </Col>*/}
+
+                            {/*            ))*/}
+                            {/*        }*/}
+                            {/*    </Col>*/}
+
+                            {/*    <Col size="12">*/}
+                            {/*        {errorVal && (*/}
+                            {/*            <div className="mb-3">*/}
+                            {/*                <Alert color="danger" className="alert-icon">*/}
+                            {/*                    {errorVal}*/}
+                            {/*                    <Icon name="alert-circle" /> {errorVal}*/}
+                            {/*                </Alert>*/}
+                            {/*            </div>*/}
+                            {/*        )}*/}
+                            {/*    </Col>*/}
+
+                            {/*    <Col size="12">*/}
+                            {/*        <Button color="primary" type="submit">*/}
+                            {/*            /!*<Icon className="plus"></Icon>*!/*/}
+                            {/*            {loading ? <Spinner size="sm" color="light" /> : "Save"}*/}
+                            {/*        </Button>*/}
+
+                            {/*    </Col>*/}
+
+                            {/*</Row>*/}
+
+
+                            {/*     add optional Addons  END */}
 
                         </form>
                     </div>
