@@ -45,7 +45,7 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/orders/ready`} component={ReadyOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders/dispatched`} component={DispatchedOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/orders/delivered`} component={DeliveredOrders}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/bookings`} component={Bookings}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/domains`} component={MenuList}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Sales}></Route>
 
         <Route component={RedirectAs404}></Route>

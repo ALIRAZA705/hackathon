@@ -308,7 +308,7 @@ const MenuList = (props) => {
     <React.Fragment>
       <Head title="Product List"></Head>
       {
-        loading ? <Box sx={{
+        !loading ? <Box sx={{
               width: "100vw",
               height: "100vh",
               margin: "auto",
@@ -323,7 +323,7 @@ const MenuList = (props) => {
               <BlockHead size="sm">
                 <BlockBetween>
                   <BlockHeadContent>
-                    <BlockTitle>{`${selectedRestaurant.business_name}'s Menu`}</BlockTitle>
+                    {/* <BlockTitle>{`${selectedRestaurant.business_name}'s Menu`}</BlockTitle> */}
                   </BlockHeadContent>
                   <BlockHeadContent>
                     <div className="toggle-wrap nk-block-tools-toggle">
@@ -646,230 +646,9 @@ const MenuList = (props) => {
                 </Card>
               </Block>
 
-              <Modal isOpen={view.edit} toggle={() => onFormCancel()} className="modal-dialog-centered" size="lg">
-                <ModalBody>
-                  <a href="#cancel" className="close">
-                    {" "}
-                    <Icon
-                        name="cross-sm"
-                        onClick={(ev) => {
-                          ev.preventDefault();
-                          onFormCancel();
-                        }}
-                    ></Icon>
-                  </a>
-                  <div className="p-2">
-                    <h5 className="title">Update Menu Item</h5>
-                    {/*<div className="mt-4">*/}
-                    {/*  <form noValidate onSubmit={handleSubmit(onEditSubmit)}>*/}
-                    {/*    <Row className="g-3">*/}
-                    {/*      <Col size="12">*/}
-                    {/*        <div className="form-group">*/}
-                    {/*          <label className="form-label" htmlFor="product-title">*/}
-                    {/*            Product Title*/}
-                    {/*          </label>*/}
-                    {/*          <div className="form-control-wrap">*/}
-                    {/*            <input*/}
-                    {/*                type="text"*/}
-                    {/*                className="form-control"*/}
-                    {/*                name="title"*/}
-                    {/*                onChange={(e) => onInputChange(e)}*/}
-                    {/*                ref={register({*/}
-                    {/*                  required: "This field is required",*/}
-                    {/*                })}*/}
-                    {/*                defaultValue={formData.name}*/}
-                    {/*            />*/}
-                    {/*            {errors.title && <span className="invalid">{errors.title.message}</span>}*/}
-                    {/*          </div>*/}
-                    {/*        </div>*/}
-                    {/*      </Col>*/}
-                    {/*      <Col md="6">*/}
-                    {/*        <div className="form-group">*/}
-                    {/*          <label className="form-label" htmlFor="regular-price">*/}
-                    {/*            Regular Price*/}
-                    {/*          </label>*/}
-                    {/*          <div className="form-control-wrap">*/}
-                    {/*            <input*/}
-                    {/*                type="number"*/}
-                    {/*                name="price"*/}
-                    {/*                ref={register({required: "This is required"})}*/}
-                    {/*                className="form-control"*/}
-                    {/*                defaultValue={formData.price}*/}
-                    {/*            />*/}
-                    {/*            {errors.price && <span className="invalid">{errors.price.message}</span>}*/}
-                    {/*          </div>*/}
-                    {/*        </div>*/}
-                    {/*      </Col>*/}
-                    {/*      <Col md="6">*/}
-                    {/*        <div className="form-group">*/}
-                    {/*          <label className="form-label" htmlFor="sale-price">*/}
-                    {/*            Sale Price*/}
-                    {/*          </label>*/}
-                    {/*          <div className="form-control-wrap">*/}
-                    {/*            <input*/}
-                    {/*                type="number"*/}
-                    {/*                className="form-control"*/}
-                    {/*                name="salePrice"*/}
-                    {/*                ref={register({required: "This is required"})}*/}
-                    {/*                defaultValue={formData.price}*/}
-                    {/*            />*/}
-                    {/*            {errors.salePrice && <span className="invalid">{errors.salePrice.message}</span>}*/}
-                    {/*          </div>*/}
-                    {/*        </div>*/}
-                    {/*      </Col>*/}
-                    {/*      <Col md="6">*/}
-                    {/*        <div className="form-group">*/}
-                    {/*          <label className="form-label" htmlFor="stock">*/}
-                    {/*            Stock*/}
-                    {/*          </label>*/}
-                    {/*          <div className="form-control-wrap">*/}
-                    {/*            <input*/}
-                    {/*                type="number"*/}
-                    {/*                className="form-control"*/}
-                    {/*                name="stock"*/}
-                    {/*                ref={register({required: "This is required"})}*/}
-                    {/*                defaultValue={formData.stock}*/}
-                    {/*            />*/}
-                    {/*            {errors.stock && <span className="invalid">{errors.stock.message}</span>}*/}
-                    {/*          </div>*/}
-                    {/*        </div>*/}
-                    {/*      </Col>*/}
-                    {/*      <Col md="6">*/}
-                    {/*        <div className="form-group">*/}
-                    {/*          <label className="form-label" htmlFor="SKU">*/}
-                    {/*            SKU*/}
-                    {/*          </label>*/}
-                    {/*          <div className="form-control-wrap">*/}
-                    {/*            <input*/}
-                    {/*                type="text"*/}
-                    {/*                className="form-control"*/}
-                    {/*                name="sku"*/}
-                    {/*                ref={register({required: "This is required"})}*/}
-                    {/*                defaultValue={formData.sku}*/}
-                    {/*            />*/}
-                    {/*            {errors.sku && <span className="invalid">{errors.sku.message}</span>}*/}
-                    {/*          </div>*/}
-                    {/*        </div>*/}
-                    {/*      </Col>*/}
-                    {/*      <Col size="12">*/}
-                    {/*        <div className="form-group">*/}
-                    {/*          <label className="form-label" htmlFor="category">*/}
-                    {/*            Category*/}
-                    {/*          </label>*/}
-                    {/*          <div className="form-control-wrap">*/}
-                    {/*            <RSelect*/}
-                    {/*                isMulti*/}
-                    {/*                options={categoryOptions}*/}
-                    {/*                defaultValue={formData.category}*/}
-                    {/*                onChange={onCategoryChange}*/}
-                    {/*                //ref={register({ required: "This is required" })}*/}
-                    {/*            />*/}
-                    {/*            {errors.category && <span className="invalid">{errors.category.message}</span>}*/}
-                    {/*          </div>*/}
-                    {/*        </div>*/}
-                    {/*      </Col>*/}
-                    {/*      <Col size="6">*/}
-                    {/*        <div className="form-group">*/}
-                    {/*          <label className="form-label" htmlFor="category">*/}
-                    {/*            Product Image*/}
-                    {/*          </label>*/}
-                    {/*          <div className="form-control-wrap">*/}
-                    {/*            <img src={formData.img} alt=""></img>*/}
-                    {/*          </div>*/}
-                    {/*        </div>*/}
-                    {/*      </Col>*/}
-                    {/*      <Col size="6">*/}
-                    {/*        <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>*/}
-                    {/*          {({getRootProps, getInputProps}) => (*/}
-                    {/*              <section>*/}
-                    {/*                <div*/}
-                    {/*                    {...getRootProps()}*/}
-                    {/*                    className="dropzone upload-zone small bg-lighter my-2 dz-clickable"*/}
-                    {/*                >*/}
-                    {/*                  <input {...getInputProps()} />*/}
-                    {/*                  {files.length === 0 &&*/}
-                    {/*                  <p>Drag 'n' drop some files here, or click to select files</p>}*/}
-                    {/*                  {files.map((file) => (*/}
-                    {/*                      <div*/}
-                    {/*                          key={file.name}*/}
-                    {/*                          className="dz-preview dz-processing dz-image-preview dz-error dz-complete"*/}
-                    {/*                      >*/}
-                    {/*                        <div className="dz-image">*/}
-                    {/*                          <img src={file.preview} alt="preview"/>*/}
-                    {/*                        </div>*/}
-                    {/*                      </div>*/}
-                    {/*                  ))}*/}
-                    {/*                </div>*/}
-                    {/*              </section>*/}
-                    {/*          )}*/}
-                    {/*        </Dropzone>*/}
-                    {/*      </Col>*/}
 
-                    {/*      <Col size="12">*/}
-                    {/*        <Button color="primary" type="submit">*/}
-                    {/*          <Icon className="plus"></Icon>*/}
-                    {/*          <span>Update Product</span>*/}
-                    {/*        </Button>*/}
-                    {/*      </Col>*/}
-                    {/*    </Row>*/}
-                    {/*  </form>*/}
-                    {/*</div>*/}
-                    <AddMenuItemForm
-                    editFormData={formData}
-                    edit={true}
-                    />
-                  </div>
-                </ModalBody>
-              </Modal>
 
-              <Modal isOpen={view.details} toggle={() => onFormCancel()} className="modal-dialog-centered" size="lg">
-                <ModalBody>
-                  <a href="#cancel" className="close">
-                    {" "}
-                    <Icon
-                        name="cross-sm"
-                        onClick={(ev) => {
-                          ev.preventDefault();
-                          onFormCancel();
-                        }}
-                    ></Icon>
-                  </a>
-                  <div className="nk-modal-head">
-                    <h4 className="nk-modal-title title">
-                      Product <small className="text-primary">#{formData.sku}</small>
-                    </h4>
-                    <img src={IMG_STORAGE_BASE_URL + formData.img} alt=""/>
-                  </div>
-                  <div className="nk-tnx-details mt-sm-3">
-                    <Row className="gy-3">
-                      <Col lg={6}>
-                        <span className="sub-text">Product Name</span>
-                        <span className="caption-text">{formData.item_name}</span>
-                      </Col>
-                      <Col lg={6}>
-                        <span className="sub-text">Product Price</span>
-                        <span className="caption-text">$ {formData.regular_price}</span>
-                      </Col>
-                      <Col lg={6}>
-                        <span className="sub-text">Product Category</span>
-                        <span className="caption-text">
-                    {formData.category.map((item) => (
-                        <Badge className="mr-1" color="secondary">
-                          {item.category}
-                        </Badge>
-                    ))}
-                  </span>
-                      </Col>
-                      <Col lg={6}>
-                        <span className="sub-text">Stock</span>
-                        <span className="caption-text"> {formData.stock}</span>
-                      </Col>
-                    </Row>
-                  </div>
-                </ModalBody>
-              </Modal>
-
-              <SimpleBar
+              {/* <SimpleBar
                   className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${
                       view.add ? "content-active" : ""
                   }`}
@@ -1027,7 +806,7 @@ const MenuList = (props) => {
                     </Row>
                   </form>
                 </Block>
-              </SimpleBar>
+              </SimpleBar> */}
 
               {view.add && <div className="toggle-overlay" onClick={toggle}></div>}
             </Content>

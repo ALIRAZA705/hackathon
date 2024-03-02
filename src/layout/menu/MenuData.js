@@ -32,7 +32,7 @@ const menu = [
     {
         icon: "book",
         text: "Domains",
-        link: "/bookings",
+        link: "/domains",
     },
     {
         icon: "users",
