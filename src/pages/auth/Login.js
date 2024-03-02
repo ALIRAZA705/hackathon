@@ -50,7 +50,7 @@ const Login = () => {
 
   const onFormSubmit = async (formData) => {
     const payload = {
-      email: formData.email,
+      userName: formData.userName,
       password: formData.passcode
     }
     setLoading(true);
@@ -66,7 +66,7 @@ const Login = () => {
     }
     else{
       user = res.data.records;
-      if(user.email === "admin@affinity.com" || user.email === "test2@mail.com"){
+      if(user.userName === "admin@affinity.com" || user.userName === "test2@mail.com"){
         user.user_login_status = "super-admin"
       }
         localStorage.setItem("accessToken", res.data.records.token);
@@ -119,7 +119,7 @@ const Login = () => {
                   <input
                     type="text"
                     id="default-01"
-                    name="email"
+                    name="userName"
                     ref={register({ required: "This field is required" })}
                     defaultValue="superadmin@gmail.com"
                     // defaultValue=""
@@ -132,7 +132,7 @@ const Login = () => {
               <FormGroup>
                 <div className="form-label-group">
                   <label className="form-label" htmlFor="password">
-                    Passcode
+                    Password
                   </label>
                   {/* <Link className="link link-primary link-sm" to={`${process.env.PUBLIC_URL}/auth-reset`}>
                     Forgot Code?

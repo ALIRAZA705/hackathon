@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosClient = axios.create();
 
-axiosClient.defaults.baseURL = 'https://eat-today.com/wooeats/api';
+axiosClient.defaults.baseURL = 'http://edge.portal.com:3000/api';
 
 const accessToken = localStorage.getItem("accessToken");
 

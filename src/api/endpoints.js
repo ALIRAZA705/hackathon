@@ -1,4 +1,4 @@
-export const loginURI = 'login';
+export const loginURI = 'auth/login';
 export const registerURI = 'register';
 export const forgotPasswordURI = 'accountemail';
 export const changePasswordReqURI = 'change_password';

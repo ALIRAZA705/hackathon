@@ -31,7 +31,7 @@ const RecentActivity = () => {
                     ev.preventDefault();
                   }}
                 >
-                  <span>All</span>
+                  <span>Allt</span>
                 </a>
               </li>
             </ul>
