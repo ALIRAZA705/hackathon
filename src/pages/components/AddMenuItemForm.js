@@ -416,10 +416,7 @@ const AddMenuItemForm = (props) => {
                             {/*    </Col>*/}
 
                             {/*    <Col size="12">*/}
-                            {/*        <Button color="primary" type="submit">*/}
-                            {/*            /!*<Icon className="plus"></Icon>*!/*/}
-                            {/*            {loading ? <Spinner size="sm" color="light" /> : "Save"}*/}
-                            {/*        </Button>*/}
+                            
 
                             {/*    </Col>*/}
 
@@ -427,6 +424,17 @@ const AddMenuItemForm = (props) => {
 
 
                             {/*     add optional Addons  END */}
+
+                            <Row>
+                                <Col size="11">
+                                </Col>
+                                <Col size="1">
+                                <Button color="primary" type="submit">
+                           <Icon className="plus"></Icon>
+                             {loading ? <Spinner size="sm" color="light" /> : "Save"}
+                                 </Button>
+                                </Col>
+                            </Row>
 
                         </form>
                     </div>
