@@ -96,10 +96,19 @@ const PreparingOrders = () => {
     const submitAddUser = async() => {
 
       let data = await addNewUSer(formData);
+      console.log( "here is form data", data)
+      if(data?.response?.status !== 200)
+      {
+
+      }
+      else {
+        setModal(false)
+      }
     }
-    console.log( "here is form data", data,formData)
+
     const getDomains = async () => {
       let data = await getDomainName();
+      console.log("dddddddd",data)
 
       setCategoryOptions2(data?.data)
   };
