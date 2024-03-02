@@ -195,9 +195,15 @@ const AddMenuItemForm = (props) => {
         }
     }
 
+    const transformDomaindata = (domainsdata) =>{
+
+    }
+
     const getDomains = async () => {
         let data = await getDomainName();
-        setCategoryOptions2(data?.lsit)
+
+    const  domainsarray=    transformDomaindata(data?.data?.edge)
+        setCategoryOptions2(domainsarray)
     };
 
     useEffect(()=>{
