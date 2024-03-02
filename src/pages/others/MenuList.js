@@ -289,7 +289,7 @@ const MenuList = (props) => {
   const indexOfLastItem = currentPage * itemPerPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-
+console.log("hhhhhhhhhhhh",data,currentItems)
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -304,18 +304,7 @@ const MenuList = (props) => {
   return (
     <React.Fragment>
       <Head title="Product List"></Head>
-      {
-        !loading ? <Box sx={{
-              width: "100vw",
-              height: "100vh",
-              margin: "auto",
-              paddingTop: "25%",
-              paddingLeft: "50%"
-              // textAlign: "center"
-            }}>
-              Please Wait...&nbsp;&nbsp;&nbsp;
-              <Spinner size="sm" color="dark"/>
-            </Box> :
+      
             <Content>
               <BlockHead size="sm">
                 <BlockBetween>
@@ -443,7 +432,7 @@ const MenuList = (props) => {
                                       <span className="tb-sub">{item.description}</span>
                                     </DataTableRow>
                                     <DataTableRow>
-                                      <span className="tb-sub">$ {item.parents}</span>
+                                      <span className="tb-sub"> {item.parents}</span>
                                     </DataTableRow>
                                     <DataTableRow size="md">
                                     </DataTableRow>
@@ -698,7 +687,7 @@ const MenuList = (props) => {
 
               {view.add && <div className="toggle-overlay" onClick={toggle}></div>}
             </Content>
-      }
+      
     </React.Fragment>
   );
 };

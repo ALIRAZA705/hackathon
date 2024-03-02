@@ -24,11 +24,11 @@ const menu = [
     //     text: "Restaurants",
     //     link: "/restaurants",
     // },
-    {
-        icon: "users",
-        text: "Menu",
-        link: "/restaurant/menu",
-    },
+    // {
+    //     icon: "users",
+    //     text: "Menu",
+    //     link: "/restaurant/menu",
+    // },
     {
         icon: "book",
         text: "Domains",
