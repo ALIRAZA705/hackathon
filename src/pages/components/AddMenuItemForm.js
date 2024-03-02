@@ -119,7 +119,7 @@ const AddMenuItemForm = (props) => {
 
     const onFormSubmit = async (form) => {
         console.log("form data", form)
-        setLoading(true);
+        // setLoading(true);
         let newFormData = form;
         // for(let each of Object.keys(newFormData)){
         //     if(each.startsWith("variant-price-") || each.startsWith("variant-name-") || each.startsWith("variant-picture-")
@@ -131,7 +131,7 @@ const AddMenuItemForm = (props) => {
         const payload = {
             ...newFormData,
             id: formData.id,
-            parentId: formData.parentId,
+            parentId: formData.parentId?.value,
             description: formData.description,
             name: formData.name,
         };
