@@ -323,7 +323,7 @@ const Orders = (props) => {
                                     >
                                         <Icon name="plus"></Icon>
                                     </Button>
-                                    <Button
+                                    {/* <Button
                                         className="toggle d-none d-md-inline-flex"
                                         color="primary"
                                         onClick={() => {
@@ -332,7 +332,7 @@ const Orders = (props) => {
                                     >
                                         <Icon name="plus"></Icon>
                                         <span>Add User</span>
-                                    </Button>
+                                    </Button> */}
                                 </div>
                             </BlockHeadContent>
                         }
