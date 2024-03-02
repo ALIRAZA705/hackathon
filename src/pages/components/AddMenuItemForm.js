@@ -166,9 +166,10 @@ const AddMenuItemForm = (props) => {
         // }
 
         res = await addNewDomain(payload);
-        console.log("asdasdas")
-        if(res?.response?.data?.success === false) {
-            const err= res.response?.data?.records?.error?  res.response.data.records.error : res.response?.data?.message? res.response.data.message : res;
+
+        console.log("asdasdas",res,res?.status !== 200,res?.response?.message,res?.response?.data?.message?.message)
+        if(res?.status !== 200) {
+            const err= res?.response?.data?.message?.message
             setError(err)
             setTimeout(()=>{
                 setError("")
@@ -176,7 +177,7 @@ const AddMenuItemForm = (props) => {
             setLoading(false);
         }
         else{
-                // window.location.href = '/admin/admin/domains';
+                window.location.href = '/admin/domains';
         }
     }
 
@@ -387,16 +388,16 @@ const AddMenuItemForm = (props) => {
                             {/*        }*/}
                             {/*    </Col>*/}
 
-                            {/*    <Col size="12">*/}
-                            {/*        {errorVal && (*/}
-                            {/*            <div className="mb-3">*/}
-                            {/*                <Alert color="danger" className="alert-icon">*/}
-                            {/*                    {errorVal}*/}
-                            {/*                    <Icon name="alert-circle" /> {errorVal}*/}
-                            {/*                </Alert>*/}
-                            {/*            </div>*/}
-                            {/*        )}*/}
-                            {/*    </Col>*/}
+                               <Col size="12">
+                                   {errorVal && (
+                                   <div className="mb-3">
+                                          <Alert color="danger" className="alert-icon">
+                                          {errorVal}
+                                           <Icon name="alert-circle" /> {errorVal}
+                                           </Alert>
+                                       </div>
+                                    )}
+                                </Col>
 
                             {/*    <Col size="12">*/}
                             
