@@ -4,6 +4,7 @@ import {
     postRequest
 } from "../methodCalls";
 import {
+    addNewDomainURI,
     cuisineListURI, getDomains,
 } from "../endpoints";
 
@@ -12,6 +13,6 @@ export const getCuisineList = (params) => {
 }
 
 export const getDomainName = (params) => {
-    return getRequest(`${getDomains}`);
+    return getRequest(`${addNewDomainURI}`);
 }
 

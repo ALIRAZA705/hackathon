@@ -17,7 +17,7 @@ import {Stack, Grid, Box, Typography, Divider } from "@mui/material";
 import "./AddMenuItemForm.css";
 import ProductH from "../../images/product/h.png";
 import {useForm} from "react-hook-form";
-import {addNewMenuItem, editMenuItem} from "../../api/menu/menu";
+import {addNewDomain, addNewMenuItem, editMenuItem} from "../../api/menu/menu";
 import {useParams} from "react-router";
 import {UploadButton} from "../../components/UploadButton";
 import {variantTypes, menuTypes, addonTypes} from "./AddMenuItemDropDowns";

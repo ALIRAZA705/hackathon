@@ -34,6 +34,7 @@ export const businessTypeDD1 = [
 
 
 
+
 const PreparingOrders = () => {
     const [data, setData] = useState([]);
     const [modalTab, setModalTab] = useState("1");
@@ -266,6 +267,26 @@ const PreparingOrders = () => {
                       />
                     </FormGroup>
                   </Col>
+
+                  <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-st">
+                        Domain Name
+                      </label>
+                      <RSelect
+                          options={categoryOptions2}
+                          placeholder="Select Business Type"
+                          // defaultValue={[
+                          //   {
+                          //     value: formData.domainName,
+                          //     label: formData.domainName,
+                          //   },
+                          // ]}
+                          onChange={(e) => setFormData({ ...formData, domainType: e.value })}
+                      />
+                    </FormGroup>
+                  </Col> 
+
                   <Col md="12">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-st">
