@@ -138,14 +138,14 @@ const Sales = () => {
         </BlockHead>
         <Block>
           <Row className="g-gs">
-            <Col xxl="6">
+            <Col xxl="12">
               <Row className="g-gs">
-                <Col lg="6" xxl="12">
+                {/* <Col lg="6" xxl="12">
                   <PreviewCard>
                     <SaleRevenue />
                   </PreviewCard>
-                </Col>
-                <Col lg="6" xxl="12">
+                </Col> */}
+                <Col lg="12" xxl="12">
                   <Row className="g-gs">
                     <Col sm="6" lg="12" xxl="6">
                       <PreviewAltCard className="card-bordered">
@@ -161,11 +161,11 @@ const Sales = () => {
                 </Col>
               </Row>
             </Col>
-            <Col xxl="6">
+            {/* <Col xxl="6">
               <PreviewAltCard className="h-100 card-bordered">
                 <SalesOverview />
               </PreviewAltCard>
-            </Col>
+            </Col> */}
             {/*<Col xxl="8">*/}
             {/*  <Card className="card-bordered card-full">*/}
             {/*    <TransactionTable />*/}

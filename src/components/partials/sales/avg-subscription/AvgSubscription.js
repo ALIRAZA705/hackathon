@@ -9,7 +9,7 @@ const AvgSubscription = () => {
       {" "}
       <div className="card-title-group align-start mb-2">
         <CardTitle>
-          <h6 className="title">Avg Subscriptions</h6>
+          <h6 className="title">Total Employees</h6>
         </CardTitle>
         <div className="card-tools">
           <TooltipComponent
