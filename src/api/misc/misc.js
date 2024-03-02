@@ -17,8 +17,8 @@ export const getDomainName = (params) => {
     return getRequest(`${addNewDomainURI}`);
 }
 
-export const addNewUSer = (params) => {
-    return postRequest(`${addNewUSerURI}`);
+export const addNewUSer = (formData) => {
+    return postRequest(`${addNewUSerURI}`, formData);
 }
 addNewUSer
 

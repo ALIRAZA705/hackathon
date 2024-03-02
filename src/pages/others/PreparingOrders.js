@@ -94,7 +94,7 @@ const PreparingOrders = () => {
 
     const submitAddUser = async() => {
       console.log( "here is form data", formData)
-      let data = await addNewUSer();
+      let data = await addNewUSer(formData);
     }
 
     const getDomains = async () => {
