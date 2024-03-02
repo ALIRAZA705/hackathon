@@ -191,8 +191,6 @@ const AddMenuItemForm = (props) => {
     const getDomains = async () => {
         let data = await getDomainName();
 
-    // const  domainsarray=    transformDomaindata(data?.data?.edge)
-    console.log("ggggggggggggggg",data?.data)
         setCategoryOptions2(data?.data)
     };
 

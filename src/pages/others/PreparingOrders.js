@@ -25,6 +25,7 @@ import { useSelector } from "react-redux";
 import { businessTypeDD } from "../pre-built/user-manage/UserProfileRegular";
 import { Stack } from "@mui/material";
 import Dropzone from "react-dropzone";
+import { getDomainName } from "../../api/misc/misc";
 
 export const businessTypeDD1 = [
   { value: "Customer", label: "customer" },
@@ -38,6 +39,7 @@ const PreparingOrders = () => {
     const [modalTab, setModalTab] = useState("1");
     const [modal, setModal] = useState(false);
     const user = useSelector(state => state.userInfo);
+    const [categoryOptions2, setCategoryOptions2] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errorVal, setError] = useState("");
     const [files, setFiles] = useState([]);
@@ -80,8 +82,18 @@ const PreparingOrders = () => {
 
 
     const submitAddUser = () => {
-      console.log(formData)
+      console.log( "here is form data", formData)
     }
+
+    const getDomains = async () => {
+      let data = await getDomainName();
+
+      setCategoryOptions2(data?.data)
+  };
+
+  useEffect(()=>{
+      getDomains();
+  },[])
 
     return (
         <React.Fragment>
@@ -242,14 +254,14 @@ const PreparingOrders = () => {
                         Domain Name
                       </label>
                       <RSelect
-                          options={businessTypeDD}
+                          options={categoryOptions2}
                           placeholder="Select Business Type"
-                          defaultValue={[
-                            {
-                              value: formData.domainName,
-                              label: formData.domainName,
-                            },
-                          ]}
+                          // defaultValue={[
+                          //   {
+                          //     value: formData.domainName,
+                          //     label: formData.domainName,
+                          //   },
+                          // ]}
                           onChange={(e) => setFormData({ ...formData, domainType: e.value })}
                       />
                     </FormGroup>
