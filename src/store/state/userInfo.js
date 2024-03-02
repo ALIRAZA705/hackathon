@@ -18,9 +18,9 @@ export const userInfoSlice = createSlice({
                 data.profile_image = IMG_STORAGE_BASE_URL + data.profile_image;
             }
             state.user_id = data.id;
-            state.name = data.first_name + " " + data.last_name;
-            state.first_name = data.first_name;
-            state.last_name = data.last_name;
+            state.name = data.firstName + " " + data.lastName;
+            state.firstName = data.firstName;
+            state.lastName = data.lastName;
             state.email = data.email;
             state.phone = data.phone_number;
             state.restaurant_address = data.restaurant_address;

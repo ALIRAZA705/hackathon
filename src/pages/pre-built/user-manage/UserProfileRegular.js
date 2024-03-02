@@ -457,7 +457,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
           }}>
             <div className="data-col">
               <span className="data-label">{user.role === "admin"? "Owner Name" : "Full Name"}</span>
-              <span className="data-value">{user.firstName + " " + user.lasstName}</span>
+              <span className="data-value">{user.name}</span>
             </div>
             <div className="data-col data-col-end">
               <span className="data-more">
