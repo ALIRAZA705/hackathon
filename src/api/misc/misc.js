@@ -16,6 +16,11 @@ export const getDomainName = (params) => {
     return getRequest(`${addNewDomainURI}`);
 }
 
+export const addNewUSer = (params) => {
+    return postRequest(`${addNewUSerURI}`);
+}
+addNewUSer
+
 export const getDomainDataById = (id) => {
     console.log("id herear", id)
     return getRequest(getDomainDataByIdURI+"/"+id);
