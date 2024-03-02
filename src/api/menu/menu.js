@@ -8,7 +8,8 @@ import {
     editMenuItemURI,
     deleteMenuItemURI,
     addMenuItemURI,
-    getMenuItemsByRestIdURI
+    getMenuItemsByRestIdURI,
+    addNewDomainURI
 } from "../endpoints";
 
 export const getAllMenuItems = (params) => {
@@ -23,6 +24,10 @@ export const getMenuItemsByRestId = (params) => {
 
 export const addNewMenuItem = (payload) => {
     return postFormDataRequest(addMenuItemURI, payload);
+}
+
+export const addNewDomain = (payload) => {
+    return postFormDataRequest(addNewDomainURI, payload);
 }
 
 export const editMenuItem = (payload) => {

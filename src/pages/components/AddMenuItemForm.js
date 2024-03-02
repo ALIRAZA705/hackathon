@@ -165,24 +165,18 @@ const AddMenuItemForm = (props) => {
         //     res = await addNewMenuItem(payload);
         // }
 
-        // if(res?.response?.data?.success === false) {
-        //     const err= res.response?.data?.records?.error?  res.response.data.records.error : res.response?.data?.message? res.response.data.message : res;
-        //     setError(err)
-        //     setTimeout(()=>{
-        //         setError("")
-        //     }, 3000)
-        //     setLoading(false);
-        // }
-        // else{
-        //     // setError("Menu successfully added")
-        //     // history.push(`${process.env.PUBLIC_URL}/menu`)
-
-        //     if(JSON.parse(localStorage.getItem("user")).user_login_status === "super-admin"){
-        //          window.location.href =  "/admin/restaurant/" + payload.restaurant_id + "/menu";
-        //     }
-        //     else
-        //         window.location.href = '/admin/restaurant/menu';
-        // }
+        res = await addNewDomain(payload);
+        if(res?.response?.data?.success === false) {
+            const err= res.response?.data?.records?.error?  res.response.data.records.error : res.response?.data?.message? res.response.data.message : res;
+            setError(err)
+            setTimeout(()=>{
+                setError("")
+            }, 3000)
+            setLoading(false);
+        }
+        else{
+                window.location.href = '/admin/admin/domains';
+        }
     }
 
     const transformDomaindata = (domainsdata) =>{
