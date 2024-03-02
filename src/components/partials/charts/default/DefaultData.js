@@ -820,7 +820,7 @@ export var NewUsersData = {
   dataUnit: "People",
   datasets: [
     {
-      label: "New Users",
+      label: "Edge Users",
       lineTension: 0,
       borderWidth: 2,
       color: "#798bff",

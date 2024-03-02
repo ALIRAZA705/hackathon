@@ -63,7 +63,7 @@ const Sales = () => {
                 Sales Overview
               </BlockTitle>
               <BlockDes className="text-soft">
-                <p>Welcome to DashLite Dashboard Template</p>
+                <p>Welcome to Edge Dashboard</p>
               </BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
@@ -186,11 +186,11 @@ const Sales = () => {
                 <Support />
               </Card>
             </Col>
-            <Col lg="6" xxl="4">
-              <Card className="card-bordered h-100">
+            {/* <Col lg="6" xxl="4"> */}
+              {/* <Card className="card-bordered h-100">
                 <Notifications />
-              </Card>
-            </Col>
+              </Card> */}
+            {/* </Col> */}
           </Row>
         </Block>
       </Content>

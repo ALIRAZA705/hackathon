@@ -10,7 +10,7 @@ const RecentActivity = () => {
       <div className="card-inner border-bottom">
         <div className="card-title-group">
           <CardTitle>
-            <h6 className="title">Recent Activities</h6>
+            <h6 className="title">Companies</h6>
           </CardTitle>
           <div className="card-tools">
             <ul className="card-tools-nav">
