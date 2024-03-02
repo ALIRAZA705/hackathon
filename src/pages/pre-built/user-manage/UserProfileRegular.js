@@ -46,6 +46,11 @@ export const businessTypeDD = [
   { value: "Take Away", label: "Take Away" },
 ];
 
+export const businessTypeDD1 = [
+  { value: "Customer", label: "customer" },
+  { value: "Edge", label: "edge" }
+];
+
 export const ordrDeliveryTimeDD = [
   { value: "10-15 min", label: "10-15 min" },
   { value: "15-30 min", label: "15-30 min" },
@@ -336,6 +341,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       </div>
                   </div>
                   <div className="data-item" onClick={() => {
+
                     setModal(true)
                     setModalTab("2")
                   }}>
@@ -524,6 +530,23 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
             <div className="tab-content">
               <div className={`tab-pane ${modalTab === "1" ? "active" : ""}`} id="address">
                 <Row className="gy-4">
+                <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="full-name">
+                      User Name
+                      </label>
+                      <input
+                        type="text"
+                        id="first_name_profile"
+                        className="form-control"
+                        name="firstName"
+                        onChange={(e) => onInputChange(e)}
+                        defaultValue={formData.firstName}
+                        placeholder="Enter Full name"
+                      />
+                    </FormGroup>
+                  </Col>
+
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="full-name">
@@ -560,6 +583,19 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="phone-no">
+                      Email
+                      </label>
+                      <input
+                        type="number"
+                        id="phone-no"
+                        className="form-control"
+                      />
+                    </FormGroup>
+                  </Col>
+
+                  <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="phone-no">
                         Phone Number
                       </label>
                       <input
@@ -577,6 +613,25 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       </label>
                       <RSelect
                           options={businessTypeDD}
+                          placeholder="Select Business Type"
+                          defaultValue={[
+                            {
+                              value: formData.domainName,
+                              label: formData.domainName,
+                            },
+                          ]}
+                          onChange={(e) => setFormData({ ...formData, business_type: e.value })}
+                      />
+                    </FormGroup>
+                  </Col>
+
+                  <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-st">
+                   Type
+                      </label>
+                      <RSelect
+                          options={businessTypeDD1}
                           placeholder="Select Business Type"
                           defaultValue={[
                             {
@@ -654,45 +709,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                       />
                     </FormGroup>
                   </Col>
-                  <Col md="4">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="address-st">Banner Image</label>
-                    <Stack direction="row" sx={{
-                      overflowX: "auto",
-                      flexShrink: "0"
-                    }}>
-                      <Dropzone
-                          multiple={false}
-                          onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}
-                      >
-                        {({ getRootProps, getInputProps }) => (
-                            <section>
-                              <div
-                                  {...getRootProps()}
-                                  className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
-                              >
-                                <input {...getInputProps()} />
-                                {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
-                                {files.map((file) => (
-                                    <div
-                                        key={file.name}
-                                        className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
-                                    >
-                                      <Stack direction="row">
-                                        {/*<div className="dz-image">*/}
-                                        <img height="100px" src={file.preview} alt="preview" />
-                                        {/*</div>*/}
-                                      </Stack>
 
-                                    </div>
-                                ))}
-                              </div>
-                            </section>
-                        )}
-                      </Dropzone>
-                    </Stack>
-                    </FormGroup>
-                  </Col>
                   <Col size="12">
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>

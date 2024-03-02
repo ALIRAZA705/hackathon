@@ -26,6 +26,12 @@ import { businessTypeDD } from "../pre-built/user-manage/UserProfileRegular";
 import { Stack } from "@mui/material";
 import Dropzone from "react-dropzone";
 
+export const businessTypeDD1 = [
+  { value: "Customer", label: "customer" },
+  { value: "Edge", label: "edge" }
+];
+
+
 
 const PreparingOrders = () => {
     const [data, setData] = useState([]);
@@ -250,6 +256,24 @@ const PreparingOrders = () => {
                           onChange={(e) => onInputChange(e)}
                           defaultValue={formData?.address}
                           className="form-control"
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="6">
+                    <FormGroup>
+                      <label className="form-label" htmlFor="address-st">
+                  Type
+                      </label>
+                      <RSelect
+                          options={businessTypeDD1}
+                          placeholder="Select Business Type"
+                          defaultValue={[
+                            {
+                              value: formData.domainName,
+                              label: formData.domainName,
+                            },
+                          ]}
+                          onChange={(e) => setFormData({ ...formData, business_type: e.value })}
                       />
                     </FormGroup>
                   </Col>
