@@ -41,7 +41,7 @@ const menu = [
         active: false,
         subMenu: [
             {
-                text: "Premium",
+                text: "List",
                 link: "/users/premium",
             },
             {

@@ -576,7 +576,8 @@ const Orders = (props) => {
                                             </a>
                                         </DataTableRow>
                                         <DataTableRow size="md">
-                                            <span>{item.created_at.split("T")[0]}</span>
+                                            {/* <span>{item.created_at.split("T")[0]}</span> */}
+                                            <span>ali</span>
                                         </DataTableRow>
                                         {/*<DataTableRow>*/}
                                         {/*    <Stack direction="row" gap={1} sx={{*/}
