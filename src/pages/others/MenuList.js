@@ -406,29 +406,21 @@ const MenuList = (props) => {
                           {/*  </div>*/}
                           {/*</DataTableRow>*/}
                           <DataTableRow size="sm">
-                            <span>Image</span>
+                            <span>Company Id</span>
                           </DataTableRow>
                           <DataTableRow size="sm">
                             <span>Name</span>
                           </DataTableRow>
                           <DataTableRow size="sm">
-                            <span>Variants</span>
+                            <span>Description
+</span>
                           </DataTableRow>
-                          <DataTableRow>
-                            <span>SKU</span>
+                          <DataTableRow size="sm">
+                            <span>Parents Domain
+</span>
                           </DataTableRow>
-                          <DataTableRow>
-                            <span>Price</span>
-                          </DataTableRow>
-                          <DataTableRow>
-                            <span>Stock</span>
-                          </DataTableRow>
-                          <DataTableRow size="md">
-                            <span>Category</span>
-                          </DataTableRow>
-                          {/*<DataTableRow size="md">*/}
-                          {/*  <Icon name="star-round" className="tb-asterisk"></Icon>*/}
-                          {/*</DataTableRow>*/}
+                         
+                         
                           <DataTableRow className="nk-tb-col-tools">
                             <ul className="nk-tb-actions gx-1 my-n1">
                               <li className="mr-n1">
