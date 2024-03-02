@@ -333,7 +333,7 @@ const menu = [
   //   active: false,
   //   subMenu: [
   //     {
-  //       text: "Product List",
+  //       text: "Domain",
   //       link: "/product-list",
   //     },
   //     {

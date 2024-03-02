@@ -124,7 +124,7 @@ const ProductCard = () => {
 
   return (
     <React.Fragment>
-      <Head title="Product List"></Head>
+      <Head title="Domain"></Head>
       <Content>
         <BlockHead size="sm">
           <BlockBetween>

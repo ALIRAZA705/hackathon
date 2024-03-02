@@ -304,7 +304,7 @@ const Orders = (props) => {
 
     return (
         <React.Fragment>
-            <Head title="Order Default"></Head>
+            <Head title="Users"></Head>
             <Content>
                 <BlockHead size="sm">
                     <BlockBetween>

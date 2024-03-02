@@ -203,7 +203,7 @@ try {
 
               
             <Orders
-                name="Premium"
+                name=""
                 tableData={data}/>
 
 
