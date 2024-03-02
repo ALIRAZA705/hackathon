@@ -71,11 +71,12 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
   const [formData, setFormData] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
+    domainName: user.domainName,
     name: user.name,
     business_name: user.busines_business_name,
     business_description: user.busines_business_description,
     phone_number: user.phone,
-    restaurant_address: user.busines_restaurant_address,
+    address: user.address,
     business_type: user.busines_business_type,
     cuisine_type: user.busines_cuisine_types,
     starting_price: user.busines_starting_price,
@@ -532,7 +533,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                         type="text"
                         id="first_name_profile"
                         className="form-control"
-                        name="first_name"
+                        name="firstName"
                         onChange={(e) => onInputChange(e)}
                         defaultValue={formData.firstName}
                         placeholder="Enter Full name"
@@ -541,19 +542,21 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   </Col>
                   <Col md="6">
                     <FormGroup>
-                      <label className="form-label" htmlFor="display-name">
+                      <label className="form-label" htmlFor="full-name">
                         Last Name
                       </label>
                       <input
                         type="text"
-                        id="address-l1"
-                        name="business_name"
+                        id="first_name_profile"
+                        className="form-control"
+                        name="lastName"
                         onChange={(e) => onInputChange(e)}
                         defaultValue={formData.lastName}
-                        placeholder="Enter display name"
+                        placeholder="Enter Full name"
                       />
                     </FormGroup>
                   </Col>
+
                   <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="phone-no">
@@ -569,68 +572,23 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
 
                   <Col md="6">
                     <FormGroup>
-                      <label className="form-label" htmlFor="address-l1">
-                      First Name
-                      </label>
-                      <input
-                        type="text"
-                        id="address-l1"
-                        name="business_name"
-                        onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.business_name}
-                        className="form-control"
-                      />
-                    </FormGroup>
-                  </Col>
-                  {/* <Col md="6">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="address-l2">
-                        Phone Number
-                      </label>
-                      <input
-                        type="text"
-                        id="address-l2"
-                        name="address2"
-                        onChange={(e) => onInputChange(e)}
-                        defaultValue={formData.phone_number}
-                        className="form-control"
-                      />
-                    </FormGroup>
-                  </Col> */}
-                  {/* <Col md="12">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="address-l2">
-                        Description
-                      </label>
-                      <input
-                          type="text"
-                          id="Description-l2"
-                          name="business_description"
-                          onChange={(e) => onInputChange(e)}
-                          defaultValue={formData.business_description}
-                          className="form-control"
-                      />
-                    </FormGroup>
-                  </Col> */}
-                  <Col md="6">
-                    <FormGroup>
                       <label className="form-label" htmlFor="address-st">
-                        Business Type
+                        Domain Name
                       </label>
                       <RSelect
                           options={businessTypeDD}
                           placeholder="Select Business Type"
                           defaultValue={[
                             {
-                              value: formData.business_type,
-                              label: formData.business_type,
+                              value: formData.domainName,
+                              label: formData.domainName,
                             },
                           ]}
                           onChange={(e) => setFormData({ ...formData, business_type: e.value })}
                       />
                     </FormGroup>
                   </Col>
-                  <Col md="6">
+                  {/* <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-county">
                         Cuisine Types
@@ -647,8 +605,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                         onChange={(e) => setFormData({ ...formData, cuisine_type: e.value })}
                       />
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                  </Col> */}
+                  {/* <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-st">
                         Starting Price
@@ -662,8 +620,8 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                           className="form-control"
                       />
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                  </Col> */}
+                  {/* <Col md="6">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-st">
                         Order Delivery Time
@@ -680,25 +638,25 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                           onChange={(e) => setFormData({ ...formData, ordr_delivery_time: e.value })}
                       />
                     </FormGroup>
-                  </Col>
+                  </Col> */}
                   <Col md="12">
                     <FormGroup>
                       <label className="form-label" htmlFor="address-st">
-                        Restaurant Address
+                       Address
                       </label>
                       <input
                           type="text"
                           id="address-st"
                           name="restaurant_address"
                           onChange={(e) => onInputChange(e)}
-                          defaultValue={formData.restaurant_address}
+                          defaultValue={formData?.address}
                           className="form-control"
                       />
                     </FormGroup>
                   </Col>
                   <Col md="4">
                     <FormGroup>
-                      <label className="form-label" htmlFor="address-st">Restaurant Banner Image</label>
+                      <label className="form-label" htmlFor="address-st">Banner Image</label>
                     <Stack direction="row" sx={{
                       overflowX: "auto",
                       flexShrink: "0"
