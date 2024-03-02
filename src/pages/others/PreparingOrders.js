@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Head from "../../layout/head/Head";
 // import { orderData, filterCoin, filterPaymentmethod, filterStatus, filterType } from "./OrderData";
 import Orders from "./Orders";
-import { FormGroup, Modal, ModalBody } from "reactstrap";
+import { Alert, FormGroup, Modal, ModalBody, Spinner } from "reactstrap";
 import {getOrdersByRestId} from "../../api/order/order";
 import {
     Block,
@@ -23,7 +23,7 @@ import {
   } from "../../components/Component";
 import { useSelector } from "react-redux";
 import { businessTypeDD } from "../pre-built/user-manage/UserProfileRegular";
-import { Stack } from "@mui/material";
+import {  Stack } from "@mui/material";
 import Dropzone from "react-dropzone";
 import { addNewUSer, getDomainName } from "../../api/misc/misc";
 import { ConstructionOutlined } from "@mui/icons-material";
@@ -52,6 +52,7 @@ const PreparingOrders = () => {
     const [categoryOptions2, setCategoryOptions2] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errorVal, setError] = useState("");
+    console.log("gggggggggggggggg",errorVal)
     const [files, setFiles] = useState([]);
     const handleAddUser = () => {
         setModal(true);
@@ -64,7 +65,6 @@ const PreparingOrders = () => {
         lastName: user.lastName,
         email: user.email,
         domainName: user.domainName,
-        name: user.name,
         business_name: user.busines_business_name,
         business_description: user.busines_business_description,
         phone_number: user.phone,
@@ -94,12 +94,40 @@ const PreparingOrders = () => {
 
 
     const submitAddUser = async() => {
+try {
+  let data = await addNewUSer(formData);
+  console.log("ffffff",data?.response?.status)
+  if(!data?.response?.status)
+  {
+    setModal(false)
+    // reset();
+    window.location.reload();
+    setError(null)
+  }
 
-      let data = await addNewUSer(formData);
+  else {
+    setError("something went wrong pls try again")
+  }
+
+  
+} catch (error) {
+  setError("something went wrong pls try again")
+}
+
+      // console.log( "here is form data", data?.response?.status,data?.response,     data?.response?.data?.message, data?.response?.data?.message?.message)
+//       if(data?.response?.status !== 200)
+//       {
+// // setError(data?.response?.data?.message?.message)
+// setError("something went wrong pls try again")
+//       }
+//       else {
+//         setModal(false)
+//       }
     }
-    console.log( "here is form data", data,formData)
+
     const getDomains = async () => {
       let data = await getDomainName();
+      console.log("dddddddd",data)
 
       setCategoryOptions2(data?.data)
   };
@@ -128,7 +156,7 @@ const PreparingOrders = () => {
                       >
                         <Icon name="more-v"></Icon>
                       </a>
-                      <div className="toggle-expand-content" style={{display:"block"}}>
+                      <div className="toggle-expand-content" style={{display:"block",marginTop:"25px"}}>
                         <ul className="nk-block-tools g-3">
                           <li>
                             <div className="form-control-wrap">
@@ -375,7 +403,7 @@ const PreparingOrders = () => {
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>
                         <Button color="primary" size="lg" onClick={() => submitAddUser()}>
-                          {loading ? <Spinner size="sm" color="light" /> : "Save"}
+                          {loading ? <Spinner size="sm" /> : "Save"}
                         </Button>
                       </li>
                       <li>
@@ -392,10 +420,10 @@ const PreparingOrders = () => {
                       </li>
                     </ul>
                     {errorVal && (
-                        <div className="mb-3">
-                          <Alert color={apiStatus} className="alert-icon">
-                            {errorVal}
-                            <Icon name="alert-circle" /> {errorVal}{" "}
+                        <div className="mb-3" style={{marginTop:"8px"}}>
+                          <Alert color="danger" className="alert-icon">
+  
+                     {errorVal}
                           </Alert>
                         </div>
                     )}
