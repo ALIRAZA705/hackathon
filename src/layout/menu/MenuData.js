@@ -19,11 +19,11 @@ const menu = [
         link: "/dashboard",
         dashboard: true,
     },
-    {
-        icon: "users",
-        text: "Restaurants",
-        link: "/restaurants",
-    },
+    // {
+    //     icon: "users",
+    //     text: "Restaurants",
+    //     link: "/restaurants",
+    // },
     {
         icon: "users",
         text: "Menu",
@@ -31,18 +31,15 @@ const menu = [
     },
     {
         icon: "book",
-        text: "Recent Bookings",
+        text: "Domains",
         link: "/bookings",
     },
     {
-        icon: "cart",
-        text: "Orders",
+        icon: "users",
+        // icon: "cart",
+        text: "Users",
         active: false,
         subMenu: [
-            // {
-            //     text: "All",
-            //     link: "/orders",
-            // },
             {
                 text: "Preparing",
                 link: "/orders/preparing",
@@ -66,11 +63,11 @@ const menu = [
     //     text: "Reviews",
     //     link: "/reviews",
     // },
-    {
-        icon: "file-docs",
-        text: "Invoice List",
-        link: "/invoice-list",
-    },
+    // {
+    //     icon: "file-docs",
+    //     text: "Invoice List",
+    //     link: "/invoice-list",
+    // },
     // {
     //     text: "Messages",
     //     link: "/chat",
@@ -86,12 +83,12 @@ const menu = [
     //     link: "/dashboard",
     //     dashboard: true,
     // },
-    {
-        // icon: "speed",
-        icon: "dashboard",
-        text: "Riders",
-        link: "/riders",
-    },
+    // {
+    //     // icon: "speed",
+    //     icon: "dashboard",
+    //     text: "Riders",
+    //     link: "/riders",
+    // },
     // {
     //     icon: "users",
     //     text: "User Manage",

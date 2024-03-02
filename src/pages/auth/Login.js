@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import {Link, Redirect} from "react-router-dom";
 import {getLoginUser} from "../../api/auth/auth";
 import { useHistory } from "react-router-dom";
+import EdgeIcon from "../../assets/images/edgeIcon";
 
 let user = {};
 
@@ -86,8 +87,7 @@ const Login = () => {
         <Block className="nk-block-middle nk-auth-body  wide-xs">
           <div className="brand-logo pb-4 text-center">
             <Link to={process.env.PUBLIC_URL + "/"} className="logo-link">
-              <img className="logo-light logo-img logo-img-lg" src={Logo} alt="logo" />
-              <img className="logo-dark logo-img logo-img-lg" src={LogoDark} alt="logo-dark" />
+              <EdgeIcon />
             </Link>
           </div>
 
@@ -96,7 +96,7 @@ const Login = () => {
               <BlockContent>
                 <BlockTitle tag="h4">Sign-In</BlockTitle>
                 <BlockDes>
-                  <p>Access EatToday Admin Panel using your email and passcode.</p>
+                  <p>Here is login</p>
                 </BlockDes>
               </BlockContent>
             </BlockHead>
@@ -121,8 +121,8 @@ const Login = () => {
                     id="default-01"
                     name="email"
                     ref={register({ required: "This field is required" })}
-                    // defaultValue="superadmin@gmail.com"
-                    defaultValue=""
+                    defaultValue="superadmin@gmail.com"
+                    // defaultValue=""
                     placeholder="Enter your email address or username"
                     className="form-control-lg form-control"
                   />
@@ -134,9 +134,9 @@ const Login = () => {
                   <label className="form-label" htmlFor="password">
                     Passcode
                   </label>
-                  <Link className="link link-primary link-sm" to={`${process.env.PUBLIC_URL}/auth-reset`}>
+                  {/* <Link className="link link-primary link-sm" to={`${process.env.PUBLIC_URL}/auth-reset`}>
                     Forgot Code?
-                  </Link>
+                  </Link> */}
                 </div>
                 <div className="form-control-wrap">
                   <a
@@ -155,8 +155,8 @@ const Login = () => {
                     type={passState ? "text" : "password"}
                     id="password"
                     name="passcode"
-                    // defaultValue="12345678@w"
-                    defaultValue=""
+                    defaultValue="12345678@w"
+                    // defaultValue=""
                     ref={register({ required: "This field is required" })}
                     placeholder="Enter your passcode"
                     className={`form-control-lg form-control ${passState ? "is-hidden" : "is-shown"}`}
@@ -170,42 +170,9 @@ const Login = () => {
                 </Button>
               </FormGroup>
             </Form>
-            <div className="form-note-s2 text-center pt-4">
-              {" "}
-              New on our platform? <Link to={`${process.env.PUBLIC_URL}/auth-register`}>Create an account</Link>
-            </div>
-            <div className="text-center pt-4 pb-3">
-              <h6 className="overline-title overline-title-sap">
-                <span>OR</span>
-              </h6>
-            </div>
-            <ul className="nav justify-center gx-4">
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#socials"
-                  onClick={(ev) => {
-                    ev.preventDefault();
-                  }}
-                >
-                  Facebook
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#socials"
-                  onClick={(ev) => {
-                    ev.preventDefault();
-                  }}
-                >
-                  Google
-                </a>
-              </li>
-            </ul>
           </PreviewCard>
         </Block>
-        <AuthFooter />
+        {/* <AuthFooter /> */}
       </PageContainer>
     </React.Fragment>
   );
