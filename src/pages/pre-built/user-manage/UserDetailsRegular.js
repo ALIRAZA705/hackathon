@@ -203,7 +203,7 @@ const UserDetailsPage = ({ match }) => {
                         <div className="profile-ud-item">
                           <div className="profile-ud wider">
                             <span className="profile-ud-label">Full Name</span>
-                            <span className="profile-ud-value">{user?.firstName + " " + user?.lasstName}</span>
+                            <span className="profile-ud-value">{user?.firstName}</span>
                           </div>
                         </div>
                         <div className="profile-ud-item">
