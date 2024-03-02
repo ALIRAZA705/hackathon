@@ -89,14 +89,11 @@ const MenuList = (props) => {
   useEffect(async()=>{
     setLoading(true);
     const res = await getMenuItemsByRestId(params);
-    // console.log(res)
+    console.log("here is the refre",res)
     if(res.status === 200){
-      const menuList = res.data.records.data[0].restaurant_menue;
-      setSelectedRestaurant(res.data.records.data[0]);
-      const tableData = menuList.map((menuItem)=>{
-        return menuTableDataMapper(menuItem)
-      })
-      setData(tableData);
+      // const menuList = res.data.records.data[0].restaurant_menue;
+      // setSelectedRestaurant(res.data.records.data[0]);
+      setData(res?.data?.domains);
     }
     else{
       let err = res.response.data.error ? JSON.stringify(res.response.data.error) : "Error getting Restaurants";
