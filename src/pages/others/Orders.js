@@ -51,7 +51,27 @@ const Orders = (props) => {
     const [onSearch, setonSearch] = useState(false);
     const [riders, setRiders] = useState([]);
     const [riderErr, setRiderErr] = useState(null);
-    const [currentItems, setCurrentItems] = useState(data.slice(indexOfFirstItem, indexOfLastItem));
+    const [currentItems, setCurrentItems] = useState([{
+        "id": 1,
+        "username": "edge",
+        "email": "edge@email.com",
+        "phone": "+990000000",
+        "first_name": "edge",
+        "last_name": "user",
+        "address": "street a",
+        "country": "Pakistan",
+        "city": "Islamabad",
+        "zip": null,
+        "locale": "enGB",
+        "is_active": 1,
+        "email_verified": 1,
+        "last_login": null,
+        "status": 1,
+        "type": "Edge",
+        "domain": "root",
+        "role": "ReadWrite"
+    }]);
+    // const [currentItems, setCurrentItems] = useState(data.slice(indexOfFirstItem, indexOfLastItem));
     const [formData, setFormData] = useState({
         id: null,
         orderId: "",
@@ -87,7 +107,26 @@ const Orders = (props) => {
 
     useEffect(()=>{
         // if(data.length>0){
-            setCurrentItems(data.slice(indexOfFirstItem, indexOfLastItem))
+            setCurrentItems([{
+                "id": 1,
+                "username": "edge",
+                "email": "edge@email.com",
+                "phone": "+990000000",
+                "first_name": "edge",
+                "last_name": "user",
+                "address": "street a",
+                "country": "Pakistan",
+                "city": "Islamabad",
+                "zip": null,
+                "locale": "enGB",
+                "is_active": 1,
+                "email_verified": 1,
+                "last_login": null,
+                "status": 1,
+                "type": "Edge",
+                "domain": "root",
+                "role": "ReadWrite"
+            }])
         // }
     },[data])
 
@@ -525,25 +564,28 @@ const Orders = (props) => {
                                     </div>
                                 </DataTableRow>
                                 <DataTableRow>
-                                    <span className="sub-text">Order</span>
+                                    <span className="sub-text">ID</span>
                                 </DataTableRow>
                                 <DataTableRow size="md">
-                                    <span className="sub-text">Date</span>
+                                    <span className="sub-text">Username</span>
                                 </DataTableRow>
                                 {/*<DataTableRow>*/}
                                 {/*    <span className="sub-text">Status</span>*/}
                                 {/*</DataTableRow>*/}
                                 <DataTableRow size="sm">
-                                    <span className="sub-text">Customer</span>
+                                    <span className="sub-text">Email</span>
                                 </DataTableRow>
                                 <DataTableRow size="md">
-                                    <span className="sub-text">Purchased</span>
+                                    <span className="sub-text">Phone</span>
                                 </DataTableRow>
                                 <DataTableRow size="md">
-                                    <span className="sub-text">Quantity</span>
+                                    <span className="sub-text">Address</span>
                                 </DataTableRow>
                                 <DataTableRow>
-                                    <span className="sub-text">Total</span>
+                                    <span className="sub-text">Country</span>
+                                </DataTableRow>
+                                <DataTableRow>
+                                    <span className="sub-text">Role</span>
                                 </DataTableRow>
 
                                 <DataTableRow className="nk-tb-col-tools">
@@ -577,7 +619,7 @@ const Orders = (props) => {
                                         </DataTableRow>
                                         <DataTableRow size="md">
                                             {/* <span>{item.created_at.split("T")[0]}</span> */}
-                                            <span>ali</span>
+                                            <span>{item.username}</span>
                                         </DataTableRow>
                                         {/*<DataTableRow>*/}
                                         {/*    <Stack direction="row" gap={1} sx={{*/}
@@ -605,156 +647,21 @@ const Orders = (props) => {
                                             {/*</Stack>*/}
                                         {/*</DataTableRow>*/}
                                         <DataTableRow size="sm">
-                                            <span className="tb-sub">{item.customer_name}</span>
+                                            <span className="tb-sub">{item.email}</span>
                                         </DataTableRow>
                                         <DataTableRow size="md">
-                                            <span className="tb-sub text-primary">{item.restaurant_data.restaurant_menue[0].item_name}</span>
+                                            <span className="tb-sub text-primary">{item.phone}</span>
                                         </DataTableRow>
                                         <DataTableRow size="md">
-                                            <span className="tb-sub text-primary">{item.item_delivered_quantity}</span>
+                                            <span className="tb-sub text-primary">{item.address}</span>
                                         </DataTableRow>
                                         <DataTableRow>
-                                            <span className="tb-lead">$ {item.amount_captured}</span>
+                                            <span className="tb-lead">{item.country}</span>
                                         </DataTableRow>
-                                        <DataTableRow className="nk-tb-col-tools">
-                                            <ul className="nk-tb-actions gx-1">
-                                                {item.status !== "Delivered" && (
-                                                    <li className="nk-tb-action-hidden" onClick={() => markAsDelivered(item.id)}>
-                                                        {/*<TooltipComponent*/}
-                                                        {/*    tag="a"*/}
-                                                        {/*    containerClassName="btn btn-trigger btn-icon"*/}
-                                                        {/*    id={"delivery" + item.id}*/}
-                                                        {/*    icon="truck"*/}
-                                                        {/*    direction="top"*/}
-                                                        {/*    text="Mark as Delivered"*/}
-                                                        {/*/>*/}
-                                                    </li>
-                                                )}
-                                                <li
-                                                    className="nk-tb-action-hidden"
-                                                    onClick={() => {
-                                                        loadDetail(item.id);
-                                                        toggle("details");
-                                                    }}
-                                                >
-                                                    <TooltipComponent
-                                                        tag="a"
-                                                        containerClassName="btn btn-trigger btn-icon"
-                                                        id={"view" + item.id}
-                                                        icon="eye"
-                                                        direction="top"
-                                                        text="View Details"
-                                                    />
-                                                </li>
-                                                <li>
-                                                    {
-                                                        !isSuperAdmin &&
-                                                        <UncontrolledDropdown>
-                                                            <DropdownToggle tag="a" className="btn btn-icon dropdown-toggle btn-trigger">
-                                                                <Icon name="more-h"></Icon>
-                                                            </DropdownToggle>
-                                                            <DropdownMenu right>
-                                                                <ul className="link-list-opt no-bdr">
-                                                                    {/*<li>*/}
-                                                                    {/*    <DropdownItem*/}
-                                                                    {/*        tag="a"*/}
-                                                                    {/*        href="#dropdown"*/}
-                                                                    {/*        onClick={(ev) => {*/}
-                                                                    {/*            ev.preventDefault();*/}
-                                                                    {/*            loadDetail(item.id);*/}
-                                                                    {/*            toggle("details");*/}
-                                                                    {/*        }}*/}
-                                                                    {/*    >*/}
-                                                                    {/*        <Icon name="eye"></Icon>*/}
-                                                                    {/*        <span>Order Details</span>*/}
-                                                                    {/*    </DropdownItem>*/}
-                                                                    {/*</li>*/}
-                                                                    {/*{item.order_status === "Pending" && (*/}
-                                                                    {/*    <li>*/}
-                                                                    {/*        <DropdownItem*/}
-                                                                    {/*            tag="a"*/}
-                                                                    {/*            onClick={(ev) => {*/}
-                                                                    {/*                ev.preventDefault();*/}
-                                                                    {/*                changeOrderStatus({id: item.id, order_status:"Preparing" })*/}
-                                                                    {/*                deleteOrder(item.id);*/}
-                                                                    {/*            }}*/}
-                                                                    {/*        >*/}
-                                                                    {/*            <Icon name="truck"></Icon>*/}
-                                                                    {/*            <span>Mark as Preparing</span>*/}
-                                                                    {/*        </DropdownItem>*/}
-                                                                    {/*    </li>*/}
-                                                                    {/*)}*/}
-                                                                    {item.order_status === "Preparing" && (
-                                                                        <li>
-                                                                            <DropdownItem
-                                                                                tag="a"
-                                                                                href="#dropdown"
-                                                                                onClick={(ev) => {
-                                                                                    ev.preventDefault();
-                                                                                    changeOrderStatus({id: item.id, order_status:"Ready To Deliver" })
-                                                                                    deleteOrder(item.id);
-                                                                                }}
-                                                                            >
-                                                                                <Icon name="truck"></Icon>
-                                                                                <span>Mark as Ready</span>
-                                                                            </DropdownItem>
-                                                                        </li>
-                                                                    )}
-                                                                    {item.order_status === "Ready To Deliver" && (
-                                                                        <li>
-                                                                            <DropdownItem
-                                                                                tag="a"
-                                                                                href="#dropdown"
-                                                                                onClick={(ev) => {
-                                                                                    ev.preventDefault();
-                                                                                    loadDetail(item.id);
-                                                                                    getRidersList();
-                                                                                    setView({ add: false, details: false, rider: true });
-                                                                                    // changeOrderStatus({id: item.id, order_status:"Ready To Deliver" })
-                                                                                    // deleteOrder(item.id);
-                                                                                }}
-                                                                            >
-                                                                                <Icon name="truck"></Icon>
-                                                                                <span>Assign Rider & Dispatch</span>
-                                                                            </DropdownItem>
-                                                                        </li>
-                                                                    )}
-                                                                    {item.order_status === "InProgress" && (
-                                                                        <li>
-                                                                            <DropdownItem
-                                                                                tag="a"
-                                                                                href="#dropdown"
-                                                                                onClick={(ev) => {
-                                                                                    ev.preventDefault();
-                                                                                    changeOrderStatus({id: item.id, order_status:"Delivered" })
-                                                                                    deleteOrder(item.id);
-                                                                                }}
-                                                                            >
-                                                                                <Icon name="truck"></Icon>
-                                                                                <span>Mark as Delivered</span>
-                                                                            </DropdownItem>
-                                                                        </li>
-                                                                    )}
-                                                                    <li>
-                                                                        <DropdownItem
-                                                                            tag="a"
-                                                                            href="#dropdown"
-                                                                            onClick={(ev) => {
-                                                                                ev.preventDefault();
-                                                                                deleteOrder(item.id);
-                                                                            }}
-                                                                        >
-                                                                            <Icon name="trash"></Icon>
-                                                                            <span>Remove Order</span>
-                                                                        </DropdownItem>
-                                                                    </li>
-                                                                </ul>
-                                                            </DropdownMenu>
-                                                        </UncontrolledDropdown>
-                                                    }
-                                                </li>
-                                            </ul>
+                                        <DataTableRow>
+                                            <span className="tb-lead">d{item.role}</span>
                                         </DataTableRow>
+
                                     </DataTableItem>
                                 ))
                                 : null}
