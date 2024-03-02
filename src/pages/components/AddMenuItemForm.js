@@ -47,6 +47,9 @@ const AddMenuItemForm = (props) => {
         required_menue_type: null,
         fav: false,
         check: false,
+        id: null,
+        name: "",
+        parentId: ""
     });
 
     const onInputChange = (e) => {
@@ -199,10 +202,30 @@ const AddMenuItemForm = (props) => {
                               onSubmit={handleSubmit(onFormSubmit)}
                         >
                             <Row className="g-3">
-                                <Col size="12">
+                                <Col size="6">
                                     <div className="form-group">
                                         <label className="form-label" htmlFor="product-title">
-                                            Item Name / Title
+                                            ID
+                                        </label>
+                                        <div className="form-control-wrap">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="id"
+                                                onChange={(e) => onInputChange(e)}
+                                                ref={register({
+                                                    required: "This field is required",
+                                                })}
+                                                defaultValue={formData.id}
+                                            />
+                                            {/* {errors.item_name && <span className="invalid">{errors.name.message}</span>} */}
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col size="6">
+                                    <div className="form-group">
+                                        <label className="form-label" htmlFor="product-title">
+                                            Name
                                         </label>
                                         <div className="form-control-wrap">
                                             <input
@@ -213,9 +236,9 @@ const AddMenuItemForm = (props) => {
                                                 ref={register({
                                                     required: "This field is required",
                                                 })}
-                                                defaultValue={formData.item_name}
+                                                defaultValue={formData.name}
                                             />
-                                            {errors.item_name && <span className="invalid">{errors.item_name.message}</span>}
+                                            {/* {errors.item_name && <span className="invalid">{errors.name.message}</span>} */}
                                         </div>
                                     </div>
                                 </Col>
@@ -236,132 +259,7 @@ const AddMenuItemForm = (props) => {
                                         </div>
                                     </FormGroup>
                                 </Col>
-                                <Col size="6">
-                                        <label className="form-label" htmlFor="category">
-                                            Item Image(s)
-                                        </label>
-                                        <Col size="12">
-                                            <Stack direction="row" sx={{
-                                                overflowX: "auto",
-                                                flexShrink: "0"
-                                            }}>
-                                                <Dropzone
-                                                    onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}
-                                                >
-                                                    {({ getRootProps, getInputProps }) => (
-                                                        <section>
-                                                            <div
-                                                                {...getRootProps()}
-                                                                className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
-                                                            >
-                                                                <input {...getInputProps()} />
-                                                                {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
-                                                                {files.map((file) => (
-                                                                    <div
-                                                                        key={file.name}
-                                                                        className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
-                                                                    >
-                                                                        <Stack direction="row">
-                                                                            {/*<div className="dz-image">*/}
-                                                                            <img height="100px" src={file.preview} alt="preview" />
-                                                                            {/*</div>*/}
-                                                                        </Stack>
-
-                                                                    </div>
-                                                                ))}
-                                                            </div>
-                                                        </section>
-                                                    )}
-                                                </Dropzone>
-                                            </Stack>
-                                        </Col>
-
-                                </Col>
-                                <Col md="6">
-                                    <div className="form-group">
-                                        <label className="form-label" htmlFor="regular-price">
-                                            Regular Price
-                                        </label>
-                                        <div className="form-control-wrap">
-                                            <input
-                                                // disabled={priceDisable}
-                                                type="number"
-                                                name="regular_price"
-                                                onChange={(e) => onInputChange(e)}
-                                                ref={ !priceDisable? register({
-                                                    required: "This field is required",
-                                                }) : register({
-                                                    required: false,
-                                                }) }
-                                                className="form-control"
-                                                defaultValue={formData.regular_price}
-                                            />
-                                            {errors.regular_price && <span className="invalid">{errors.regular_price.message}</span>}
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col md="6">
-                                    <div className="form-group">
-                                        <label className="form-label" htmlFor="sale-price">
-                                            Sale Price
-                                        </label>
-                                        <div className="form-control-wrap">
-                                            <input
-                                                type="number"
-                                                className="form-control"
-                                                defaultValue={formData.sale_price}
-                                                name="sale_price"
-                                                onChange={(e) => onInputChange(e)}
-                                                ref={ !priceDisable? register({
-                                                    required: "This field is required",
-                                                }) : register({
-                                                    required: false,
-                                                }) }
-                                            />
-                                            {errors.sale_price && <span className="invalid">{errors.sale_price.message}</span>}
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col md="6">
-                                    <div className="form-group">
-                                        <label className="form-label" htmlFor="stock">
-                                            Stock
-                                        </label>
-                                        <div className="form-control-wrap">
-                                            <input
-                                                type="number"
-                                                className="form-control"
-                                                defaultValue={formData.stock}
-                                                name="stock"
-                                                onChange={(e) => onInputChange(e)}
-                                                ref={register({
-                                                    required: "This field is required",
-                                                })}
-                                            />
-                                            {errors.stock && <span className="invalid">{errors.stock.message}</span>}
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col md="6">
-                                    <div className="form-group">
-                                        <label className="form-label" htmlFor="SKU">
-                                            SKU
-                                        </label>
-                                        <div className="form-control-wrap">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                defaultValue={formData.sku}
-                                                name="sku"
-                                                onChange={(e) => onInputChange(e)}
-                                                // ref={register({
-                                                //     required: "This field is required",
-                                                // })}
-                                            />
-                                            {errors.sku && <span className="invalid">{errors.sku.message}</span>}
-                                        </div>
-                                    </div>
-                                </Col>
+                                
                                 <Col size="6">
                                     <div className="form-group">
                                         <label className="form-label" htmlFor="category">
@@ -381,7 +279,7 @@ const AddMenuItemForm = (props) => {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col size="6">
+                                {/* <Col size="6">
                                    <div className="form-group">
                                        <label className="form-label" htmlFor="category">
                                            Category Type
@@ -399,357 +297,11 @@ const AddMenuItemForm = (props) => {
                                             {errors.category_type && <span className="invalid">{errors.category_type.message}</span>}
                                         </div>
                                     </div>
-                                </Col>
+                                </Col> */}
                             </Row>
 
                             {/*     add variations & addons */}
-                            <Row className="g-3 variation-block">
-                                    <Stack direction="row" sx={{
-                                        justifyContent: "space-between",
-                                        width: "100%"
-                                    }}>
-                                        <Stack className="vertical-center" direction="row" gap={2}>
-                                            <h6>Add Item Variations</h6>
-                                            {   variants === 0?
-                                                <Button className="btn-round btn-icon" color="primary" size="sm"
-                                                        onClick={updateVariants}>
-                                                    <Icon name="plus" />
-                                                </Button>
-                                                : null
-                                            }
-                                        </Stack>
-                                        {   variants > 0?
-                                            <Button className="btn-round btn-icon" color="danger" size="sm"
-                                                    onClick={deleteAllVariants}>
-                                                <Icon name="cross" />
-                                            </Button>
-                                            :
-                                            null
-                                        }
-                                    </Stack>
-                                    <Divider color="white" width="100%"/>
-
-                                <Col size="12">
-                                    {
-                                        variants?
-                                        <Stack direction="row" sx={{
-                                        flexWrap: "wrap",
-                                        margin: "2rem 0 2rem 0"
-                                    }}>
-                                        <Col size="6">
-                                            <div className="form-group">
-                                                <label className="form-label" htmlFor="category">
-                                                    Variant Type
-                                                </label>
-                                                <div className="form-control-wrap">
-                                                    <RSelect
-                                                        options={variantTypes}
-                                                        defaultValue={formData.required_variant_type}
-                                                        onChange={(e) => {
-                                                            setFormData({ ...formData, required_variant_type: e.value });
-                                                        }}
-                                                        ref={register({
-                                                            required: "This field is required",
-                                                        })}
-                                                    />
-                                                    {errors.category &&
-                                                    <span className="invalid">{errors.required_variant_type.message}</span>}
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col size="6">
-                                            <div className="form-group">
-                                                <label className="form-label" htmlFor="category">
-                                                    Menu Type
-                                                </label>
-                                                <div className="form-control-wrap">
-                                                    <RSelect
-                                                        options={menuTypes}
-                                                        defaultValue={formData.required_menue_type}
-                                                        onChange={(e) => {
-                                                            setFormData({ ...formData, required_menue_type: e.value });
-                                                        }}
-                                                        ref={register({
-                                                            required: "This field is required",
-                                                        })}
-                                                    />
-                                                    {errors.category &&
-                                                    <span className="invalid">{errors.required_menue_type.message}</span>}
-                                                </div>
-                                            </div>
-                                        </Col>
-                                    </Stack>
-                                            : null
-                                    }
-
-                                    {
-                                        [...Array(variants)].map((val, idx)=> (
-                                             <Col size="11">
-                                                 <Stack direction="row" sx={{
-                                                     flexWrap: "wrap",
-                                                     margin: "1rem 0 1rem 0"
-                                                 }}>
-                                                     <Col md="5">
-                                                         <div className="form-group">
-                                                             <div className="form-control-wrap">
-                                                                 <input
-                                                                     id={'variant-name-'+idx}
-                                                                     type="text"
-                                                                     placeholder="Variant Name"
-                                                                     className="form-control"
-                                                                     name={'variant-name-'+idx}
-                                                                     onChange={(e) => onInputChange(e)}
-                                                                     ref={register({ required: "This is required" })}
-                                                                 />
-                                                                 {errors['variant-name-'+idx] && <span className="invalid">{errors['variant-name-'+idx].message}</span>}
-                                                             </div>
-                                                         </div>
-                                                     </Col>
-                                                     <Col md="4">
-                                                         <div className="form-group">
-                                                             <div className="form-control-wrap">
-                                                                 <input
-                                                                     id={'variant-price-'+idx}
-                                                                     type="number"
-                                                                     placeholder="Variant Price"
-                                                                     className="form-control"
-                                                                     defaultValue={formData.price}
-                                                                     name={'variant-price-'+idx}
-                                                                     onChange={(e) => onInputChange(e)}
-                                                                     ref={register({ required: "This is required" })}
-                                                                 />
-                                                                 {errors['variant-price-'+idx] && <span className="invalid">{errors['variant-price-'+idx].message}</span>}
-                                                             </div>
-                                                         </div>
-                                                     </Col>
-                                                     {/*<Col md="2">*/}
-                                                     {/*    <Stack direction="row" gap={2}>*/}
-                                                     {/*        <UploadButton*/}
-                                                     {/*            setUploadFile={(f)=>{*/}
-                                                     {/*                // const a= {`variant-price-${idx}`: f}*/}
-                                                     {/*                setFormData({ ...formData, [`variant-picture-${idx}`]: f });*/}
-                                                     {/*            }}*/}
-                                                     {/*        />*/}
-                                                     {/*        <Box>*/}
-                                                     {/*            <img*/}
-                                                     {/*                style={{*/}
-                                                     {/*                    padding: "1px",*/}
-                                                     {/*                    border: "1px dotted grey"*/}
-                                                     {/*                }}*/}
-                                                     {/*                width="30px"*/}
-                                                     {/*                height="30px"*/}
-                                                     {/*                src={formData[`variant-picture-${idx}`]? URL.createObjectURL(formData[`variant-picture-${idx}`]) : null}*/}
-                                                     {/*            />*/}
-                                                     {/*        </Box>*/}
-                                                     {/*    </Stack>*/}
-                                                     {/*</Col>*/}
-                                                     <Col md="1">
-                                                             <Stack direction="row" gap={2}>
-                                                                 {
-                                                                     !(formData[`variant-name-${idx}`])?
-                                                                     <Button className="btn-icon" color="danger" size="sm"
-                                                                          onClick={() => {
-                                                                              setVariants(variants - 1);
-                                                                          }}>
-                                                                     <Icon name="cross"/>
-                                                                 </Button>
-                                                                         :
-                                                                         null
-                                                                 }
-                                                                 {
-                                                                     variants-1 == idx && (formData[`variant-name-${idx}`])?
-                                                                     <Button className="btn-round btn-icon" color="primary" size="sm"
-                                                                             onClick={updateVariants}>
-                                                                         <Icon name="plus" />
-                                                                     </Button>
-                                                                     :
-                                                                     null
-                                                                 }
-                                                             </Stack>
-                                                     </Col>
-
-                                                 </Stack>
-                                             </Col>
-
-                                        ))
-                                    }
-                                </Col>
-
-
-                                <Stack className="vertical-center" direction="row" gap={2}>
-                                    <h6>Addons (Optional)</h6>
-                                    {
-                                        addons === 0?
-                                            <Button className="btn-round btn-icon" color="primary" size="sm"
-                                                    onClick={updateAddons}>
-                                                <Icon name="plus" />
-                                            </Button>
-                                            : null
-                                    }
-                                </Stack>
-                                <Divider color="white" width="100%"/>
-                                <Col size="12">
-                                    {
-                                        addons?
-                                            <Stack direction="row" sx={{
-                                                flexWrap: "wrap",
-                                                margin: "2rem 0 2rem 0"
-                                            }}>
-                                                <Col size="6">
-                                                    <div className="form-group">
-                                                        <label className="form-label" htmlFor="category">
-                                                            Variant Type
-                                                        </label>
-                                                        <div className="form-control-wrap">
-                                                            <RSelect
-                                                                options={addonTypes}
-                                                                defaultValue={formData.optional_variant_type}
-                                                                onChange={(e) => {
-                                                                    setFormData({ ...formData, optional_variant_type: e.value });
-                                                                }}
-                                                                ref={register({
-                                                                    required: "This field is required",
-                                                                })}
-                                                            />
-                                                            {errors.category &&
-                                                            <span className="invalid">{errors.optional_variant_type.message}</span>}
-                                                        </div>
-                                                    </div>
-                                                </Col>
-                                                <Col size="6">
-                                                    <div className="form-group">
-                                                        <label className="form-label" htmlFor="category">
-                                                            Menu Type
-                                                        </label>
-                                                        <div className="form-control-wrap">
-                                                            <RSelect
-                                                                options={menuTypes}
-                                                                defaultValue={formData.optional_menue_type}
-                                                                onChange={(e) => {
-                                                                    setFormData({ ...formData, optional_menue_type: e.value });
-                                                                }}
-                                                                ref={register({
-                                                                    required: "This field is required",
-                                                                })}
-                                                            />
-                                                            {errors.category &&
-                                                            <span className="invalid">{errors.optional_menue_type.message}</span>}
-                                                        </div>
-                                                    </div>
-                                                </Col>
-                                            </Stack>
-                                            : null
-                                    }
-                                    {
-                                        [...Array(addons)].map((val, idx)=> (
-                                            <Col size="11">
-                                                <Stack direction="row" sx={{
-                                                    flexWrap: "wrap",
-                                                    margin: "1rem 0 1rem 0"
-                                                }}>
-                                                    <Col md="5">
-                                                        <div className="form-group">
-                                                            <div className="form-control-wrap">
-                                                                <input
-                                                                    id={'addon-name-'+idx}
-                                                                    type="text"
-                                                                    placeholder="Addon Name"
-                                                                    className="form-control"
-                                                                    name={'addon-name-'+idx}
-                                                                    onChange={(e) => onInputChange(e)}
-                                                                    ref={register({ required: "This is required" })}
-                                                                />
-                                                                {errors['addon-name-'+idx] && <span className="invalid">{errors['addon-name-'+idx].message}</span>}
-                                                            </div>
-                                                        </div>
-                                                    </Col>
-                                                    <Col md="4">
-                                                        <div className="form-group">
-                                                            <div className="form-control-wrap">
-                                                                <input
-                                                                    id={'addon-price-'+idx}
-                                                                    type="number"
-                                                                    placeholder="Addon Price"
-                                                                    className="form-control"
-                                                                    defaultValue={formData.price}
-                                                                    name={'addon-price-'+idx}
-                                                                    onChange={(e) => onInputChange(e)}
-                                                                    ref={register({ required: "This is required" })}
-                                                                />
-                                                                {errors['addon-price-'+idx] && <span className="invalid">{errors['addon-price-'+idx].message}</span>}
-                                                            </div>
-                                                        </div>
-                                                    </Col>
-                                                    {/*<Col md="2">*/}
-                                                    {/*    <Stack direction="row" gap={2}>*/}
-                                                    {/*        <UploadButton*/}
-                                                    {/*            setUploadFile={(f)=>{*/}
-                                                    {/*                // const a= {`variant-price-${idx}`: f}*/}
-                                                    {/*                setFormData({ ...formData, [`addon-picture-${idx}`]: f });*/}
-                                                    {/*            }}*/}
-                                                    {/*        />*/}
-                                                    {/*        <img*/}
-                                                    {/*            style={{*/}
-                                                    {/*                padding: "1px",*/}
-                                                    {/*                border: "1px dotted grey"*/}
-                                                    {/*            }}*/}
-                                                    {/*            width="30px"*/}
-                                                    {/*            height="30px"*/}
-                                                    {/*            src={formData[`addon-picture-${idx}`]? URL.createObjectURL(formData[`addon-picture-${idx}`]) : null}*/}
-                                                    {/*        />*/}
-                                                    {/*    </Stack>*/}
-                                                    {/*</Col>*/}
-                                                    <Col md="1">
-                                                        <Stack direction="row" gap={2}>
-                                                            {
-                                                                !(formData[`addon-name-${idx}`])?
-                                                                    <Button className="btn-icon" color="danger" size="sm"
-                                                                            onClick={() => {
-                                                                                setAddons(addons - 1);
-                                                                            }}>
-                                                                        <Icon name="cross"/>
-                                                                    </Button>
-                                                                    :
-                                                                    null
-                                                            }
-                                                            {
-                                                                addons-1 == idx && (formData[`addon-name-${idx}`])?
-                                                                    <Button className="btn-round btn-icon" color="primary" size="sm"
-                                                                            onClick={updateAddons}>
-                                                                        <Icon name="plus" />
-                                                                    </Button>
-                                                                    :
-                                                                    null
-                                                            }
-                                                        </Stack>
-                                                    </Col>
-                                                </Stack>
-                                            </Col>
-
-                                        ))
-                                    }
-                                </Col>
-
-                                <Col size="12">
-                                    {errorVal && (
-                                        <div className="mb-3">
-                                            <Alert color="danger" className="alert-icon">
-                                                {errorVal}
-                                                <Icon name="alert-circle" /> {errorVal}
-                                            </Alert>
-                                        </div>
-                                    )}
-                                </Col>
-
-                                <Col size="12">
-                                    <Button color="primary" type="submit">
-                                        {/*<Icon className="plus"></Icon>*/}
-                                        {loading ? <Spinner size="sm" color="light" /> : "Save"}
-                                    </Button>
-
-                                </Col>
-
-                            </Row>
+                            {/*  */}
 
 
                             {/*     add variations  END */}
