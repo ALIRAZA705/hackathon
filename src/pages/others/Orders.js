@@ -51,7 +51,7 @@ const Orders = (props) => {
     const [onSearch, setonSearch] = useState(false);
     const [riders, setRiders] = useState([]);
     const [riderErr, setRiderErr] = useState(null);
-    TODO()
+    // TODO()
     const [currentItems, setCurrentItems] = useState(data.slice(indexOfFirstItem, indexOfLastItem));
     // const [currentItems, setCurrentItems] = useState([{
     //     "id": 1,
@@ -108,7 +108,7 @@ const Orders = (props) => {
 
     useEffect(()=>{
         // if(data.length>0){
-            TODO()
+            // TODO()
             setCurrentItems(data.slice(indexOfFirstItem, indexOfLastItem))
             // setCurrentItems([{
             //     "id": 1,
@@ -662,7 +662,7 @@ const Orders = (props) => {
                                             <span className="tb-lead">{item.country}</span>
                                         </DataTableRow>
                                         <DataTableRow>
-                                            <span className="tb-lead">d{item.role}</span>
+                                            <span className="tb-lead">{item.role}</span>
                                         </DataTableRow>
 
                                     </DataTableItem>

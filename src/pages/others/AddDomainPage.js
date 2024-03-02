@@ -94,7 +94,8 @@ const AddDomainPage = (props) => {
     setLoading(true);
     console.log("asfafaasdasfds as", params.id)
 let res = await getDomainDataById(params.id);
-setData(res);
+console.log("88888888888888888",res)
+setData(res?.data?.domains);
     console.log("here is the refre",res)
     if(res.status === 200){
       // const menuList = res.data.records.data[0].restaurant_menue;
@@ -536,7 +537,7 @@ console.log("hhhhhhhhhhhh",data,currentItems)
                             />
                         ) : (
                             <div className="text-center">
-                              <span className="text-silent">No products found</span>
+                              <span className="text-silent">No Domains found</span>
                             </div>
                         )}
                       </div>

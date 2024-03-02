@@ -25,12 +25,13 @@ import { useSelector } from "react-redux";
 import { businessTypeDD } from "../pre-built/user-manage/UserProfileRegular";
 import { Stack } from "@mui/material";
 import Dropzone from "react-dropzone";
-import { getDomainName } from "../../api/misc/misc";
+import { addNewUSer, getDomainName } from "../../api/misc/misc";
 import { ConstructionOutlined } from "@mui/icons-material";
 
 export const businessTypeDD1 = [
-  { value: "Customer", label: "customer" },
-  { value: "Edge", label: "edge" }
+  { value: "Customer", label: "Customer" },
+  { value: "Edge", label: "Edge" },
+  { value: "Employee", label: "Employee" }
 ];
 
 
@@ -258,24 +259,6 @@ const PreparingOrders = () => {
                     </FormGroup>
                   </Col>
 
-                  <Col md="6">
-                    <FormGroup>
-                      <label className="form-label" htmlFor="address-st">
-                        Domain Name
-                      </label>
-                      <RSelect
-                          options={categoryOptions2}
-                          placeholder="Select Business Type"
-                          // defaultValue={[
-                          //   {
-                          //     value: formData.domainName,
-                          //     label: formData.domainName,
-                          //   },
-                          // ]}
-                          onChange={(e) => setFormData({ ...formData, domainType: e.value })}
-                      />
-                    </FormGroup>
-                  </Col>
 
                   <Col md="6">
                     <FormGroup>

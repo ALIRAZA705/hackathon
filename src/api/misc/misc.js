@@ -5,6 +5,7 @@ import {
 } from "../methodCalls";
 import {
     addNewDomainURI,
+    addNewUSerURI,
     cuisineListURI, getDomainDataByIdURI, getDomains,
 } from "../endpoints";
 
@@ -23,7 +24,7 @@ addNewUSer
 
 export const getDomainDataById = (id) => {
     console.log("id herear", id)
-    return getRequest(getDomainDataByIdURI+"/"+id);
+    return getRequest(getDomainDataByIdURI+"/"+id+"/list");
 }
 
 
