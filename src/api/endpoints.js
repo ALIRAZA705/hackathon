@@ -9,7 +9,7 @@ export const getAllMenuItemsURI = 'product';
 export const addMenuItemURI = 'restaurant_menue';
 export const editMenuItemURI = `restaurant_menue/:id`;
 export const deleteMenuItemURI = 'restaurant_menue/:id';
-export const getMenuItemsByRestIdURI = `restaurant?business_id=:id`;
+export const getMenuItemsByRestIdURI = `domains/list`;
 
 // Restaurant
 export const getAllRestaurantsURI = 'restaurant';

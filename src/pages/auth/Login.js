@@ -122,7 +122,7 @@ const Login = () => {
                     id="default-01"
                     name="userName"
                     ref={register({ required: "This field is required" })}
-                    defaultValue="superadmin@gmail.com"
+                    defaultValue="edge"
                     // defaultValue=""
                     placeholder="Enter your email address or username"
                     className="form-control-lg form-control"
@@ -156,7 +156,7 @@ const Login = () => {
                     type={passState ? "text" : "password"}
                     id="password"
                     name="passcode"
-                    defaultValue="12345678@w"
+                    defaultValue="123"
                     // defaultValue=""
                     ref={register({ required: "This field is required" })}
                     placeholder="Enter your passcode"
