@@ -304,7 +304,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
       </BlockHead>
 
       <Block>
-          { (user.role === "admin") &&
+          { (user.role != "admin") &&
               <div className="nk-data data-list">
                   <div className="data-head">
                       <h6 className="overline-title">Business Info</h6>
@@ -506,7 +506,7 @@ const UserProfileRegularPage = ({ changePhotoModal, handleChangePhotoModal, sm, 
                   Personal
                 </a>
               </li>
-              {user.role !== "super-admin" &&
+              {user.role == "super-admin" &&
                 <li className="nav-item">
                 <a
                     className={`nav-link ${modalTab === "2" && "active"}`}

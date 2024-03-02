@@ -15,6 +15,7 @@ import PreparingOrders from "../pages/others/PreparingOrders";
 import RestaurantMenuRedirect from "../pages/others/RestaurantMenuRedirect";
 import DispatchedOrders from "../pages/others/DispatchedOrders";
 import ReadyOrders from "../pages/others/ReadyOrders";
+import UserProfileLayout from "../pages/pre-built/user-manage/UserProfileLayout";
 
 const Pages = () => {
   useLayoutEffect(() => {
@@ -47,6 +48,8 @@ const Pages = () => {
         <Route exact path={`${process.env.PUBLIC_URL}/orders/delivered`} component={DeliveredOrders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/domains`} component={MenuList}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Sales}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/user-profile-regular/`} component={UserProfileLayout}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/user-profile-setting/`} component={UserProfileLayout}></Route>
 
         <Route component={RedirectAs404}></Route>
       </Switch>
