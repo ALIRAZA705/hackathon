@@ -34,3 +34,5 @@ export const getDomains = 'domains/list';
 export const addNewDomainURI = 'domains';
 export const getCuisineList = 'asdasd';
 export const getDomainDataByIdURI = 'domains';
+
+export const cuisineListURI ="111"

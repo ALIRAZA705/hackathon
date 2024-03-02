@@ -18,7 +18,7 @@ export const getDomainName = (params) => {
 
 export const getDomainDataById = (id) => {
     console.log("id herear", id)
-    return getRequest(getDomainDataByIdURI+"/"+id);
+    return getRequest(getDomainDataByIdURI+"/"+id+"/list");
 }
 
 
