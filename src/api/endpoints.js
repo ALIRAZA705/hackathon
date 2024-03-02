@@ -31,3 +31,4 @@ export const changeRidersStatusURI = 'change_rider_status/:id';
 
 // MISC
 export const getDomains = 'domains';
+export const getCuisineList = 'asdasd';

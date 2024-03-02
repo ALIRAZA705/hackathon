@@ -39,7 +39,7 @@ const Pages = () => {
         ></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/restaurant/menu`} component={RestaurantMenuRedirect}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu`} component={MenuList}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/restaurant/:id/menu/add`} component={AddMenuPage}></Route>
+        <Route exact path={`${process.env.PUBLIC_URL}/domains/add`} component={AddMenuPage}></Route>
 
         <Route exact path={`${process.env.PUBLIC_URL}/orders`} component={Orders}></Route>
         <Route exact path={`${process.env.PUBLIC_URL}/users/premium`} component={PreparingOrders}></Route>

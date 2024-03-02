@@ -114,7 +114,7 @@ const MenuList = (props) => {
   }, [onSearchText]);
 
   const handleAddProduct = () => {
-    history.push(`${process.env.PUBLIC_URL}/restaurant/${params.id}/menu/add`)
+    history.push(`${process.env.PUBLIC_URL}/domains/add`)
   }
 
   // OnChange function to get the input data
